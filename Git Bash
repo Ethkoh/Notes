@@ -5,3 +5,6 @@ git mv oldfile newfile
 git remote add nameyouwant urlofrepo
 git remote
 git push -u nameyouwant master
+
+#change directory
+C:\MyPicture becomes $ cd /C/MyPicture
