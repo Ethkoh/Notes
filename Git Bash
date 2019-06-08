@@ -3,7 +3,6 @@ git mv oldfile newfile
 
 #commit to github
 git remote add nameyouwant urlofrepo
-git remote
 git push -u nameyouwant master
 
 #change directory
