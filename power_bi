@@ -1,0 +1,12 @@
+'''
+Visualizations – A visual representation of data, sometimes just called visuals
+Datasets – A collection of data that Power BI uses to create visualizations
+Reports – A collection of visuals from a dataset, spanning one or more pages
+Dashboards – A single-page collection of visuals built from a report
+Tiles – A single visualization on a report or dashboard
+App - a ready-made collection of visuals and reports, let us easily connect to a software service to populate the app and bring that data to life.
+canvas -the area in the center of the Power BI service shows you the available sources of data in the Power BI service.
+
+
+
+'''
