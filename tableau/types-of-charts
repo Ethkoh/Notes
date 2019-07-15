@@ -1,0 +1,38 @@
+'''
+Heat Map — Showing the relationship between two factors.
+Examples: Segmentation analysis of target market, product adoption across regions, sales leads by individual rep.
+
+Bar — Comparing data across categories.
+Examples: Volume of shirts in different sizes, website traffic by origination site, percent of spending by department.
+
+Line — Viewing trends in data over time.
+Examples: Stock price change over a five-year period, website page views during a month, revenue growth by quarter.
+
+Highlight Table — Providing detailed information on heat maps.
+Examples: The percent of a market for different segments, sales numbers in a particular region, population of cities in different years.
+
+Treemap — Showing hierarchical data as a proportion of a whole.
+Examples: Storage usage across computer machines, managing the number and priority of technical support cases, comparing fiscal budgets between years.
+
+Gantt — Showing duration over time.
+Examples: Project timeline, duration of a machine’s use, availability of players on a team.
+
+Bullet — Evaluating performance of a metric against a goal.
+Examples: Sales quota assessment, actual spending vs. budget, performance spectrum (great/good/poor).
+
+Scatterplot — Investigating the relationship between different variables.
+Examples: Male versus female likelihood of having lung cancer at different ages, technology early adopters’ and laggards’ purchase patterns of smart phones, shipping costs of different product categories to different regions.
+
+Histogram — Understanding the distribution of your data.
+Examples: Number of customers by company size, student performance on an exam, frequency of a product defect.
+
+Symbol maps — Use for totals rather than rates. Be careful, as small differences will be hard to see.
+Examples: Number of customers in different geographies.
+
+Area maps — Use for rates rather than totals. Use sensible base geography.
+Examples: Rates of internet-usage in certain geographies, house prices in different neighborhoods.
+
+Box-and-Whisker — Showing the distribution of a set of a data.
+Examples: Understanding your data at a glance, seeing how data is skewed towards one end, identifying outliers in your data.
+
+'''
