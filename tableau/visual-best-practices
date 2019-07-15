@@ -1,0 +1,52 @@
+'''
+
+1)Colour:
+
+colour choices - primary colour should be more neutral.Any extended color should be used sparingly to draw attention to key messages within the data.
+
+colour types - sequential,diverging,categorical etc
+
+custom colour - palette: to suit company for sense of uniformity
+
+consistency - make sure a color (e.g. red) does not mean three different things. Similar and repeated colors can imply a relation where one doesn’t exist
+
+Accessibility — to account for color blindness in the design process.
+
+2)Layout:
+
+Newspaper or Z-layout — The most important content is put either at the top or the left of a visualization, as users move right and down for more specific content.
+
+White space — Using negative space (blank spots) and padding to delineate sections of your visualization – don’t use thick “grid lines” as you would see in a table.
+
+Size — More important pieces of content (KPIs, summary visualizations, etc.) should be larger than other items.
+
+Device type — With device-specific dashboards you can create the optimum viewing experience on desktop, laptop, tablet, and phone.
+
+3)Effective Title and Subtitle
+You add more context with subtitles that describe how to interact with the worksheet or dashboard.
+
+4) effective tooltip (for tableau)
+
+5) typography
+
+font level - clear hierarchy
+
+size - Save your largest fonts for KPIs, titles, etc.
+
+boldness
+
+colour
+
+6) dashboard interactivity
+Skilled users know to click and experiment, but new users may not have the knowledge or confidence. Your job is to help them make these decisions consciously, not by accident.
+
+7) Performance:
+
+simple - easy to maintain in future. clear message to user
+flexible - answer one or multiple questions. static or interactive report
+fast -loading time
+
+affected by visual design, calculations, queries, data connections, compatibility of hardware and software
+
+
+'''
