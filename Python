@@ -1,2 +1,10 @@
 #Pandas guide
 https://pandas.pydata.org/pandas-docs/stable/index.html
+
+#list vs numpy array
+similar but array type is coercion but list can have different types
+array 2d is same as list on lists
+use of square and curve brackets are same
+boolean works on array
+calculation for array is different
+subsetting and slicing are same
