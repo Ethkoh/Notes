@@ -11,7 +11,7 @@ vector
 nx1 matrix
 usually 1-indexed (eg y1,y2,..) instead of 0-indexed (eg y0,t1,...)
 
-no need feature scaling if using normal equation method compared to gradient descent
+no need feature scaling if using normal equation method compared to gradient descent. magnitude of feature values insignificant compared to computational cost
 
 gradient descent vs normal equation
 if number of features is small, use normal equation
