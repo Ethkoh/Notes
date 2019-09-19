@@ -6,3 +6,7 @@ alpha is learning rate
 gradient descent algorithn
 -use simultaneous update
 -when approaching local min, gradient descent automatically takes smaller steps even at same learning rate.
+
+vector
+nx1 matrix
+usually 1-indexed (eg y1,y2,..) instead of 0-indexed (eg y0,t1,...)
