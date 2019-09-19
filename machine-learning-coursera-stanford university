@@ -10,3 +10,5 @@ gradient descent algorithn
 vector
 nx1 matrix
 usually 1-indexed (eg y1,y2,..) instead of 0-indexed (eg y0,t1,...)
+
+no need feature scaling if using normal equation method compared to gradient descent
