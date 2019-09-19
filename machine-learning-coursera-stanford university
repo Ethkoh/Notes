@@ -4,5 +4,5 @@ a=b is truth assertion
 alpha is learning rate
 
 gradient descent algorithn
-use simultaneous update
-
+-use simultaneous update
+-when approaching local min, gradient descent automatically takes smaller steps even at same learning rate.
