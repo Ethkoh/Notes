@@ -18,11 +18,18 @@ if number of features is small, use normal equation
 
 applying linear regression to classification problem not a good idea:
 -if have extreme values, will cause bad classification
--even if all values are 0 or 1, the threshold output can end up being not 0 or 1.
+-even if all values are 0 or 1, the hypothesis output can end up being not 0 or 1.
 
 logistic regression is a classification algorithm even though name is regression.
-will restrict threshold output to between 0 and 1
+will restrict hypothesis output to between 0 and 1
 
 logistic function=sigmoid function
+asymptote at 0 and 1.
+
+dont have to plot training set to plot decision boundary.hypothesis function g(z) is not dependent on training set
+decision boundary is created by the hypothesis function
+
+for discrete classification, ouput of hypothesis >=0.5 if y=1 and vice versa.
+predict "y=1" if input (z) of logisitic function  z>=0 for its output >=0.5.
 
 
