@@ -15,3 +15,14 @@ no need feature scaling if using normal equation method compared to gradient des
 
 gradient descent vs normal equation
 if number of features is small, use normal equation
+
+applying linear regression to classification problem not a good idea:
+-if have extreme values, will cause bad classification
+-even if all values are 0 or 1, the threshold output can end up being not 0 or 1.
+
+logistic regression is a classification algorithm even though name is regression.
+will restrict threshold output to between 0 and 1
+
+logistic function=sigmoid function
+
+
