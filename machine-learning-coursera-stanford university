@@ -46,3 +46,4 @@ Cost(hθ(x),y)→∞ if y=1andhθ(x)→0
 summary meant: 
 If our correct answer 'y' is 0, then the cost function will be 0 if our hypothesis function also outputs 0. If our hypothesis approaches 1, then the cost function will approach infinity.
 If our correct answer 'y' is 1, then the cost function will be 0 if our hypothesis function outputs 1. If our hypothesis approaches 0, then the cost function will approach infinity.
+to find the theta that minimizes the cost function for logisitic regression, use gradient descent.
