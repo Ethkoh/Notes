@@ -71,5 +71,3 @@ solutions are:
 regularization parameter lambda if too big, can lead to underfitting also even though it's goal was to control the number of features. can end up with too little feature. also meant too high bias.
  
  regularization ensures X transpose X matrix is non-invertible (eg when m<=n) as long as lambda >0. 
-
-
