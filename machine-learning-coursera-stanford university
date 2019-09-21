@@ -13,7 +13,7 @@ usually 1-indexed (eg y1,y2,..) instead of 0-indexed (eg y0,t1,...)
 
 no need feature scaling if using normal equation method compared to gradient descent. magnitude of feature values insignificant compared to computational cost
 
-learning algorithm:
+fitting linear regression:
 gradient descent vs normal equation
 if number of features is small, use normal equation
 
@@ -68,8 +68,8 @@ solutions are:
 -reduce number of features
 -regularization (dont penalize theta 0 for linear regression)
  
- regulization parameter lambda if too big, can lead to underfitting also even though it's goal was to control the number of features. can end up with too little feature. also meant too high bias.
+regularization parameter lambda if too big, can lead to underfitting also even though it's goal was to control the number of features. can end up with too little feature. also meant too high bias.
  
- 
+ regularization ensures X transpose X matrix is non-invertible (eg when m<=n) as long as lambda >0. 
 
 
