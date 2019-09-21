@@ -33,3 +33,5 @@ for discrete classification, ouput of hypothesis >=0.5 if y=1 and vice versa.
 predict "y=1" if input (z) of logisitic function  z>=0 for its output >=0.5.
 
 
+cost function of linear regression: sum of squared diff
+
