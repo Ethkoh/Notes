@@ -32,7 +32,6 @@ decision boundary is created by the hypothesis function
 for discrete classification, ouput of hypothesis >=0.5 if y=1 and vice versa.
 predict "y=1" if input (z) of logisitic function  z>=0 for its output >=0.5.
 
-
 cost function of linear regression: sum of squared diff
 problem of using the same cost function is if were to use sigmoid/logistic function, the cost function can turn out non-convex. there is possibility global min cannot be found cause too many local minimmum.
 hence must use the new type of cost function for logistic regression to guarantee that J(θ) is convex for logistic regression.
@@ -49,3 +48,5 @@ If our correct answer 'y' is 1, then the cost function will be 0 if our hypothes
 to find the theta that minimizes the cost function for logisitic regression, use gradient descent.
 however, not that the gradient descent is not the same as linear regression even though the update algorithm looks exactly same. because the hypothesis function hθ(x) is not the same. previously is θ^T(x). Now is 1/(1+e^θ^T(x)).
 
+feature scaling help gradient descent converge much faster for linear regression
+same can be applied for logistic regression
