@@ -62,3 +62,10 @@ use algorithms for these provided by Octave already. they are better at optimizi
 
 can use one-vs-all method to solve multiclasss classification
 
+overfitting problem that can arise from learning algorithm applied to certain machine learning applications
+solutions are:
+-reduce number of features
+-regularization 
+
+
+
