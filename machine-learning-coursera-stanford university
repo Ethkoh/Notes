@@ -50,3 +50,11 @@ however, not that the gradient descent is not the same as linear regression even
 
 feature scaling help gradient descent converge much faster for linear regression
 same can be applied for logistic regression
+
+optimization algorithm:
+-gradient descent
+-conjugate gradient (adv numerical computing topics)
+-BFGS(adv numerical computing topics)
+-L-BFGS(adv numerical computing topics)
+pros: no need pick learning rate. faster than gradient descent. 
+cons: more complex
