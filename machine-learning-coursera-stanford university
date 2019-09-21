@@ -58,3 +58,4 @@ optimization algorithm:
 -L-BFGS(adv numerical computing topics)
 pros: no need pick learning rate. faster than gradient descent. 
 cons: more complex
+use algorithms for these provided by Octave already. they are better at optimizing theta.
