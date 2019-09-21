@@ -59,3 +59,6 @@ optimization algorithm:
 pros: no need pick learning rate. faster than gradient descent. 
 cons: more complex
 use algorithms for these provided by Octave already. they are better at optimizing theta.
+
+can use one-vs-all method to solve multiclasss classification
+
