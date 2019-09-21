@@ -47,3 +47,5 @@ summary meant:
 If our correct answer 'y' is 0, then the cost function will be 0 if our hypothesis function also outputs 0. If our hypothesis approaches 1, then the cost function will approach infinity.
 If our correct answer 'y' is 1, then the cost function will be 0 if our hypothesis function outputs 1. If our hypothesis approaches 0, then the cost function will approach infinity.
 to find the theta that minimizes the cost function for logisitic regression, use gradient descent.
+however, not that the gradient descent is not the same as linear regression even though the update algorithm looks exactly same. because the hypothesis function hθ(x) is not the same. previously is θ^T(x). Now is 1/(1+e^θ^T(x)).
+
