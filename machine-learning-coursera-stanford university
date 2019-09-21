@@ -34,4 +34,5 @@ predict "y=1" if input (z) of logisitic function  z>=0 for its output >=0.5.
 
 
 cost function of linear regression: sum of squared diff
+problem of using it is if were to use sigmoid/logistic function, the cost function can turn out non-convex. there is possibility global min cannot be found cause too many local minimmum.
 
