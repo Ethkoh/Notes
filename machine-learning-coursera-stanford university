@@ -34,5 +34,15 @@ predict "y=1" if input (z) of logisitic function  z>=0 for its output >=0.5.
 
 
 cost function of linear regression: sum of squared diff
-problem of using it is if were to use sigmoid/logistic function, the cost function can turn out non-convex. there is possibility global min cannot be found cause too many local minimmum.
+problem of using the same cost function is if were to use sigmoid/logistic function, the cost function can turn out non-convex. there is possibility global min cannot be found cause too many local minimmum.
+hence must use the new type of cost function for logistic regression to guarantee that J(θ) is convex for logistic regression.
+J(θ)=1/m∑i=1mCost(hθ(x(i)),y(i))
+Cost(hθ(x),y)=−log(hθ(x))if y = 1
+Cost(hθ(x),y)=−log(1−hθ(x))if y = 0
 
+Cost(hθ(x),y)=0 if hθ(x)=y
+Cost(hθ(x),y)→∞ if y=0andhθ(x)→1
+Cost(hθ(x),y)→∞ if y=1andhθ(x)→0
+summary meant: 
+If our correct answer 'y' is 0, then the cost function will be 0 if our hypothesis function also outputs 0. If our hypothesis approaches 1, then the cost function will approach infinity.
+If our correct answer 'y' is 1, then the cost function will be 0 if our hypothesis function outputs 1. If our hypothesis approaches 0, then the cost function will approach infinity.
