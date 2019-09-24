@@ -73,3 +73,6 @@ regularization parameter lambda if too big, can lead to underfitting also even t
  regularization ensures X transpose X matrix is non-invertible (eg when m<=n) as long as lambda >0. 
 
 vectorized implementation usually more efficient than non-vetorized.
+
+When normalizing the features, it is important to store the values used for normalization - the mean value and the stan-
+dard deviation used for the computations. After learning the parameters from the model, we often want to predict new y values given new x value, we must normalize x using the mean and standard deviation that we had previously computed from the training set
