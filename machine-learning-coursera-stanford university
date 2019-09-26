@@ -78,3 +78,4 @@ When normalizing the features, it is important to store the values used for norm
 dard deviation used for the computations. After learning the parameters from the model, we often want to predict new y values given new x value, we must normalize x using the mean and standard deviation that we had previously computed from the training set
 
 A logistic regression classifier trained on this higher-dimension feature vector will have a more complex decision boundary and will appear nonlinear when drawn in a 2-dimensional plot.
+While the feature mapping allows us to build a more expressive classifier, it also more susceptible to overfitting.
