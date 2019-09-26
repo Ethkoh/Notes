@@ -70,7 +70,7 @@ solutions are:
  
 regularization parameter lambda if too big, can lead to underfitting also even though it's goal was to control the number of features. can end up with too little feature. also meant too high bias.
  
- regularization ensures X transpose X matrix is non-invertible (eg when m<=n) as long as lambda >0. 
+regularization ensures X transpose X matrix is non-invertible (eg when m<=n) as long as lambda >0. 
 
 vectorized implementation usually more efficient than non-vetorized.
 
@@ -79,3 +79,7 @@ dard deviation used for the computations. After learning the parameters from the
 
 A logistic regression classifier trained on this higher-dimension feature vector will have a more complex decision boundary and will appear nonlinear when drawn in a 2-dimensional plot.
 While the feature mapping allows us to build a more expressive classifier, it also more susceptible to overfitting.
+
+regularization is only for parameter 0 1 and onwards. theta0 do not regularize.
+
+
