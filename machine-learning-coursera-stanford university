@@ -99,4 +99,4 @@ single neuron in neural network can create logical functions (AND, OR)
 
 XNOR: x1=x2=0 and x1=x2=1
 
-
+The outputs of a neural network are not probabilities, so their sum need not be 1.
