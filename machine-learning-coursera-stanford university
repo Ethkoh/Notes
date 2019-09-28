@@ -97,5 +97,6 @@ hidden layers in neural network can help compute more complex features to feed i
 
 single neuron in neural network can create logical functions (AND, OR)
 
+XNOR: x1=x2=0 and x1=x2=1
 
 
