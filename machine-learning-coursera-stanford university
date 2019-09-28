@@ -84,4 +84,11 @@ regularization is only for parameter 0 1 and onwards. theta0 do not regularize.
 
 smaller theta means simplier hypothetsis, hence less prone to overfitting.
 
+in neral network, sometimes "parameters"="weights"
+x0 input node is sometimes called the "bias unit."
+
+sigmoid(logistic) activiation function =g(z)
+
+
+
 
