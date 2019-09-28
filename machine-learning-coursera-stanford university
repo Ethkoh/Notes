@@ -82,4 +82,6 @@ While the feature mapping allows us to build a more expressive classifier, it al
 
 regularization is only for parameter 0 1 and onwards. theta0 do not regularize.
 
+smaller theta means simplier hypothetsis, hence less prone to overfitting.
+
 
