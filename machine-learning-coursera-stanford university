@@ -89,6 +89,7 @@ x0 input node is sometimes called the "bias unit."
 
 sigmoid(logistic) activiation function =g(z)
 
+Example: If layer 1 has 2 input nodes and layer 2 has 4 activation nodes. Dimension of Θ(1) is going to be 4×3 where s_j=2 and s_{j+1}=4, so  s_{j+1}*(s_j + 1) = 4*3
 
 
 
