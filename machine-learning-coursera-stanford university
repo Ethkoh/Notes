@@ -11,11 +11,14 @@ vector
 nx1 matrix
 usually 1-indexed (eg y1,y2,..) instead of 0-indexed (eg y0,t1,...)
 
-no need feature scaling if using normal equation method compared to gradient descent. magnitude of feature values insignificant compared to computational cost
-
 fitting linear regression:
-gradient descent vs normal equation
-if number of features is small, use normal equation
+gradient descent VS normal equation
+-if number of features is small, use normal equation
+-no need feature scaling if using normal equation method compared to gradient descent. magnitude of feature values insignificant compared to computational cost
+-When implementing the normal equation in octave we want to use the 'pinv' function rather than 'inv.'
+(Xtranpose X) may be noninvertible. The common causes are:
+Redundant features, where two features are very closely related (i.e. they are linearly dependent)
+Too many features (e.g. m ≤ n). In this case, delete some features or use "regularization" 
 
 applying linear regression to classification problem not a good idea:
 -if have extreme values, will cause bad classification
