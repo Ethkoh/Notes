@@ -51,6 +51,8 @@ however, not that the gradient descent is not the same as linear regression even
 
 feature scaling help gradient descent converge much faster for linear regression
 same can be applied for logistic regression
+Feature scaling involves dividing the input values by the range (i.e.the maximum value minus the minimum value) of the input variable, resulting in a new range of just 1. 
+Mean normalization involves subtracting the average value for an input variable from the values for that input variable, resulting in a new average value for the input variable of just 0.
 
 optimization algorithm:
 -gradient descent
