@@ -77,7 +77,9 @@ overfitting problem that can arise from learning algorithm applied to certain ma
 solutions are:
 -reduce number of features (manually select/Use a model selection algorithm)
 -regularization (dont penalize theta 0 for linear regression). It keeps all the features, but reduce the parameters. Regularization works well when we have a lot of slightly useful features.
- 
+
+The λ, or lambda, is the regularization parameter. It determines how much the costs of our theta parameters are inflated.
+
 regularization parameter lambda if too big, can lead to underfitting also even though it's goal was to control the number of features. can end up with too little feature. also meant too high bias.
  
 regularization ensures X transpose X matrix is non-invertible (eg when m<=n) as long as lambda >0. 
