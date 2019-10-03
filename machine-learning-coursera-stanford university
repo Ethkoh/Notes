@@ -75,7 +75,7 @@ can use one-vs-all method to solve multiclasss classification
 
 overfitting problem that can arise from learning algorithm applied to certain machine learning applications
 solutions are:
--reduce number of features
+-reduce number of features (manually select/Use a model selection algorithm)
 -regularization (dont penalize theta 0 for linear regression)
  
 regularization parameter lambda if too big, can lead to underfitting also even though it's goal was to control the number of features. can end up with too little feature. also meant too high bias.
