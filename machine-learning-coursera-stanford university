@@ -95,6 +95,7 @@ A logistic regression classifier trained on this higher-dimension feature vector
 While the feature mapping allows us to build a more expressive classifier, it also more susceptible to overfitting.
 
 regularization is only for parameter 0 1 and onwards. theta0 do not regularize.
+note that for regularized logistic regression, the regularization term excludes j=0. it starts from j=1 to j=n.
 
 smaller theta means simplier hypothetsis, hence less prone to overfitting.
 
