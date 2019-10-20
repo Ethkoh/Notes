@@ -1,7 +1,11 @@
-#Pandas guide
+'''Pandas guide
 https://pandas.pydata.org/pandas-docs/stable/index.html
 
-#list vs numpy array
+A list can contain any Python type. But a list itself is also a Python type. That means that a list can also contain a list
+
+A list can contain different types
+
+'''list vs numpy array
 similar but array type is coercion but list can have different types
 array 2d is same as list on lists
 use of square and curve brackets are same
@@ -9,6 +13,6 @@ boolean works on array
 calculation for array is different
 subsetting and slicing are same
 
-#parameters vs arguments
+'''parameters vs arguments
 when defining a function, paramters are written in function header
 when call a function, pass arguments into function
