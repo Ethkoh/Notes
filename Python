@@ -19,4 +19,6 @@ subsetting and slicing are same
 parameters vs arguments
 when defining a function, paramters are written in function header
 when call a function, pass arguments into function
+
+list can just + to add
 """
