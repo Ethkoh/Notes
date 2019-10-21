@@ -49,6 +49,8 @@ import matplotlib.pyplot as plt
 plt.plot(x,y)
 #for scatter
 plt.scatter(x,y)
+#for hist. more for seeing distr
+plt.hist(x,bins)
 plt.show()
 #clean
 plt.clf()
