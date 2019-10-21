@@ -45,6 +45,9 @@ mean and median from numpy. use np.mean
 
 #basic plot
 import matplotlib.pyplot as plt
+#for line
 plt.plot(x,y)
+#for scatter
+plt.scatter(x,y)
 plt.show()
 """
