@@ -66,4 +66,10 @@ plt.text(1550, 71, 'India')
 plt.text(5700, 80, 'China')
 plt.grid(True)
 plt.show()
+
+#dictionaries
+my_dict = {
+   "key1":"value1",
+   "key2":"value2",
+}
 """
