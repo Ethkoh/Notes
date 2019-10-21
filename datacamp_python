@@ -76,4 +76,12 @@ my_dict = {
 #to add key-value to dictionaries example
 europe = {'spain':'madrid', 'france':'paris', 'germany':'berlin', 'norway':'oslo' }
 europe['italy']='rome'
+
+Dictionaries can contain key:value pairs where the values are again dictionaries.
+#example
+europe = { 'spain': { 'capital':'madrid', 'population':46.77 },
+           'norway': { 'capital':'oslo', 'population':5.084 } }
+           
+#select dictionaries elements example
+europe['spain']['population']
 """
