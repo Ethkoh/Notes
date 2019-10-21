@@ -10,10 +10,10 @@ A list can contain different types. eg int, float
 
 copy of variable content using list() or using [:]
 
-list to variable
+#list to variable
 variable=np.array(variable)
 
-list vs numpy array
+#list vs numpy array
 similar but array type is coercion but list can have different types
 array 2d is same as list on lists
 use of square and curve brackets are same
@@ -21,24 +21,30 @@ boolean works on array
 calculation for array is different
 subsetting and slicing are same
 
-parameters vs arguments
+#parameters vs arguments
 when defining a function, paramters are written in function header
 when call a function, pass arguments into function
 
-index(), to get the index of the first element of a list that matches its input. Eg areas.index(20)
+#index()
+Eg areas.index(20)
 for array, just areas[20]
 
-eg.
+#example
 this is list on list:
 baseball = [[180, 78.4],
             [215, 102.7],
             [210, 98.5],
             [188, 75.2]]
-this creates a 2D numpy array from liston list
+this creates a 2D numpy array from list on list
 import numpy as np
 np_baseball=np.array(baseball)
 
 list can just + to add
 
 mean and median from numpy. use np.mean
+
+#basic plot
+import matplotlib.pyplot as plt
+plt.plot(x,y)
+plt.show()
 """
