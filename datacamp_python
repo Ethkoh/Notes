@@ -1,7 +1,4 @@
 """
-Pandas guide
-https://pandas.pydata.org/pandas-docs/stable/index.html
-
 x[2][:2]
 x[2] results in a list, that you can subset again by adding additional square brackets.
 A list can contain any Python type. But a list itself is also a Python type. That means that a list can also contain a list
@@ -84,4 +81,9 @@ europe = { 'spain': { 'capital':'madrid', 'population':46.77 },
            
 #select dictionaries elements example
 europe['spain']['population']
+
+The DataFrame is one of Pandas' most important data structures. 
+It's a way to store tabular data where you can label the rows and the columns.
+Pandas guide: https://pandas.pydata.org/pandas-docs/stable/index.html
+
 """
