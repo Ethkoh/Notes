@@ -25,5 +25,7 @@ parameters vs arguments
 when defining a function, paramters are written in function header
 when call a function, pass arguments into function
 
+index(), to get the index of the first element of a list that matches its input. Eg areas.index(20)
+
 list can just + to add
 """
