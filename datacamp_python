@@ -72,4 +72,8 @@ my_dict = {
    "key1":"value1",
    "key2":"value2",
 }
+
+#to add key-value to dictionaries example
+europe = {'spain':'madrid', 'france':'paris', 'germany':'berlin', 'norway':'oslo' }
+europe['italy']='rome'
 """
