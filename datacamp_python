@@ -26,6 +26,17 @@ when defining a function, paramters are written in function header
 when call a function, pass arguments into function
 
 index(), to get the index of the first element of a list that matches its input. Eg areas.index(20)
+for array, just areas[20]
+
+eg.
+this is list on list:
+baseball = [[180, 78.4],
+            [215, 102.7],
+            [210, 98.5],
+            [188, 75.2]]
+this creates a 2D numpy array from liston list
+import numpy as np
+np_baseball=np.array(baseball)
 
 list can just + to add
 """
