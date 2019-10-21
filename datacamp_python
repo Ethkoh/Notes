@@ -39,4 +39,6 @@ import numpy as np
 np_baseball=np.array(baseball)
 
 list can just + to add
+
+mean and median from numpy. use np.mean
 """
