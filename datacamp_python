@@ -50,4 +50,6 @@ plt.plot(x,y)
 #for scatter
 plt.scatter(x,y)
 plt.show()
+#clean
+plt.clf()
 """
