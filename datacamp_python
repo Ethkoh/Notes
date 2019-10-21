@@ -86,4 +86,16 @@ The DataFrame is one of Pandas' most important data structures.
 It's a way to store tabular data where you can label the rows and the columns.
 Pandas guide: https://pandas.pydata.org/pandas-docs/stable/index.html
 
+#dictionaries to dataframe
+Each dictionary key is a column label and each value is a list which contains the column elements.
+pd.DataFrame()
+
+#row labels for dataframe
+variable.index=row_labels
+
+
 """
+observation that i made:
+- i think array cannot use .index. dataframe and list can.
+
+
