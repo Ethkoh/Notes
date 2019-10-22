@@ -93,6 +93,33 @@ pd.DataFrame()
 #row labels for dataframe
 variable.index=row_labels
 
+#import csv as dataframe
+import pandas as pd
+data=pd.read_csv('data.csv')
+#specify first column is used as row labels.
+data=pd.read_csv('data.csv',index_col=0)
+
+#select column as Pandas Series from dataframe
+data['country']
+
+#select column as Pandas DataFrame from dataframe
+data[['country']]
+
+#slice rows of dataframe
+example: data[0:5] 
+Can only use integer indexes of the rows here, not the row labels
+OR
+loc is label-based, which means that you have to specify rows and columns based on their row and column labels. iloc is integer index based
+example select rows:
+cars.loc[['RU', 'AUS']]
+cars.iloc[[4, 1]]
+example select rows and columns:
+cars.loc[['IN', 'RU'], 'cars_per_cap']
+cars.iloc[[3, 4], 0]
+
+cars.loc[['IN', 'RU'], ['cars_per_cap', 'country']]
+cars.iloc[[3, 4], [0, 1]]
+
 
 """
 observation that i made:
