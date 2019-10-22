@@ -120,6 +120,40 @@ cars.iloc[[3, 4], 0]
 cars.loc[['IN', 'RU'], ['cars_per_cap', 'country']]
 cars.iloc[[3, 4], [0, 1]]
 
+#slice columns of dataframe
+example:
+cars.loc[:, 'country']
+cars.iloc[:, 1]
+
+equals sign: <= and >=.
+<= is valid syntax, but =< is not.
+array can compare
+
+#boolean operators
+and, or and not
+#boolean operators with array
+np.logical_and(), np.logical_or() and np.logical_not(). 
+example:n np.logical_and(my_house > 13, your_house < 15)
+
+#if else example
+if area > 15 :
+    print("big place!")
+elif area>10:
+    print("medium size, nice!")
+else :
+    print("pretty small.")
+    
+#example2
+if area>15 :
+print("big place!")
+
+#example. drives_right in cars return true
+sel = cars[cars['drives_right']]
+print(sel)
+     cars_per_cap        country  drives_right
+US            809  United States          True
+RU            200         Russia          True
+MOR            70        Morocco          True
 
 """
 observation that i made:
