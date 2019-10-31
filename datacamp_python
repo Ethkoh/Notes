@@ -82,6 +82,12 @@ europe = { 'spain': { 'capital':'madrid', 'population':46.77 },
 #select dictionaries elements example
 europe['spain']['population']
 
+#add new key-value pair to dictionary. example
+europe['italy']='rome'
+
+#remove key-value pair from dictionary. example
+del(europe['australia'])
+
 The DataFrame is one of Pandas' most important data structures. 
 It's a way to store tabular data where you can label the rows and the columns.
 Pandas guide: https://pandas.pydata.org/pandas-docs/stable/index.html
@@ -90,7 +96,7 @@ Pandas guide: https://pandas.pydata.org/pandas-docs/stable/index.html
 Each dictionary key is a column label and each value is a list which contains the column elements.
 pd.DataFrame()
 
-#row labels for dataframe
+#specify row labels(list) for dataframe
 variable.index=row_labels
 
 #import csv as dataframe
