@@ -12,3 +12,4 @@ What does a compelling data-driven presentation look like?
 -Providing an appropriate degree of disclosure for your audience (especially when dealing with proprietary data or sensitive user information).
 
 range(x): 0 to x, not inclusive of x
+range(a,b,c): a=start,b=stop,c=step
