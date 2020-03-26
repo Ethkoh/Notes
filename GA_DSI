@@ -13,3 +13,5 @@ What does a compelling data-driven presentation look like?
 
 range(x): 0 to x, not inclusive of x
 range(a,b,c): a=start,b=stop,c=step
+
+One way of vectorizing your data is called label encoding — assigning numerical values to each attribute.
