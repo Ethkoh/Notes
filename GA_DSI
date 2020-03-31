@@ -15,3 +15,17 @@ range(x): 0 to x, not inclusive of x
 range(a,b,c): a=start,b=stop,c=step
 
 One way of vectorizing your data is called label encoding — assigning numerical values to each attribute.
+Another common technique for vectorizing categorical data is called one-hot encoding (sometimes abbreviated as “OHE”).
+
+The n points in an n-dimensional vector, x, each refer to the offset from nn orthogonal axes. 
+We can define the magnitude of the vector x to be:∣∣x∣∣ = sqrt {(x_1^2 + x_2^2 + ... + x_n^2).
+The magnitude is the square root of the sum of each component squared.
+
+Normalizing a vector means that we’re mapping the vector to a point on the unit.
+v^ = (v1,...,vn)/∣v∣=( v1/∣v∣,..., vn/∣v∣)
+
+
+A unit circle in three dimensions is a unit sphere. In higher dimensions, it’s a unit hypersphere.
+
+to add: np.array
+dot product: np.dot(x,y)
