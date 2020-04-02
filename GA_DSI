@@ -24,8 +24,19 @@ The magnitude is the square root of the sum of each component squared.
 Normalizing a vector means that we’re mapping the vector to a point on the unit.
 v^ = (v1,...,vn)/∣v∣=( v1/∣v∣,..., vn/∣v∣)
 
-
-A unit circle in three dimensions is a unit sphere. In higher dimensions, it’s a unit hypersphere.
+ matrices are written as nested lists, just as you’d write them in NumPy. So, the first nested list is the first row.
+ 
+This is a new way of thinking about matrices. Instead of just storing data points, we’re now using matrices to store systems of equations.A unit circle in three dimensions is a unit sphere. In higher dimensions, it’s a unit hypersphere.
 
 to add: np.array
 dot product: np.dot(x,y)
+
+A set is a built-in data structure within Python. It’s an unordered collection of distinct hashable objects.
+There are two approaches to use when creating a set:
+-Curly braces
+-Using the built-in set() function with an iterable as an argument
+
+there are three types of probability:
+Marginal probability: The likelihood of a single event occurring, independent of any other events happening before or after it.
+Joint probability: The likelihood of two independent events happening together, where the occurrence of one does not affect the occurrence of the other.
+Conditional probability: The likelihood of two events happening together, where the occurrence of one affects the occurrence of the other.
