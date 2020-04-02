@@ -31,8 +31,7 @@ This is a new way of thinking about matrices. Instead of just storing data point
 to add: np.array
 dot product: np.dot(x,y)
 
-A set is a built-in data structure within Python. It’s an unordered collection of distinct hashable objects.
-There are two approaches to use when creating a set:
+A set is a collection of unordered, unique elements.There are two approaches to use when creating a set:
 -Curly braces
 -Using the built-in set() function with an iterable as an argument
 
@@ -44,3 +43,16 @@ Conditional probability: The likelihood of two events happening together, where 
 the equals sign (or, in Python speak, the assignment operator) assigns the value to each variable.
 
 data types: numbers,none,boolean,strings,lists,tuples,sets,dictionaries
+
+Lists are:
+Ordered: Their elements have a particular order that will never change.
+Heterogeneous: Different data types can be stored for each element in the list. For example, ['cat', 10, 0.4].
+Mutable: When you alter a list, you don't create a new element — the original element is just modified.
+
+pop() removes an element from a list. You can provide it the specific index to remove, or else it will default to removing the last element from the list.
+append() adds an item to the end of a list.
+
+tuples are similar to lists in that you can store multiple values. However, there's one huge difference:
+Tuples are immutable — you can't alter a tuple element once it's been created.
+To define a new tuple, use parentheses instead of brackets
+Tuples are used for information that won't change: the days of the week
