@@ -42,3 +42,5 @@ Joint probability: The likelihood of two independent events happening together, 
 Conditional probability: The likelihood of two events happening together, where the occurrence of one affects the occurrence of the other.
 
 the equals sign (or, in Python speak, the assignment operator) assigns the value to each variable.
+
+data types: numbers,none,boolean,strings,lists,tuples,sets,dictionaries
