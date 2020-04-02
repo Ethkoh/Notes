@@ -40,3 +40,5 @@ there are three types of probability:
 Marginal probability: The likelihood of a single event occurring, independent of any other events happening before or after it.
 Joint probability: The likelihood of two independent events happening together, where the occurrence of one does not affect the occurrence of the other.
 Conditional probability: The likelihood of two events happening together, where the occurrence of one affects the occurrence of the other.
+
+the equals sign (or, in Python speak, the assignment operator) assigns the value to each variable.
