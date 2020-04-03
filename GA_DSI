@@ -24,7 +24,7 @@ The magnitude is the square root of the sum of each component squared.
 Normalizing a vector means that we’re mapping the vector to a point on the unit.
 v^ = (v1,...,vn)/∣v∣=( v1/∣v∣,..., vn/∣v∣)
 
- matrices are written as nested lists, just as you’d write them in NumPy. So, the first nested list is the first row.
+matrices are written as nested lists, just as you’d write them in NumPy. So, the first nested list is the first row.
  
 This is a new way of thinking about matrices. Instead of just storing data points, we’re now using matrices to store systems of equations.A unit circle in three dimensions is a unit sphere. In higher dimensions, it’s a unit hypersphere.
 
@@ -62,3 +62,8 @@ Tuples are used for information that won't change: the days of the week
 To check whether an element is in a set, we use the in operator.
 Eg 'Riyadh' in my_places_traveled 
 True
+
+As with sets, a dictionary is defined using curly braces. 
+However, each element of a dictionary consists of a key, followed by a colon, then by a value.
+
+To create an empty set, use the built-in set() function (e.g., untasty_fruits = set()). Why? Because in Python, curly braces are used for both sets and dictionaries. Empty braces {} indicate an empty dictionary.
