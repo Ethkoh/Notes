@@ -67,3 +67,5 @@ As with sets, a dictionary is defined using curly braces.
 However, each element of a dictionary consists of a key, followed by a colon, then by a value.
 
 To create an empty set, use the built-in set() function (e.g., untasty_fruits = set()). Why? Because in Python, curly braces are used for both sets and dictionaries. Empty braces {} indicate an empty dictionary.
+
+len() only count unique values in sets. list everything counted
