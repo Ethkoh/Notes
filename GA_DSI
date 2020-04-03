@@ -1,6 +1,4 @@
-"""
-
-#prework
+prework:
 feature engineering: Create columns derived from our data
 
 What does a compelling data-driven presentation look like?
@@ -77,3 +75,17 @@ A SyntaxError means we’ve mistyped something somewhere and, as a result, Pytho
 Python even tries to help us troubleshoot! An arrow (^) under the offending section of code indicates where the problem occurred.
 
 A TypeError occurs when we try to manipulate data types in a way that Python does not permit, such as adding a string and an integer or trying to get the length of an integer.
+
+The try command lets you test a block of code for errors.
+
+The except keyword can help you catch any exception that could occur in a try statement.
+
+The GitHub Flow:
+The workflow for contributing to an open-source product or your dev team’s project comprises the following steps:
+1)Forking
+2)Cloning
+3)Editing
+4)Adding/committing
+5)Pushing
+6)Submitting a pull request
+
