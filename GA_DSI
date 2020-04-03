@@ -69,3 +69,11 @@ However, each element of a dictionary consists of a key, followed by a colon, th
 To create an empty set, use the built-in set() function (e.g., untasty_fruits = set()). Why? Because in Python, curly braces are used for both sets and dictionaries. Empty braces {} indicate an empty dictionary.
 
 len() only count unique values in sets. list everything counted
+
+One basic type of error is a NameError. A NameError is thrown when the variable that’s referred to doesn’t exist in the namespace.
+
+A SyntaxError (quite possibly the most common type of error) indicates that something you wrote doesn’t follow the proper Python syntax.
+A SyntaxError means we’ve mistyped something somewhere and, as a result, Python doesn’t understand what we’re trying to do.
+Python even tries to help us troubleshoot! An arrow (^) under the offending section of code indicates where the problem occurred.
+
+A TypeError occurs when we try to manipulate data types in a way that Python does not permit, such as adding a string and an integer or trying to get the length of an integer.
