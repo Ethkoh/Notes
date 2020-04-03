@@ -89,3 +89,13 @@ The workflow for contributing to an open-source product or your dev team’s pro
 5)Pushing
 6)Submitting a pull request
 
+Step 1: Forking
+To add a copy of someone else’s GitHub repository to your GitHub account, fork it by clicking the Fork button in the upper right-hand corner.
+This forked repository is not perfectly identical, but it includes all of the same source files, issues, and commit history.
+
+Step 2: Cloning
+To make a local copy of a fork, you’ll clone the repository. This will save the code on your machine so you can edit it.
+To do so, open your terminal, navigate to where you’d like to store the repository, then type:
+git clone https://url-to-clone
+You can find the URL to clone by clicking the green button that says “Clone or download.”
+Hint: If you’re following along in Git Bash on Windows, the commands to copy and paste a repository are a little different than the default Windows copy/paste commands. Use control + insert to copy and shift + insert to paste.
