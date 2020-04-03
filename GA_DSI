@@ -34,6 +34,7 @@ dot product: np.dot(x,y)
 A set is a collection of unordered, unique elements.There are two approaches to use when creating a set:
 -Curly braces
 -Using the built-in set() function with an iterable as an argument
+Taking advantage of sets means your program runs faster and uses less memory. If you don't have duplicates and you don't need order, use a set.
 
 there are three types of probability:
 Marginal probability: The likelihood of a single event occurring, independent of any other events happening before or after it.
@@ -54,5 +55,10 @@ append() adds an item to the end of a list.
 
 tuples are similar to lists in that you can store multiple values. However, there's one huge difference:
 Tuples are immutable — you can't alter a tuple element once it's been created.
+Additionally, because tuples have fixed sizes (determined when they're assigned initial values), they're more memory-efficient than a list, which needs additional memory allocated to it.
 To define a new tuple, use parentheses instead of brackets
 Tuples are used for information that won't change: the days of the week
+
+To check whether an element is in a set, we use the in operator.
+Eg 'Riyadh' in my_places_traveled 
+True
