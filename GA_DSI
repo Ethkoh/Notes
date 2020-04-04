@@ -99,3 +99,49 @@ To do so, open your terminal, navigate to where you’d like to store the reposi
 git clone https://url-to-clone
 You can find the URL to clone by clicking the green button that says “Clone or download.”
 Hint: If you’re following along in Git Bash on Windows, the commands to copy and paste a repository are a little different than the default Windows copy/paste commands. Use control + insert to copy and shift + insert to paste.
+
+Step 3: Editing
+You’ll do this using a text editor of your choice. Atom and Sublime are some of the most popular.
+
+Step 4: Adding and Committing
+Remember, you’re editing the code on your local copy of the repository. We know that any time we do this, we need to use some very important Git commands so that our local copy is protected if we goof up.
+$ git add <your-file-name>
+$ git commit -m "message"
+
+Step 5: Pushing
+Once you’ve committed these changes, your local repository will differ from your remote repository.
+To update your remote repository on GitHub, you have to push those changes using the git push origin master command.
+
+You don't need to worry about the origin and master part just yet. However, if you’re curious, here’s a brief overview:
+origin is a shortcut for the URL of your default remote repository (in this case, the repository on GitHub). You can have many remotes if you want, but we’re only going to work with one for now.
+master refers to the branch on your remote repository where you are currently adding your changes. Again, for now, we’re just going to be working on the master branch.
+
+Step 6: Submitting a Pull Request
+At this point, your local and remote repositories contain the changes you’ve made. If you want to share these changes with the original repository owner, you can submit a pull request.
+A pull request effectively says, “Hello, maintainer of Project X. I made some changes here in my forked copy, and I think they’re good ones. You should add them to your repository.”
+Pull requests are a GitHub feature, so you’ll need to head back to the browser to submit them.
+
+Assembly is a sequence of instructions written by a programmer, which is then translated by an assembler into the 1s and 0s that computer hardware can recognize.
+Developers and programmers can choose from thousands of programming languages that are easier to read and write than assembly languages, including C++, Java, JavaScript, and Python.
+
+All computers speak to the world through an API, an application programming interface.
+In the case of the earliest computers, such as the difference engine, the API was a hand crank and the output was achieved through a series of mechanical wheels on the device that the operator would need to interpret.
+Modern computers and most programs communicate with the world through a graphical user interface (GUI, pronounced like “gooey”). You as the user input information using a keyboard and mouse, and the result is displayed on the screen. A GUI is an API that’s intended to be used by human beings.
+By contrast, the command line interface (CLI) — also called a terminal — is a software application that interfaces with program APIs more directly, using text instead of graphics.
+
+command + tab on Mac and alt + tab on Windows. This will allow you to quickly toggle between the browser on which you’re viewing this lesson and your CLI.
+
+On a Mac, press command + space to bring up the spotlight search. Type in “terminal” and press return.On Windows, go to the start menu, type “Git Bash” into the search, then open the application.
+
+In programming speak, all folders are called directories. A directory within another directory is called a subdirectory. A directory that contains a subdirectory is called a parent directory.
+By default, our terminal starts in what is referred to as the home directory.
+For Mac, it is /Users/yourname/.
+For Windows, it is c:\users\yourname.
+For Linux, it is /home/yourname.
+
+The prompt is the $ that automatically shows up at the end of the first line. It’s the command line equivalent of “standby” and indicates that the terminal is ready to accept your command.
+The cursor follows the prompt. This is where the text you type will appear, just like in any other setting in which you’ve seen a cursor.
+The username of the person logged in precedes the prompt.
+
+The pwd command stands for “print working directory.” 
+To find out which files are in our current directory, type ls, short for “list.”
