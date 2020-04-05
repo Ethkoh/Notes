@@ -133,6 +133,8 @@ command + tab on Mac and alt + tab on Windows. This will allow you to quickly to
 
 On a Mac, press command + space to bring up the spotlight search. Type in “terminal” and press return.On Windows, go to the start menu, type “Git Bash” into the search, then open the application.
 
+Git: programme for version control
+
 In programming speak, all folders are called directories. A directory within another directory is called a subdirectory. A directory that contains a subdirectory is called a parent directory.
 By default, our terminal starts in what is referred to as the home directory.
 For Mac, it is /Users/yourname/.
@@ -145,3 +147,79 @@ The username of the person logged in precedes the prompt.
 
 The pwd command stands for “print working directory.” 
 To find out which files are in our current directory, type ls, short for “list.”
+To change directories, we’ll use cd — “change directory” — plus the name of the directory to which we want to change. Simple enough!
+Eg cd Documents
+
+Operating systems and installed applications require lots of hidden files that aren’t always relevant to everyday users. But there will be cases where, as a programmer, you’ll want to view them.
+Flag, which is an additional command argument that modifies the behavior of the base command.
+Flags start with the - prefix.
+Type ls -a, which is the list command followed by the -a flag. This means, “Show me all of the files in my working directory and do not ignore entries that start with a period.”
+
+return to our parent directory. To do so, we use the cd command followed by a space and two dots:
+cd ..
+The dots imply “parent directory.”
+Now, if we type pwd, we’ll see that we’re in our home directory, which may look like /Users/yourname if you’re on a Mac.
+
+mkdir nameoffolder :make new folder
+
+If we were deeper in our file structure, we could use the cd ~ command.
+The tilde (~) is a shortcut for the home directory of the terminal’s current user.
+
+we’ll create a new file.
+Say we want to make HTML and CSS files — the beginnings of a website!
+To accomplish this, we’ll use the touch command. We can even make multiple files and file types at the same time by separating them with a space, like this:
+touch index.html style.css
+
+Removing Files
+Be careful when using rm. Unlike moving files to the trash or recycle bin, deleting files with rm removes them permanently!
+
+To remove directories as well. 
+Type rm -r myfolder to remove the myfolder directory.
+-r:It stands for recursive and states that we will remove the directory along with any subdirectories or child directories. It is impossible to have a child directory without a parent directory, therefore the -r flag is always required when removing directories.
+Another option, assuming the directory is empty, is rmdir, which is functionally equivalent to rm -r when executed against an empty directory.
+
+Initializing:
+$ git init
+To take advantage of Git superpowers, we have to add a hidden directory called .git/ to our project directory, which contains all of the data Git needs to operate.
+
+git status: which asks Git to give us an update on our project’s status.
+
+To add change to your next commit, you'll use the git add command.
+$ git add my-first-post.txt
+The command is add, but we describe the operation by saying that the file has been “staged.” In other words, it has been added to the list of changes that will be officially saved with our next commit.
+The files on this list aren’t final, and any of these changes can be removed, or “unstaged.”
+
+add all of the files in the working directory to the next commit:
+Instead of specifying each file, you can write git add .
+Proceed with caution when using git add ., as you could accidentally add files with sensitive information.
+
+To officially record this version of our project, type:
+$ git commit -m "created a new post.txt file"
+The -m option allows you to include a message that describes the changes you made for your collaborators or future you.
+These should be short but descriptive and clearly indicate what changes each commit makes to the project.
+
+working area->staging->local repo
+
+Git allows you to add changes to your project in the local repository with two steps:
+$ git add <your-file-name>
+$ git commit -m "message"
+
+SHA: it allows developers to view a list of commits, the submission date, the author, the commit message, and a unique number that identifies the commit
+
+To view the timeline of changes, you can run:
+$ git log
+This will yield a list of entries that looks like this:
+
+personal:
+git init
+git config user.name "someone"                  (add -global to do for account)
+git config user.email "someone@someplace.com".  (add -global to do for account)
+
+Before running git init, make sure you’re not already inside another Git repository. 
+Type git status. 
+If you see fatal: Not a git repository (or any of the parent directories): .git, then you know you’re good to go and you can safely run git init within this folder.
+
+To save the changes that we’ve made to our work to the GitHub platform, we must:
+-Stage all of the files using git add.
+-Commit our changes using git commit -m “message”.
+-Push the committed changes up to GitHub using git push.
