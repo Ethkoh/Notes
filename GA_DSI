@@ -286,3 +286,19 @@ loop every item:for i in range(0,len(ar))
 loop every 2 item:for i in range(0,len(ar),2):
 sort_side: dont use this. will get name error
 combine strings: join
+
+Anaconda includes many of the Python packages we’ll be using in-class:
+○ Python
+○ iPython / Jupyter: Required tools for creating notebooks.
+○ Pandas: Your go-to library for organizing and managing data.
+○ Matplotlib: The king of all python plotting packages.
+○ Gensim: Framework for vector modeling.
+○ NLTK: Used for natural language processing.
+○ NumPy: Fundamental array processing tool.
+○ Scikit-Learn: Modules for machine learning & data modeling.
+○ SciPy: Scientific library for python.
+○ Seaborn: Statistical data visualizer.
+○ Pip & Setuptools: package installer & version manager (Mac only).
+○ PyMC: Common stats tool for simulation and optimization.
+○ Sqlite: Standalone, lightweight SQL database engine.
+○ Statsmodels: Simple statistical computation (used with SciPy).
