@@ -302,3 +302,12 @@ Anaconda includes many of the Python packages we’ll be using in-class:
 ○ PyMC: Common stats tool for simulation and optimization.
 ○ Sqlite: Standalone, lightweight SQL database engine.
 ○ Statsmodels: Simple statistical computation (used with SciPy).
+
+links:
+https://repl.it/
+https://www.hackerrank.com/challenges/nested-list/problem
+https://www.python.org/dev/peps/pep-0008/#tabs-or-spaces
+https://docs.python.org/3/library/exceptions.html
+https://docs.python.org/3/tutorial/errors.html
+https://campus.datacamp.com/courses/kaggle-r-tutorial-on-machine-learning/chapter-3-improving-your-predictions-through-random-forests?ex=1
+
