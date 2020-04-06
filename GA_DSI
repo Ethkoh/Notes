@@ -41,7 +41,33 @@ Conditional probability: The likelihood of two events happening together, where 
 
 the equals sign (or, in Python speak, the assignment operator) assigns the value to each variable.
 
+Depending on how the sequence 01000001 is read, it can represent either the integer 65 or the character 'A' . 
+Clearly, we need a way of telling the computer how to read the sequence. That’s where data types come in.
+
 data types: numbers,none,boolean,strings,lists,tuples,sets,dictionaries
+
+/	Float division
+//	Integer division
+%	The modulo is used to get the remainder of a division equation.
+
+To indicate a string in Python code, simply enclose it with either ‘single’ or “double” quotation marks.
+
+The + operator concatenates, or combines, two strings together to make one big string.
+* works the same. Eg 'hello'*3 will give us “hellohellohello”
+
+Escape characters are characters with special meanings, and they’re represented by a backslash followed by a character.
+Escape characters are not a data type, but you’ll still likely see them in strings
+\n	Creates a new line. Eg 'Line One\nLine Two'
+\t	Indents text. Eg. '\t- Bullet 1'
+
+to print out a good old-fashioned backslash instead of reading it as an escape character: just write \\
+
+The last of the primitive data types we’ll cover is none. This data type represents a null value, or the absence of data, and it is not interchangeable with 0.
+
+datatype conversion:
+float()
+int()
+str()
 
 Lists are:
 Ordered: Their elements have a particular order that will never change.
@@ -80,6 +106,21 @@ The try command lets you test a block of code for errors.
 
 The except keyword can help you catch any exception that could occur in a try statement.
 
+The raise keyword can be used to alert a user of a specific error type.
+When the error is raised, the string entered as an argument to ValueError is the message that’s returned to the user.
+Eg.if number == 4:
+        raise ValueError('No fours allowed!!')
+    else:
+    
+Def function: Def name_of_function(arguments):
+A function will terminate once it reaches a return statement. 
+If the return statement is not specified in a function definition, the function will return None.
+Add any number of arguments separated by a comma within the parentheses.
+Functions can even call other functions
+
+calling the function:assign values to all arguments.
+Eg print(my_function(3))
+ 
 The GitHub Flow:
 The workflow for contributing to an open-source product or your dev team’s project comprises the following steps:
 1)Forking
@@ -172,6 +213,7 @@ touch index.html style.css
 
 Removing Files
 Be careful when using rm. Unlike moving files to the trash or recycle bin, deleting files with rm removes them permanently!
+Eg rm -r ~/sales
 
 To remove directories as well. 
 Type rm -r myfolder to remove the myfolder directory.
@@ -223,3 +265,24 @@ To save the changes that we’ve made to our work to the GitHub platform, we mus
 -Stage all of the files using git add.
 -Commit our changes using git commit -m “message”.
 -Push the committed changes up to GitHub using git push.
+
+Cloning is the process of downloading a repo from a remote location (most often GitHub) to our machine.
+We can clone repos from our own account or even public repos from other developers and data scientists.
+You may hear the phrase “fork and clone,” which is your cue to:
+Navigate to the appropriate repo on your cohort’s GitHub organization.
+Fork the repo using the “Fork” button on the repo’s page.
+Run the git clone <repo link> command in your terminal to download the repo to your machine.
+
+Codewars, a site that’s jam-packed with community-sourced programming challenges ranging in difficulty from easy to very difficult.
+
+enumerate: can use for position
+reverse list: list[::-1]
+string repeat: number_of_repeat*string
+sort: sorted(list)
+split: .split(" ")
+exclude last item: item= item[0:-1]
+check even or odd: if len(item)%2 ==1:
+loop every item:for i in range(0,len(ar))
+loop every 2 item:for i in range(0,len(ar),2):
+sort_side: dont use this. will get name error
+combine strings: join
