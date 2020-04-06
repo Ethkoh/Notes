@@ -1,4 +1,4 @@
-'''PREWORK'''
+--------------------------------------------PREWORK-----------------------------------------------------
 feature engineering: Create columns derived from our data
 
 What does a compelling data-driven presentation look like?
@@ -303,15 +303,59 @@ Anaconda includes many of the Python packages we’ll be using in-class:
 ○ Sqlite: Standalone, lightweight SQL database engine.
 ○ Statsmodels: Simple statistical computation (used with SciPy).
 
-links:
+
+--------------------------------------------WEEK1 -----------------------------------------------------
+type "juypter notebook" into the terminal at the area you working with to open juypter
+
+shift+enter to run and move to next cell in juypter
+ctl+enter to run and stay in same sell in juypter
+
+# Exponentiation (do NOT use ^): is **
+2**4
+
+use ``` before typing code in slack channel so looks nicer
+
+can press Tab to auto complete for variable. 
+after a variable., it will show the available commands for the datatype too
+
+unpacking can be done for Tuple. list is possible but rarely done.
+Eg instructor = ("Tim", "Book")
+first, last = instructor
+
+.add: add alphabetically
+
+check if something inside: use in
+Eg 'B+' in my_grades
+True
+
+can have nested dictionary
+
+markdown:
+* italics
+** bold
+### heading
+
+The print statement removes the quotations, whereas just running they jupyter cell with x at the last line leaves the quotations in.
+
+print(f"   ")
+
+press stop to stop infinite loop
+
+numpy array deals with homogenous data collection unlike lists
+
+variable.method(parameters)
+
+join using _: Eg names_all= "_".join(names)
+insert new value into list at a certain position: Eg. names.insert(4,"Elon")
+
+escape character: to use quotations in quotations: Eg \"Kings\"
+
+
+--------------------------------------------LINKS -----------------------------------------------------
 https://repl.it/
 https://www.hackerrank.com/challenges/nested-list/problem
 https://www.python.org/dev/peps/pep-0008/#tabs-or-spaces
 https://docs.python.org/3/library/exceptions.html
 https://docs.python.org/3/tutorial/errors.html
 https://campus.datacamp.com/courses/kaggle-r-tutorial-on-machine-learning/chapter-3-improving-your-predictions-through-random-forests?ex=1
-
-'''WEEK1'''
-type "juypter notebook" into the terminal at the area you working with to open juypter
-
-
+https://automatetheboringstuff.com/
