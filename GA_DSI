@@ -1,4 +1,4 @@
-prework:
+'''PREWORK'''
 feature engineering: Create columns derived from our data
 
 What does a compelling data-driven presentation look like?
@@ -310,4 +310,8 @@ https://www.python.org/dev/peps/pep-0008/#tabs-or-spaces
 https://docs.python.org/3/library/exceptions.html
 https://docs.python.org/3/tutorial/errors.html
 https://campus.datacamp.com/courses/kaggle-r-tutorial-on-machine-learning/chapter-3-improving-your-predictions-through-random-forests?ex=1
+
+'''WEEK1'''
+type "juypter notebook" into the terminal at the area you working with to open juypter
+
 
