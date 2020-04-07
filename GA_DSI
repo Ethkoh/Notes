@@ -305,7 +305,7 @@ Anaconda includes many of the Python packages we’ll be using in-class:
 
 
 --------------------------------------------WEEK1 -----------------------------------------------------
-type "juypter notebook" into the terminal at the area you working with to open juypter
+type "jupyter notebook" into the terminal at the area you working with to open juypter
 
 shift+enter to run and move to next cell in juypter
 ctl+enter to run and stay in same sell in juypter
