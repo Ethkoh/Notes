@@ -305,6 +305,11 @@ Anaconda includes many of the Python packages we’ll be using in-class:
 
 
 --------------------------------------------MONDAY 6 APRIL -----------------------------------------------------
+to set your account's default identity:
+git config --global user.email "you@example.com"
+git config --global user.name "Your Name"
+Omit --global to set the identity only in this repository.
+
 type "jupyter notebook" into the terminal at the area you working with to open juypter
 
 shift+enter to run and move to next cell in juypter
@@ -358,6 +363,9 @@ Decimal package then give
 
 Shift + tab to take find purpose of method/when calling function can see what are the parameters
 
+Np array has to be homogenous values. Eg all int or all float 
+
+
 --------------------------------------------TUESDAY 7 APRIL -----------------------------------------------------
 Default value: Only if no parameter passed then default used.
 Cannot put Default value for argument in first argument. doesn't seem to work
@@ -395,3 +403,9 @@ Think what is enumerate again (practice odds_and_even)
 Diff between lambda and list comprehension
 Can use?  if roll_1 > roll_2 > roll_3
 Is control flow same topic as functions
+PEP guide -intentation don’t understand “hanging indent should add a a level”
+Cannot remove directory/folder
+Why 0.2+0.1 != 0.3
+What is this??
+def find_longest_word(list_of_words):
+    return len(max(list_of_words, key=len))
