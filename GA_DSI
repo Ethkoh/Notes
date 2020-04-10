@@ -304,7 +304,7 @@ Anaconda includes many of the Python packages we’ll be using in-class:
 ○ Statsmodels: Simple statistical computation (used with SciPy).
 
 
---------------------------------------------WEEK1 -----------------------------------------------------
+--------------------------------------------MONDAY 6 APRIL -----------------------------------------------------
 type "jupyter notebook" into the terminal at the area you working with to open juypter
 
 shift+enter to run and move to next cell in juypter
@@ -313,7 +313,7 @@ ctl+enter to run and stay in same sell in juypter
 # Exponentiation (do NOT use ^): is **
 2**4
 
-use ``` before typing code in slack channel so looks nicer
+in slack channel: use ``` to type code and ``` to end, so looks nicer
 
 can press Tab to auto complete for variable. 
 after a variable., it will show the available commands for the datatype too
@@ -339,7 +339,7 @@ The print statement removes the quotations, whereas just running they jupyter ce
 
 print(f"   ")
 
-press stop to stop infinite loop
+press stop to stop infinite loop in jupyter notebook
 
 numpy array deals with homogenous data collection unlike lists
 
@@ -350,12 +350,48 @@ insert new value into list at a certain position: Eg. names.insert(4,"Elon")
 
 escape character: to use quotations in quotations: Eg \"Kings\"
 
+Info from input is string
+So use float(input()) if want float
 
+round(,2) don’t give 2 dp if exact ans. 
+Decimal package then give
+
+Shift + tab to take find purpose of method/when calling function can see what are the parameters
+
+--------------------------------------------TUESDAY 7 APRIL -----------------------------------------------------
+Default value: Only if no parameter passed then default used.
+Cannot put Default value for argument in first argument. doesn't seem to work
+
+Function only reads variable defined inside
+
+changing global variable inside a function:
+g_var2 = "Outside"
+def function3():
+    global g_var2 # explicitly declare that the scope of this variable is global
+    g_var2 = "Inside"
+
+Split method by default look for a space. Doesn’t split when no space
+--------------------------------------------WEDNESDAY 8 APRIL -----------------------------------------------------
+Don’t append or remove the main list while trying to run a for loop. Will cause the length of the list to change
+
+Sample space is all outcomes of the experiment
+
+Event: collection of outcome of experiment: Eg. A = Event of getting 2 heads
+--------------------------------------------THURSDAY 9 APRIL -----------------------------------------------------
+Distribution: frequency of all possible outcomes
+
+Distribution illustration and formula: https://seeing-theory.brown.edu/probability-distributions/index.html#section2
 --------------------------------------------LINKS -----------------------------------------------------
-https://repl.it/
+Run code: https://repl.it/
 https://www.hackerrank.com/challenges/nested-list/problem
 https://www.python.org/dev/peps/pep-0008/#tabs-or-spaces
 https://docs.python.org/3/library/exceptions.html
 https://docs.python.org/3/tutorial/errors.html
 https://campus.datacamp.com/courses/kaggle-r-tutorial-on-machine-learning/chapter-3-improving-your-predictions-through-random-forests?ex=1
 https://automatetheboringstuff.com/
+jupyter viewer for github: https://nbviewer.jupyter.org/
+--------------------------------------------TO THINK -----------------------------------------------------
+Think what is enumerate again (practice odds_and_even)
+Diff between lambda and list comprehension
+Can use?  if roll_1 > roll_2 > roll_3
+Is control flow same topic as functions
