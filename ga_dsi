@@ -389,6 +389,10 @@ Event: collection of outcome of experiment: Eg. A = Event of getting 2 heads
 Distribution: frequency of all possible outcomes
 
 Distribution illustration and formula: https://seeing-theory.brown.edu/probability-distributions/index.html#section2
+
+Probability mass function shows us the probability that our random variable takes on a specific value.
+
+Cumulative distribution function shows us the probability that our random variable takes on any value less than or equal to a specific value.
 --------------------------------------------LINKS -----------------------------------------------------
 Run code: https://repl.it/
 https://www.hackerrank.com/challenges/nested-list/problem
