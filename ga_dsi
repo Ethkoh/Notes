@@ -398,7 +398,7 @@ Cumulative distribution function shows us the probability that our random variab
 methods:
 .shape
 .columns
-.read_csv()
+.read_csv() : Can read a specific number of rows using nrows=
 .describe()
 .info()
 .head()
@@ -440,7 +440,8 @@ v[v<40]:return values that fulfil condition
 pd.Series([ , , ..])  : creata panda series. not homogenous
 .map
 plt.subplot(,,) : decide number of plots will be drawn
-
+sorted(list) returns a list. Capital letter sorted first.
+list.sort() don’t return a list. It changes the list
 
 dataframe (panda object. data container):
 df[ ] or df.'' : one column
