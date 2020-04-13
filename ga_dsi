@@ -393,7 +393,36 @@ Distribution illustration and formula: https://seeing-theory.brown.edu/probabili
 Probability mass function shows us the probability that our random variable takes on a specific value.
 
 Cumulative distribution function shows us the probability that our random variable takes on any value less than or equal to a specific value.
---------------------------------------------LINKS -----------------------------------------------------
+--------------------------------------------MONDAY 13 APRIL -----------------------------------------------------
+methods:
+.shape
+.columns
+.read_csv()
+.describe()
+.info()
+.head()
+.tail()
+.value_counts()
+.mean()
+.median()
+.quantile()
+
+Others:
+plt.figure(figsize=( , ))
+plt.hist( , bins=)
+np.array([ , , , ,...])
+v[v<40]:return values that fulfil condition
+
+dataframe:
+df[ ]: one column
+df[ ][ ]: one cell
+df[' ']<40
+df[(df[' ']==4) | (df[' ']==1)]
+~ df[ ]: not
+loc and iloc to filter rows and columns both:
+df.loc[(df[' ']==4) | (df[' ']==1), [ ,  ,  ,  ...]]
+df.iloc[ , ]
+------------------------------------------------LINKS -----------------------------------------------------------
 Run code: https://repl.it/
 https://www.hackerrank.com/challenges/nested-list/problem
 https://www.python.org/dev/peps/pep-0008/#tabs-or-spaces
