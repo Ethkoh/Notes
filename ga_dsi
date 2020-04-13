@@ -394,6 +394,7 @@ Probability mass function shows us the probability that our random variable take
 
 Cumulative distribution function shows us the probability that our random variable takes on any value less than or equal to a specific value.
 --------------------------------------------MONDAY 13 APRIL -----------------------------------------------------
+--------------------------------------------INTRO TO PANDAS------------------------------------------------------
 methods:
 .shape
 .columns
@@ -402,7 +403,7 @@ methods:
 .info()
 .head()
 .tail()
-.value_counts()
+.value_counts() : applied to columns, will count number of each categorical variable
 .mean()
 .median()
 .quantile()
@@ -413,14 +414,23 @@ methods:
 .sort_values([ , ]) : on 2 columns
 np.mean()
 np.log()
-df.groupby('var1')['var2'].agg(['count', 'mean', function])
+.groupyby : eg df.groupby('var1')['var2'].agg(['count', 'mean', function])
 .drop( ,axis=1,inplace=True) : axis=0 is rows. axis=1 is column. inplace=True replace original data. otherwise original df not affected
-df.columns.str.lower().  : lowercase headers. do note data not replaced
-df['var'].str.lower() :l owercase headers. do note data not replaced
-df.rename(columns={"colors reported": "colors", "shape reported":"shape"},inplace=True).  : rename some
-df.columns = ['city','colors','shape','state','time'].  : rename all
-df['var'].str.replace('o', 'bro').  : replace values in df
-df['time'].dt.year.  : take out year from datatime data type
+.columns.str.lower() :  eg df.columns.str.lower().  : lowercase headers. do note data not replaced
+.str.lower() :  eg df['var'].str.lower() :l owercase headers. do note data not replaced
+.rename() :  eg df.rename(columns={"colors reported": "colors", "shape reported":"shape"},inplace=True).  : rename some
+.columns  : eg df.columns = ['city','colors','shape','state','time'].  : rename all
+.str.replace(,) :  eg df['var'].str.replace('o', 'bro').  : replace values in df
+.dt.year :  eg df['time'].dt.year.  : take out year from datatime data type
+.isnull()
+.notnull()
+.loc : eg df.loc[df['var1'].notnull(),:] : filter out missing values
+.to csv() : export data. eg. df.loc[df['var']>30,:].to_csv('datasets/highmpgcars.csv',index=False)
+.merge(,,) :  eg pd.merge(df1, df2, how='left')  : merge to the main dataframe1
+.crosstab(,) :  eg pd.crosstab(df['var1'], df['var2'])
+.Categorical(,) : eg pd.Categorical(df['var1'], categories=['Fair', 'Good', 'Very Good', 'Premium', 'Ideal']) : reorder categories
+.map() :  eg df['var2'] = df['var1'].map({4: 'Four', 6: 'Six', 8: 'Eight'}) or df['var2'] = df['var1'].map(function) or df['var2'] = df['var1'].map(lambda x: "Efficient" if x>20 else "Wasteful")
+.apply(function, axis=1). : axis=0 is rows. axis=1 is column. 
 
 Others:
 plt.figure(figsize=( , ))
@@ -428,6 +438,8 @@ plt.hist( , bins=)
 np.array([ , , , ,...])
 v[v<40]:return values that fulfil condition
 pd.Series([ , , ..])  : creata panda series. not homogenous
+.map
+
 
 dataframe (panda object. data container):
 df[ ] or df.'' : one column
@@ -440,8 +452,8 @@ loc and iloc to filter rows and columns both:
 df.loc[(df[' ']==4) | (df[' ']==1), [ ,  ,  ,  ...]]
 df.iloc[ , ]
 
-
-
+panda gives ordinal instead of simply categorical data
+map is for dataseries. apply for dataframe. map and apply same if apply for dataseries
 ------------------------------------------------LINKS -----------------------------------------------------------
 Run code: https://repl.it/
 https://www.hackerrank.com/challenges/nested-list/problem
