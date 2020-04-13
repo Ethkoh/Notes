@@ -406,22 +406,42 @@ methods:
 .mean()
 .median()
 .quantile()
+.to_datetime() : to convert to datatime data type
+.isin( )
+.between( , )
+.sort_values()
+.sort_values([ , ]) : on 2 columns
+np.mean()
+np.log()
+df.groupby('var1')['var2'].agg(['count', 'mean', function])
+.drop( ,axis=1,inplace=True) : axis=0 is rows. axis=1 is column. inplace=True replace original data. otherwise original df not affected
+df.columns.str.lower().  : lowercase headers. do note data not replaced
+df['var'].str.lower() :l owercase headers. do note data not replaced
+df.rename(columns={"colors reported": "colors", "shape reported":"shape"},inplace=True).  : rename some
+df.columns = ['city','colors','shape','state','time'].  : rename all
+df['var'].str.replace('o', 'bro').  : replace values in df
+df['time'].dt.year.  : take out year from datatime data type
 
 Others:
 plt.figure(figsize=( , ))
 plt.hist( , bins=)
 np.array([ , , , ,...])
 v[v<40]:return values that fulfil condition
+pd.Series([ , , ..])  : creata panda series. not homogenous
 
-dataframe:
-df[ ]: one column
+dataframe (panda object. data container):
+df[ ] or df.'' : one column
 df[ ][ ]: one cell
 df[' ']<40
 df[(df[' ']==4) | (df[' ']==1)]
 ~ df[ ]: not
+df[[' ']] into dataframe. avoid just df[' ']
 loc and iloc to filter rows and columns both:
 df.loc[(df[' ']==4) | (df[' ']==1), [ ,  ,  ,  ...]]
 df.iloc[ , ]
+
+
+
 ------------------------------------------------LINKS -----------------------------------------------------------
 Run code: https://repl.it/
 https://www.hackerrank.com/challenges/nested-list/problem
