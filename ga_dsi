@@ -439,6 +439,7 @@ np.array([ , , , ,...])
 v[v<40]:return values that fulfil condition
 pd.Series([ , , ..])  : creata panda series. not homogenous
 .map
+plt.subplot(,,) : decide number of plots will be drawn
 
 
 dataframe (panda object. data container):
