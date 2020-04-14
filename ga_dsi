@@ -474,6 +474,9 @@ others:
 plt.style.use() #stylesheet
 for boxplot, "min" line is Q1-1.5*IQR, "max" line is Q3+1.5*IQR
 
+-text viz is also good to emphasise just one value
+-choose visual that bring across the message
+-have slides with just graph and no text describing them explain the graph instead
 
 ------------------------------------------------LINKS -----------------------------------------------------------
 Run code: https://repl.it/
