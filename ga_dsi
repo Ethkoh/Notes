@@ -473,6 +473,8 @@ sns.heatmap(df.corr)
 others:
 plt.style.use() #stylesheet
 for boxplot, "min" line is Q1-1.5*IQR, "max" line is Q3+1.5*IQR
+random.sample: is by python. no replace
+np.random.choice: is by np. got replace
 
 -text viz is also good to emphasise just one value
 -choose visual that bring across the message
