@@ -500,4 +500,7 @@ Why 0.2+0.1 != 0.3
 What is this??
 def find_longest_word(list_of_words):
     return len(max(list_of_words, key=len))
-to read:https://jakevdp.github.io/PythonDataScienceHandbook/03.04-missing-values.html
+to read:
+https://jakevdp.github.io/PythonDataScienceHandbook/03.04-missing-values.html
+https://www3.ntu.edu.sg/home/ehchua/programming/webprogramming/Python4_DataAnalysis.html
+https://pandas.pydata.org/pandas-docs/stable/user_guide/visualization.html
