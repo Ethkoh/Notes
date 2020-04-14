@@ -465,10 +465,10 @@ method:
 .unique #panda unique. or np.unique from numpy
 .sort_index
 .plot(kind='') #kind=bar/barh/hist/box/scatter
-sns.pairplot()
+sns.pairplot() #same as the one below
+pd.plotting.scatter_matrix(df[ , ])
 sns.distplot()
 sns.heatmap(df.corr)
-pd.plotting.scatter_matrix(df[ , ])
 
 others:
 plt.style.use() #stylesheet
@@ -477,7 +477,7 @@ for boxplot, "min" line is Q1-1.5*IQR, "max" line is Q3+1.5*IQR
 -text viz is also good to emphasise just one value
 -choose visual that bring across the message
 -have slides with just graph and no text describing them. explain the graph instead
-
+-ideally use [] to refer to df columns instead of .
 ------------------------------------------------LINKS -----------------------------------------------------------
 Run code: https://repl.it/
 https://www.hackerrank.com/challenges/nested-list/problem
