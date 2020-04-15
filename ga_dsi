@@ -431,6 +431,7 @@ np.log()
 .Categorical(,) : eg pd.Categorical(df['var1'], categories=['Fair', 'Good', 'Very Good', 'Premium', 'Ideal']) : reorder categories
 .map() :  eg df['var2'] = df['var1'].map({4: 'Four', 6: 'Six', 8: 'Eight'}) or df['var2'] = df['var1'].map(function) or df['var2'] = df['var1'].map(lambda x: "Efficient" if x>20 else "Wasteful")
 .apply(function, axis=1). : axis=0 is rows. axis=1 is column. 
+.map
 
 Others:
 plt.figure(figsize=( , ))
@@ -438,7 +439,6 @@ plt.hist( , bins=)
 np.array([ , , , ,...])
 v[v<40]:return values that fulfil condition
 pd.Series([ , , ..])  : creata panda series. not homogenous
-.map
 plt.subplot(,,) : decide number of plots will be drawn
 sorted(list) returns a list. Capital letter sorted first.
 list.sort() don’t return a list. It changes the list
@@ -469,17 +469,30 @@ sns.pairplot() #same as the one below
 pd.plotting.scatter_matrix(df[ , ])
 sns.distplot()
 sns.heatmap(df.corr)
-
-others:
 plt.style.use() #stylesheet
-for boxplot, "min" line is Q1-1.5*IQR, "max" line is Q3+1.5*IQR
 random.sample: is by python. no replace
 np.random.choice: is by np. got replace
 
+others:
+-for boxplot, "min" line is Q1-1.5*IQR, "max" line is Q3+1.5*IQR
 -text viz is also good to emphasise just one value
 -choose visual that bring across the message
 -have slides with just graph and no text describing them. explain the graph instead
--ideally use [] to refer to df columns instead of .
+-ideally use [] to refer to df columns instead of
+--------------------------------------------WEDNESDAY 15 APRIL -----------------------------------------------------
+-----------------------------------------EXPLORATORY DATA ANALYSIS--------------------------------------------------
+methods:
+.copy : to copy to a new variable instead of pointing to the same variable
+.dropna()
+.astype()
+sns.boxplot
+.dtypes()
+plt.figure()
+.isnull().sum()
+
+others:
+.() : is like a method whereas . is like an attribute
+
 ------------------------------------------------LINKS -----------------------------------------------------------
 Run code: https://repl.it/
 https://www.hackerrank.com/challenges/nested-list/problem
@@ -504,3 +517,4 @@ to read:
 https://jakevdp.github.io/PythonDataScienceHandbook/03.04-missing-values.html
 https://www3.ntu.edu.sg/home/ehchua/programming/webprogramming/Python4_DataAnalysis.html
 https://pandas.pydata.org/pandas-docs/stable/user_guide/visualization.html
+https://pandas.pydata.org/pandas-docs/stable/user_guide/merging.html
