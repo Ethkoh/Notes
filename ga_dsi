@@ -492,7 +492,26 @@ plt.figure()
 
 others:
 .() : is like a method whereas . is like an attribute
+--------------------------------------------THURSDAY 16 APRIL -----------------------------------------------------
+--------------------------------CONFIDENCE INTERVAL AND HYPOTHESIS TESTING-------------------------------------------
+methods:
+.var : variance
+.tolist
+pd.get_dummies() : make dummies from values
 
+to setup folder to push:
+1) create repo on github
+2) git init
+3) git add .                            : . is to add all files. to add specific type filename.
+4) git commit -m "comment"
+5) git remote add origin https://...
+6) git remote -v                        : is to check if file pointing correct
+7) git push -u origin master
+
+others:
+-np.NaN : null value
+-masking: df[(...==...) | (...==...)]
+-H0 is about the population. We draw sample to make inference about the population.
 ------------------------------------------------LINKS -----------------------------------------------------------
 Run code: https://repl.it/
 https://www.hackerrank.com/challenges/nested-list/problem
