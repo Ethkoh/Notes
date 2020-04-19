@@ -479,6 +479,7 @@ others:
 -choose visual that bring across the message
 -have slides with just graph and no text describing them. explain the graph instead
 -ideally use [] to refer to df columns instead of
+
 --------------------------------------------WEDNESDAY 15 APRIL -----------------------------------------------------
 -----------------------------------------EXPLORATORY DATA ANALYSIS--------------------------------------------------
 methods:
@@ -492,6 +493,7 @@ plt.figure()
 
 others:
 .() : is like a method whereas . is like an attribute
+
 --------------------------------------------THURSDAY 16 APRIL -----------------------------------------------------
 --------------------------------CONFIDENCE INTERVAL AND HYPOTHESIS TESTING-------------------------------------------
 methods:
@@ -512,6 +514,31 @@ others:
 -np.NaN : null value
 -masking: df[(...==...) | (...==...)]
 -H0 is about the population. We draw sample to make inference about the population.
+
+--------------------------------------------FRIDAY 17 APRIL -----------------------------------------------------
+--------------------------------ADVANCED TRANSFORMATION USING PANDAS---------------------------------------------
+df.values = array : df to array
+df.sum() : give column. aggregation over entire dataset
+  .mean() : aggregation over entire dataset
+pd.melt(df: id_var=[ , ]). :put df into 2 column. id_var is those column you don't want to melt
+melted.pivot():  melted=pd.melt(df)
+.reset_index()
+
+Others:
+-for , in enumerate(): : to access array
+- .map for series only. lambda takes each values
+
+Groupby:
+df.groupby().describe()
+            .sum() :aggregation with group + pandas. aggregation over sepcific variables
+            .mean() :aggregation with group + pandas. aggregation over sepcific variables
+            .agg({variable:[np.mean,np.median]}). :aggregation with group + pandas. aggregation over sepcific variables
+            
+After Groupby:
+group.get_group("groupname") : get subset of dataframe. access each group. 
+.groups : shows groups in groupby by index.
+for groupname,groupdf in category: : iterate over the groups.
+
 ------------------------------------------------LINKS -----------------------------------------------------------
 Run code: https://repl.it/
 https://www.hackerrank.com/challenges/nested-list/problem
@@ -541,3 +568,5 @@ https://pandas.pydata.org/pandas-docs/stable/user_guide/merging.html
 https://towardsdatascience.com/why-sample-variance-is-divided-by-n-1-89821b83ef6d
 http://www.nohsteachers.info/pcaso/ap_statistics/PDFs/DegreesOfFreedom.pdf
 https://blog.minitab.com/blog/statistics-and-quality-data-analysis/what-are-degrees-of-freedom-in-statistics
+https://www.edureka.co/blog/python-regex/
+https://www.analyticsvidhya.com/blog/2017/09/6-probability-distributions-data-science/
