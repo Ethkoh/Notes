@@ -537,9 +537,54 @@ df.groupby().describe()
 After Groupby:
 group.get_group("groupname") : get subset of dataframe. access each group. 
 .groups : shows groups in groupby by index.
-for groupname,groupdf in category: : iterate over the groups.
+for groupname,groupdf in category: : iterate over the groups
 
-------------------------------------------------LINKS -----------------------------------------------------------
+--------------------------------------------TUESDAY 21 APRIL -----------------------------------------------------
+--------------------------------------------LINEAR REGRESSION-----------------------------------------------------
+### Plot scatter
+# create a figure
+fig = plt.figure(figsize=(12,7))
+# get current axis of that figure
+ax = fig.gca()
+# plot a scatter plot on it with our data
+ax.scatter(x,y);
+#plot line of fit
+ax.plot(df['X'], df['Linear_Yhat'], color='k');
+#plot baseline 
+ax.plot((df['X'].min(),df['X'].max()),(np.mean(df['Y']),np.mean(df['Y'])),color='r');
+# iterate over predictions
+for _, row in df.iterrows():
+    plt.plot((row['X'], row['X']), (row['Y'], row['Linear_Yhat']), 'r-')
+    
+Methods:
+np.std(df['X'],ddof=1) : get sd
+r_xy = df.corr().loc['X','Y']   or np.corrcoef(df['X'],df['Y'])[1][0]. #get corr
+
+
+
+Measure of best fit:
+-minimize loss function: where the "loss" here is the sum of squared residuals or or residual sum of squares (RSS) or SSE (sum of squared errors).
+ RSS = sum{yi-yi_hat}^2
+ equations for the intercept and slope that minimize the RSS is: 𝛽̂_0_hat= 𝑦_bar − (𝛽̂1_hat * x_bar)
+                                                                 𝛽̂_1_hat= (𝑟_𝑋𝑌 * 𝑠𝑌 ) / 𝑠𝑋
+  such that:
+  𝑦_bar  : the sample mean of observed values  𝑌 
+  𝑥_bar : the sample mean of observed values  𝑋 
+  𝑠𝑌  : the sample standard deviation of observed values  𝑌 
+  𝑠𝑋  : the sample standard deviation of observed values  𝑋 
+  𝑟𝑋𝑌  : the sample Pearson correlation coefficient between observed  𝑋  and  𝑌
+                                                                 
+  np.sum(np.square(df['Y'] - df['Mean_yhat']))
+  
+- MSE
+  np.mean(np.square(df['Y']-df['Mean_yhat']))
+
+Others:
+-residual 𝜀𝑖 = yi-yi_hat
+-simple linear regression is an estimator of the expected value (mean) of 𝑌
+-y_hat = 𝛽̂_0_hat + 𝛽̂_1_hat 𝑋
+-predict with model: df['Linear_Yhat'] = beta_0 + beta_1 * df['X']
+------------------------------------------------LINKS ------------------------------------------------------------
 Run code: https://repl.it/
 https://www.hackerrank.com/challenges/nested-list/problem
 https://www.python.org/dev/peps/pep-0008/#tabs-or-spaces
@@ -548,7 +593,7 @@ https://docs.python.org/3/tutorial/errors.html
 https://campus.datacamp.com/courses/kaggle-r-tutorial-on-machine-learning/chapter-3-improving-your-predictions-through-random-forests?ex=1
 https://automatetheboringstuff.com/
 jupyter viewer for github: https://nbviewer.jupyter.org/
---------------------------------------------TO THINK -----------------------------------------------------
+--------------------------------------------TO THINK -------------------------------------------------------------
 Think what is enumerate again (practice odds_and_even)
 Diff between lambda and list comprehension
 Can use?  if roll_1 > roll_2 > roll_3
