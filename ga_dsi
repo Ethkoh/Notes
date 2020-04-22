@@ -687,7 +687,11 @@ y = target
 model = sm.OLS(y, X)
 model = model.fit()
 predictions = model.predict()
-
+--------------------------------------------WEDNESDAY 22 APRIL -----------------------------------------------------
+-------------------------------------------------------------------------------------------------
+deal with categorical data:
+-one hot encoding: .get_dummies() : convert string to multiple columns binary
+-ordinal : for ordered data eg good,very good. difference is 1unit. convert string to just 1 column values
 
 ------------------------------------------------LINKS ------------------------------------------------------------
 Run code: https://repl.it/
