@@ -559,12 +559,18 @@ for _, row in df.iterrows():
 Methods:
 np.std(df['X'],ddof=1) : get sd
 r_xy = df.corr().loc['X','Y']   or np.corrcoef(df['X'],df['Y'])[1][0]. #get corr
+df.loc[:,['var1','var2',..]] : get the columns you want
+.values : get values from df
+X.T : The transpose of a matrix is calculated by appending .T to the matrix
+np.dot(mat1, mat2): Matrices multipled in the formula should be done with the "dot product"
+np.linalg.inv(): Inverting a matrix is done using
 
 
 
-Measure of best fit:
--minimize loss function: where the "loss" here is the sum of squared residuals or or residual sum of squares (RSS) or SSE (sum of squared errors).
- RSS = sum{yi-yi_hat}^2
+Goal:
+minimize loss function: where the "loss" here is the sum of squared residuals or or residual sum of squares (RSS) or SSE (sum of squared errors).
+ RSS = sum{yi-yi_hat}^2  
+ code: np.sum(np.square(df['Y'] - df['Mean_yhat']))
  equations for the intercept and slope that minimize the RSS is: 𝛽̂_0_hat= 𝑦_bar − (𝛽̂1_hat * x_bar)
                                                                  𝛽̂_1_hat= (𝑟_𝑋𝑌 * 𝑠𝑌 ) / 𝑠𝑋
   such that:
@@ -573,17 +579,116 @@ Measure of best fit:
   𝑠𝑌  : the sample standard deviation of observed values  𝑌 
   𝑠𝑋  : the sample standard deviation of observed values  𝑋 
   𝑟𝑋𝑌  : the sample Pearson correlation coefficient between observed  𝑋  and  𝑌
-                                                                 
-  np.sum(np.square(df['Y'] - df['Mean_yhat']))
   
+  for multiple linear regression to minimize sse: 𝛽 = (𝑋𝑇 * 𝑋)^-1 * 𝑋𝑇* 𝑦
+  
+  to get betas: 
+  from sklearn.linear_model import LinearRegression
+  linreg = LinearRegression()
+  linreg.fit(X, price)
+  print(linreg.coef_)
+
+Common metrics for evaluating regression models:
 - MSE
   np.mean(np.square(df['Y']-df['Mean_yhat']))
+- root mean squared error (RMSE) is a standard measure of model performance. 
+  It is the square root of the mean of the sum of squared residuals:
+  RMSE= sqrt (1/𝑛 ∑𝑖(𝑦𝑖_hat−𝑦𝑖)^2)
+ The smaller the root mean squared error, the better your model fits the data.
+ code: from sklearn.metrics import mean_squared_error, r2_score
+       print(np.sqrt(mean_squared_error(target, predictions))) 
+-coefficient of determination  𝑅2 : 
+ 𝑅2=1−𝑆𝑆𝑟𝑒𝑔/𝑆𝑆𝑡𝑜𝑡 
+Where the regression sum of squares is the sum of squared residuals for our model:
+𝑆𝑆𝑟𝑒𝑔=∑𝑖(y_hat −𝑦i)2 
+And the total sum of squares is the sum of squared residuals for the baseline model. This is essentially the variance of our target.
+𝑆𝑆𝑡𝑜𝑡=∑𝑖(𝑦𝑖−𝑦_bar)2 
+𝑅^2  is the most common metric to evaluate a regression and is the default scoring measure in sklearn. When we cover classification models, the .score function instead defaults to accuracy.
+A negative  𝑅2  means that the regression model is performing worse than the baseline model. 
 
 Others:
--residual 𝜀𝑖 = yi-yi_hat
+-residual 𝜀𝑖 = yi-yi_hat. residuals = y-predictions
 -simple linear regression is an estimator of the expected value (mean) of 𝑌
 -y_hat = 𝛽̂_0_hat + 𝛽̂_1_hat 𝑋
 -predict with model: df['Linear_Yhat'] = beta_0 + beta_1 * df['X']
+
+-The simple linear regression estimators described above have really nice properties:
+They are unbiased. (a.k.a. the statistics will on average equal the true parameter value)
+Among all unbiased estimators, the estimators above have the smallest possible variance.
+They are consistent. (a.k.a. as your sample size n goes to infinity, the statistic converges to the true parameter value)
+However, these are just mathematical properties. They do not take into account real-world situations. F
+When building a model, make sure your model makes sense! You are responsible for the interpretation of the model. All the computer will do is optimize. 
+
+-There are some critical assumptions involved in simple linear regression that you must be aware of:
+Linearity: Y and X must have an approximately linear relationship.
+Independence: Errors (residuals) 𝜀𝑖 and 𝜀𝑗 must be independent of one another for any 𝑖≠𝑗.
+Normality: The errors (residuals) follow a Normal distribution with mean 0.
+Equality of Variances (Homoscedasticity of errors): The errors (residuals) should have a roughly consistent pattern, regardless of the value of X. (There should be no discernable relationship between X and the residuals.)
+The mnemonic LINE is a useful way to remember these four assumptions.
+If all four assumptions are true, the following holds: 𝑌𝑖∼𝑁(𝛽0+𝛽1𝑋𝑖,𝜎)
+
+-sklearn is the machine learning package
+statsmodels is the statistics package
+Though the terms have immense overlap, machine learning tends to be more prediction focused while statistics is more inference focused.
+
+Steps for linear regression using sklearn:
+1) #from sklearn import linear_model
+from sklearn import linear_model
+from sklearn.metrics import mean_squared_error
+2) # initiate model
+model = LinearRegression()
+3) # fit the model
+X = df[['var1']]
+y = target
+model.fit(X,y)
+predictions  =  model.predict(X)
+4) score        =  model.score(X, y)  #a class method / function that returns the coefficient of determination R^2 of the prediction (for regression models).
+# Plot the model
+plt.figure(figsize=(12,7))
+plt.scatter(predictions,y,c='r')
+plt.xlabel('....')
+plt.ylabel('....');
+#get attributes and interpret them
+model.coef_
+model.intercept_
+#evaluate:
+from sklearn.metrics import mean_squared_error, r2_score
+print(np.sqrt(mean_squared_error(target, predictions))) 
+print(r2_score(target, predictions)) #model.score also can
+
+
+fit MLR example:
+lm = linear_model.LinearRegression()
+# two predictors
+X = df[['carat','table']].values
+y = target
+model = lm.fit(X, y)
+predictions = model.predict(X)
+score = model.score(X, y)
+# Plot the model
+plt.figure(figsize=(8,8))
+plt.scatter(predictions, y, s=30, c='r', marker='+', zorder=10)
+plt.xlabel("Predicted Values from CARAT + TABLE - $\hat{y}$")
+plt.ylabel("Actual Values PRICE - y")
+plt.show()
+print("score: ", score)
+
+Fitting a linear regression using statsmodels:
+NOTE:  The statsmodels process is slightly different:
+We manually make a new column for the intercept in our design matrix  𝑋 .
+The  𝑦  target variable comes before the  𝑋  predictor
+The data is provided during the instantiation of the model object, then fit is called without the data.
+code:
+import statsmodels.api as sm
+X = df[[['carat','table']].values
+# manually add the intercept column:
+X = sm.add_constant(X)
+y = target
+model = sm.OLS(y, X)
+model = model.fit()
+predictions = model.predict()
+
+
 ------------------------------------------------LINKS ------------------------------------------------------------
 Run code: https://repl.it/
 https://www.hackerrank.com/challenges/nested-list/problem
@@ -615,3 +720,4 @@ http://www.nohsteachers.info/pcaso/ap_statistics/PDFs/DegreesOfFreedom.pdf
 https://blog.minitab.com/blog/statistics-and-quality-data-analysis/what-are-degrees-of-freedom-in-statistics
 https://www.edureka.co/blog/python-regex/
 https://www.analyticsvidhya.com/blog/2017/09/6-probability-distributions-data-science/
+a lot link in 3.01 ipy 
