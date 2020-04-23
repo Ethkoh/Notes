@@ -693,6 +693,25 @@ deal with categorical data:
 -one hot encoding: .get_dummies() : convert string to multiple columns binary
 -ordinal : for ordered data eg good,very good. difference is 1unit. convert string to just 1 column values
 
+classification: target is categorical
+regression: target is numerical
+supervisised learning: with output specified
+
+bias = difference between prediction and true relationship between the variables
+variance = ability to replicate the results with similar sum of squared errors for future datasets. high var dont perform well for data that has not seen.
+can be caused by variables with high collinearity
+how to tell overfit: var will increase with new dataset.
+solutions: regularization, bagging and boosting
+--------------------------------------------THURSDAY 23 APRIL -----------------------------------------------------
+------------------------------------FEATURE ENGINEERING AND REGULARIZATION-----------------------------------------
+Others:
+-features need to be standardized in regularized model
+-Elastic net combines ridge and lasso penalties
+-Ridge regression: increase lambda, target less sensitive to predictors
+-Ridge is square of coefficient but lasso is absolute
+-ridge can only make coefficient small but lasso can make coefficiemt zero (feature selection technique)
+-overfit: dont generalize well,training the noise,low bias but high var
+
 ------------------------------------------------LINKS ------------------------------------------------------------
 Run code: https://repl.it/
 https://www.hackerrank.com/challenges/nested-list/problem
@@ -725,3 +744,4 @@ https://blog.minitab.com/blog/statistics-and-quality-data-analysis/what-are-degr
 https://www.edureka.co/blog/python-regex/
 https://www.analyticsvidhya.com/blog/2017/09/6-probability-distributions-data-science/
 a lot link in 3.01 ipy 
+https://www.cs.cornell.edu/courses/cs4780/2018fa/lectures/lecturenote12.html
