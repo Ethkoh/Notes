@@ -712,6 +712,11 @@ Others:
 -ridge can only make coefficient small but lasso can make coefficiemt zero (feature selection technique)
 -overfit: dont generalize well,training the noise,low bias but high var
 
+## select all the columns that are not the target
+nc = [x for x in df.columns if x != target]
+
+## Standardize to dataframe
+df[nc] = (df[nc]-df[nc].mean())/ df[nc].std()
 ------------------------------------------------LINKS ------------------------------------------------------------
 Run code: https://repl.it/
 https://www.hackerrank.com/challenges/nested-list/problem
