@@ -533,6 +533,7 @@ df.groupby().describe()
             .sum() :aggregation with group + pandas. aggregation over sepcific variables
             .mean() :aggregation with group + pandas. aggregation over sepcific variables
             .agg({variable:[np.mean,np.median]}). :aggregation with group + pandas. aggregation over sepcific variables
+            .count() : if any group specifically high, may not be good to use this variable
             
 After Groupby:
 group.get_group("groupname") : get subset of dataframe. access each group. 
@@ -717,6 +718,60 @@ nc = [x for x in df.columns if x != target]
 
 ## Standardize to dataframe
 df[nc] = (df[nc]-df[nc].mean())/ df[nc].std()
+
+standardization only to x. no need to y.
+--------------------------------------------FRIDAY 23 APRIL -----------------------------------------------------
+-------------------------------------------MISSING DATA IMPUTATION-----------------------------------------------
+correct term: data science with missing data not 'handle missing data'
+
+3 types of missing data:
+-Missing completely at random (MCAR)
+-Missing at random (MAR)
+-Not missing at random (NMAR)
+
+Within the 3 types:
+-item nonresponse: some values not observed
+-unit nonresponse: a value not observed
+
+3 methods to solve for missing data:
+-avoid it
+-ignore it
+-accoount for it
+
+to avoid unit nonresponse:
+-change data collection method
+-avoid burden respondent
+-improve accessibility
+-change timing of survey
+
+to account for unit nonresponse:
+-weight class distribution. reweight all respondents by true proportion/proportion of response
+
+avoid item nonresponse:
+-minimize length of questionnaire
+-design questionnaire with respondent in mind
+
+ignore item nonresponse:
+-complete case analysis: drops obs with any missing value. cons: info loss
+-avaialble case analysis: drops no obs calculate results based on available data. cons: results may be abnormal. egg corr >1
+
+account for item nonresponse:
+-deductive imputation
+-inferential imputation (fill na with distribution): mean/median/model, regression, stocashtic (MAR data), hot-deck or proper imputation
+-pattern submodel approach
+
+to deduce MCAR,MAR or NMAR:
+-Little'test for MCAR vs MAR. no empirical test for NMAR
+-partition data for missing and non-missing and compare
+-think about why data is missing and how it affects the study.
+
+always think about data quality
+
+if little data missing: fill them
+if many, drop them
+if some data missing: common approach proper imputation, stochastic imputation, pattern submodel
+
+to interpret categorical or integer: boxplot or compare the means if drastically different. use groupby
 ------------------------------------------------LINKS ------------------------------------------------------------
 Run code: https://repl.it/
 https://www.hackerrank.com/challenges/nested-list/problem
