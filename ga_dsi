@@ -779,6 +779,17 @@ unsupervised learning: no target y.
 supervised learning:
 1) regression: uncountable number of outcomes y
 2) classfication: countable number of outcomes y. binary/multiclass classification. eg logisitic regression
+
+k-nearest neighbors:
+-non parametric model: no coefficients for the different predictors and our estimate is not represented by a formula of our predictor variables
+                       and no assumptions about the distribution for our data
+                       
+                       
+hyper parameters: parameters you choose for your model. eg for KNN is n-neighbors
+
+logistic regression for multiclass is one vs all but there are ways for it to give probability like knn
+knn vs logisitc regression: logisitic regression is parametric model. can do inference on the predictors influence on target. knn is more for prediction
+
 ------------------------------------------------LINKS ------------------------------------------------------------
 Run code: https://repl.it/
 https://www.hackerrank.com/challenges/nested-list/problem
