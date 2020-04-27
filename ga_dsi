@@ -778,7 +778,7 @@ to interpret categorical or integer: boxplot or compare the means if drastically
 unsupervised learning: no target y. 
 supervised learning:
 1) regression: uncountable number of outcomes y
-2) classfication: countable number of outcomes y
+2) classfication: countable number of outcomes y. binary/multiclass classification. eg logisitic regression
 ------------------------------------------------LINKS ------------------------------------------------------------
 Run code: https://repl.it/
 https://www.hackerrank.com/challenges/nested-list/problem
