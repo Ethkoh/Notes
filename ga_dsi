@@ -776,6 +776,9 @@ to interpret categorical or integer: boxplot or compare the means if drastically
 --------------------------------------------MONDAY 27 APRIL -----------------------------------------------------
 ---------------------------CLASSIFICATION, LOGISTIC REGRSSION, K-NEAREST NEIGHBORS-------------------------------
 unsupervised learning: no target y
+supervised learning:
+classification: logisitic regression, KNN classficiation, generalized model
+regression: linear regression,KNN regression
 ------------------------------------------------LINKS ------------------------------------------------------------
 Run code: https://repl.it/
 https://www.hackerrank.com/challenges/nested-list/problem
