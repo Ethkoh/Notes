@@ -514,6 +514,7 @@ others:
 -np.NaN : null value
 -masking: df[(...==...) | (...==...)]
 -H0 is about the population. We draw sample to make inference about the population.
+-standard deviation of sampling distribution = standard error
 
 --------------------------------------------FRIDAY 17 APRIL -----------------------------------------------------
 --------------------------------ADVANCED TRANSFORMATION USING PANDAS---------------------------------------------
@@ -772,6 +773,9 @@ if many, drop them
 if some data missing: common approach proper imputation, stochastic imputation, pattern submodel
 
 to interpret categorical or integer: boxplot or compare the means if drastically different. use groupby
+--------------------------------------------MONDAY 27 APRIL -----------------------------------------------------
+---------------------------CLASSIFICATION, LOGISTIC REGRSSION, K-NEAREST NEIGHBORS-------------------------------
+
 ------------------------------------------------LINKS ------------------------------------------------------------
 Run code: https://repl.it/
 https://www.hackerrank.com/challenges/nested-list/problem
