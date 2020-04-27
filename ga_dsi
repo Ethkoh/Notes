@@ -775,10 +775,10 @@ if some data missing: common approach proper imputation, stochastic imputation, 
 to interpret categorical or integer: boxplot or compare the means if drastically different. use groupby
 --------------------------------------------MONDAY 27 APRIL -----------------------------------------------------
 ---------------------------CLASSIFICATION, LOGISTIC REGRSSION, K-NEAREST NEIGHBORS-------------------------------
-unsupervised learning: no target y
+unsupervised learning: no target y. 
 supervised learning:
-classification: logisitic regression, KNN classficiation, generalized model
-regression: linear regression,KNN regression
+1) regression: uncountable number of outcomes y
+2) classfication: countable number of outcomes y
 ------------------------------------------------LINKS ------------------------------------------------------------
 Run code: https://repl.it/
 https://www.hackerrank.com/challenges/nested-list/problem
