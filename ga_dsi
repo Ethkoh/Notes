@@ -695,9 +695,9 @@ deal with categorical data:
 -one hot encoding: .get_dummies() : convert string to multiple columns binary
 -ordinal : for ordered data eg good,very good. difference is 1unit. convert string to just 1 column values
 
-classification: target is categorical
-regression: target is numerical
-supervisised learning: with output specified
+supervised learning: with target y given
+1) classification: target is categorical/discrete. x can be cts or discrete
+2) regression: target is cts. x can be cts or discrete
 
 bias = difference between prediction and true relationship between the variables
 variance = ability to replicate the results with similar sum of squared errors for future datasets. high var dont perform well for data that has not seen.
@@ -775,7 +775,7 @@ if some data missing: common approach proper imputation, stochastic imputation, 
 to interpret categorical or integer: boxplot or compare the means if drastically different. use groupby
 --------------------------------------------MONDAY 27 APRIL -----------------------------------------------------
 ---------------------------CLASSIFICATION, LOGISTIC REGRSSION, K-NEAREST NEIGHBORS-------------------------------
-
+unsupervised learning: no target y
 ------------------------------------------------LINKS ------------------------------------------------------------
 Run code: https://repl.it/
 https://www.hackerrank.com/challenges/nested-list/problem
