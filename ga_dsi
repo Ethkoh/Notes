@@ -807,6 +807,9 @@ TP: predicted fraud and is actual fraud (correct)
 FP: predicted fraud but not actually fraud
 FN: predicted ont fraud but actually is fraud
 TN: predicted not fraud and its not fraud (correct)
+
+type 1 error: FP
+type 2 error: FN
 ------------------------------------------------LINKS ------------------------------------------------------------
 Run code: https://repl.it/
 https://www.hackerrank.com/challenges/nested-list/problem
