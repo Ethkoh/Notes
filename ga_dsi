@@ -794,8 +794,19 @@ knn vs logisitc regression: logisitic regression is parametric model. can do inf
 -Use training data to imputate missing data for test data
 -remember to ensure new features values in testing is also in training data in order for the model to understand. use techniques like intersection or what to check
 -besides lasso selection, got forward stepwise selection or backward stepwise selection also
+-for categorical, its either correct fit or wrong. so use rmse etc wont work. 
+accuracy = all correct / (all predictions) = TP+TN / (TP+TN+FP+FN)
+misclassfication = 1- accuracy. 
+sensitivity or True positive rate or recall = TP/ (all positives) = TP/ (TP+FN)
+specificity or True negative rate= TN/ (all negatives) = TN /(TN+FP)
+precision or positive predictive value= TP/ predicted positive = TP/ (TP+FP)
+to calculate, make confusion matrix of actual positive and actual negative, and predicted positive and predicted negative
+F1 score = predicted+recall
 
-
+TP: predicted fraud and is actual fraud (correct)
+FP: predicted fraud but not actually fraud
+FN: predicted ont fraud but actually is fraud
+TN: predicted not fraud and its not fraud (correct)
 ------------------------------------------------LINKS ------------------------------------------------------------
 Run code: https://repl.it/
 https://www.hackerrank.com/challenges/nested-list/problem
