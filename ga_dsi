@@ -812,7 +812,7 @@ type 1 error: FP
 type 2 error: FN
 
 variance can look at cross_val_score
-bias can look at r2 or accuracy from score
+bias can look at r2 or accuracy from score. from score also see if got drop. if yes, suggest overfit. do knn.score(X_train_scaled,y_train)  and knn.score(X_test_scaled,y_test) 
 ------------------------------------------------LINKS ------------------------------------------------------------
 Run code: https://repl.it/
 https://www.hackerrank.com/challenges/nested-list/problem
