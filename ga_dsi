@@ -789,6 +789,12 @@ hyper parameters: parameters you choose for your model. eg for KNN is n-neighbor
 
 logistic regression for multiclass is one vs all but there are ways for it to give probability like knn
 knn vs logisitc regression: logisitic regression is parametric model. can do inference on the predictors influence on target. knn is more for prediction
+--------------------------------------------TUESDAY 28 APRIL -----------------------------------------------------
+------------------------------------------CLASSIFICATION METRICS--------------------------------------------------
+-Use training data to imputate missing data for test data
+-remember to ensure new features values in testing is also in training data in order for the model to understand. use techniques like intersection or what to check
+-besides lasso selection, got forward stepwise selection or backward stepwise selection also
+
 
 ------------------------------------------------LINKS ------------------------------------------------------------
 Run code: https://repl.it/
