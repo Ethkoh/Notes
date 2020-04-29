@@ -829,7 +829,7 @@ bias can look at r2 or accuracy from score. from score also see if got drop. if 
 --------------------------------------------WEDNESDAY 29 APRIL -----------------------------------------------------
 --------------------------------------HYPERPARAMETER TUNING AND PIPELINES-------------------------------------------
 Logistic=logit_inv
-
+%%time: show time computation
 ------------------------------------------------LINKS ------------------------------------------------------------
 Run code: https://repl.it/
 https://www.hackerrank.com/challenges/nested-list/problem
