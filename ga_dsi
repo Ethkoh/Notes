@@ -793,6 +793,15 @@ hyper parameters: parameters you choose for your model. eg for KNN is n-neighbor
 
 logistic regression for multiclass is one vs all but there are ways for it to give probability like knn
 knn vs logisitc regression: logisitic regression is parametric model. can do inference on the predictors influence on target. knn is more for prediction
+
+Assumptions for logistic regression:
+ Linearity: The independent variables X1...Xm are linearly related to the logit of the probability
+that Y = 1 or, equivalently, the log-odds that Y = 1.
+ Independence of Errors: The observations y1...yn are independent of one another.
+ Distribution of Errors: Each observation yi follows a Bernoulli distribution with probability of
+success pi.
+ Independence of Independent Variables: The independent variables X1...Xm are independent
+of one another.
 --------------------------------------------TUESDAY 28 APRIL -----------------------------------------------------
 ------------------------------------------CLASSIFICATION METRICS--------------------------------------------------
 -Use training data to imputate missing data for test data
@@ -817,6 +826,10 @@ type 2 error: FN
 
 variance can look at cross_val_score
 bias can look at r2 or accuracy from score. from score also see if got drop. if yes, suggest overfit. do knn.score(X_train_scaled,y_train)  and knn.score(X_test_scaled,y_test) 
+--------------------------------------------WEDNESDAY 29 APRIL -----------------------------------------------------
+--------------------------------------HYPERPARAMETER TUNING AND PIPELINES-------------------------------------------
+Logistic=logit_inv
+
 ------------------------------------------------LINKS ------------------------------------------------------------
 Run code: https://repl.it/
 https://www.hackerrank.com/challenges/nested-list/problem
