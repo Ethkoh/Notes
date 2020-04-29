@@ -773,6 +773,10 @@ if many, drop them
 if some data missing: common approach proper imputation, stochastic imputation, pattern submodel
 
 to interpret categorical or integer: boxplot or compare the means if drastically different. use groupby
+
+Many missing data approaches simplify the problem by throwing away data. We discuss in this section how these approaches may lead to biased estimates (one of
+these methods tries to directly address this issue). In addition, throwing away data can lead to estimates with larger standard errors due to reduced sample size.
+http://www.stat.columbia.edu/~gelman/arm/missing.pdf
 --------------------------------------------MONDAY 27 APRIL -----------------------------------------------------
 ---------------------------CLASSIFICATION, LOGISTIC REGRSSION, K-NEAREST NEIGHBORS-------------------------------
 unsupervised learning: no target y. 
