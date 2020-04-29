@@ -830,6 +830,17 @@ bias can look at r2 or accuracy from score. from score also see if got drop. if 
 --------------------------------------HYPERPARAMETER TUNING AND PIPELINES-------------------------------------------
 Logistic=logit_inv
 %%time: show time computation
+
+sklearn has two types of classes: estimators and transformers.
+Estimators are essentially models.
+Estimators have a fit and predict method.
+Transformers are not models. They transform your data using similar syntax to estimators. 
+Instead of fit and predict, they have fit and transform methods. In fact, since you fit and transform together so often, they have a shortcut: .fit_transform
+We've seen a few transformers, including StandardScaler() and PolynomialFeatures(). There's also OneHotEncoder() for dummy encoding and LabelEncoder() for factorizing variables. Later we'll see PCA(), which is also a transformer.
+Transformers may have hyperparameters as well - but we can't GridSearch over a transformer! There's no way to get an accuracy (or other) score from just a transformer, since a transformer can't predict!
+
+Statistical parameters are quantities that a model can learn or estimate. Examples include  𝛽0  and  𝛽1  in a linear model.
+Hyperparameters are quantities our model cannot learn, but affect the fit of our model. Examples include  𝑘  in  𝑘 -nearest neighbors and  𝑎𝑙𝑝ℎ𝑎  in regularization.
 ------------------------------------------------LINKS ------------------------------------------------------------
 Run code: https://repl.it/
 https://www.hackerrank.com/challenges/nested-list/problem
