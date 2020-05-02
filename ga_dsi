@@ -883,6 +883,11 @@ https://thispointer.com/python-pandas-how-to-drop-rows-in-dataframe-by-condition
 
 
 ---------------------------------------------SELF RESEARCH---------------------------------------------------------
-# to plot predictors
+# plot subplots using pandas lib
 for idx, feature in enumerate(df.columns[:-1]):
     df.plot(feature, "cnt", ... , ax=axes.flatten()[idx])
+    
+
+# plot subplots using pandas lib
+df[:10].plot(kind = 'hist',subplots=True, layout = (3,4) ,legend=False,title = ['Ladder','SD of Ladder','Positive affect','Negative affect','Social support','Freedom','Corruption','Generosity','Log_GDP_per_capita',                                                           
+'Health_Life_expect'])   
