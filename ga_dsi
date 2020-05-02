@@ -880,3 +880,9 @@ https://www.data-blogger.com/2017/11/15/python-matplotlib-pyplot-a-perfect-combi
 https://towardsdatascience.com/the-bias-variance-trade-off-explanation-and-demo-8f462f8d6326
 https://readthedocs.org/projects/patsy/downloads/pdf/latest/
 https://thispointer.com/python-pandas-how-to-drop-rows-in-dataframe-by-conditions-on-column-values/
+
+
+---------------------------------------------SELF RESEARCH---------------------------------------------------------
+# to plot predictors
+for idx, feature in enumerate(df.columns[:-1]):
+    df.plot(feature, "cnt", ... , ax=axes.flatten()[idx])
