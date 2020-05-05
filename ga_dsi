@@ -854,7 +854,7 @@ Hyperparameters are quantities our model cannot learn, but affect the fit of our
 
 beautiful soup and xpath do same thing. just automation usually use xpath
 
-regular expression : search large data to find pattern
+regular expression : search large data to find pattern. filter out data in certain way
 https://regex101.com/ to practice
 
 usually use re.search() to get regex correct before applying to re.findall
