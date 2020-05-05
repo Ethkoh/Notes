@@ -841,6 +841,25 @@ Transformers may have hyperparameters as well - but we can't GridSearch over a t
 
 Statistical parameters are quantities that a model can learn or estimate. Examples include  𝛽0  and  𝛽1  in a linear model.
 Hyperparameters are quantities our model cannot learn, but affect the fit of our model. Examples include  𝑘  in  𝑘 -nearest neighbors and  𝑎𝑙𝑝ℎ𝑎  in regularization.
+--------------------------------------------TUESDAY 5 MAY-----------------------------------------------------
+--------------------------------------WEB SCRAPING & REGEX----------------------------------------------------
+# To install libraries
+# Beautiful Soup:
+> conda install beautifulsoup4
+> conda install lxml
+
+# Or if conda doesn't work:
+> pip install beautifulsoup4
+> pip install lxml
+
+beautiful soup and xpath do same thing. just automation usually use xpath
+
+regular expression : search large data to find pattern
+https://regex101.com/ to practice
+
+usually use re.search() to get regex correct before applying to re.findall
+
+Selenium also another automation scrapping tool like scrapy
 ------------------------------------------------LINKS ------------------------------------------------------------
 Run code: https://repl.it/
 https://www.hackerrank.com/challenges/nested-list/problem
