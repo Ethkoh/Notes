@@ -690,7 +690,7 @@ model = sm.OLS(y, X)
 model = model.fit()
 predictions = model.predict()
 --------------------------------------------WEDNESDAY 22 APRIL -----------------------------------------------------
--------------------------------------------------------------------------------------------------
+-----------------------------------BIAS-VARIANCE TRADEOFF & TRAIN-TEST-SPLIT----------------------------------------
 deal with categorical data:
 -one hot encoding: .get_dummies() : convert string to multiple columns binary
 -ordinal : for ordered data eg good,very good. difference is 1unit. convert string to just 1 column values
@@ -860,6 +860,40 @@ https://regex101.com/ to practice
 usually use re.search() to get regex correct before applying to re.findall
 
 Selenium also another automation scrapping tool like scrapy
+
+scrapy:
+1)  Create a new Scrapy project. follow step 1 in notes
+2) in item.py file, follow step 2 in notes
+3) Let's write our first file, called craigslist_spider.py using sumblime, and put it in our /spiders directory.
+'''
+import scrapy
+from craigslist.items import CraigslistItem
+from scrapy.selector import Selector
+
+class CraigslistSpider(scrapy.Spider):
+    name = "craigslist"
+    allowed_domains = ["craigslist.org"]
+    start_urls = [
+        "https://atlanta.craigslist.org/search/cto"
+    ]
+    
+def parse(self, response): # Define parse() function. 
+    items = [] # Element for storing scraped information.
+    hxs = Selector(response) # Selector allows us to grab HTML from the response (target website).
+    for sel in hxs.xpath("//li[@class='result-row']/p"): # Because we're using XPath language, we need to specify that the paragraphs we're trying to isolate are expressed via XPath.
+        item = CraigslistItem()
+        item['title'] =  sel.xpath("a/text()").extract() # Title text from the 'a' element. 
+        item['link']  =  sel.xpath("a/@href").extract() # Href/URL from the 'a' element. 
+        item['price'] =  sel.xpath('span/span[@class="result-price"]/text()').extract()[0]
+                # Price from the result price class nested in a few span elements.
+        items.append(item)
+    return items # Shows scraped information as terminal output.
+ '''
+ put the above in the file. remember check the spacing
+ 
+ 4) run this in terminal at the craigslist/craigslist directory to generate the csv file "item.csv": 
+    scrapy crawl craigslist -o items.csv -t csv
+    
 ------------------------------------------------LINKS ------------------------------------------------------------
 Run code: https://repl.it/
 https://www.hackerrank.com/challenges/nested-list/problem
