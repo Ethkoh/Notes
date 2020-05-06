@@ -841,6 +841,22 @@ Transformers may have hyperparameters as well - but we can't GridSearch over a t
 
 Statistical parameters are quantities that a model can learn or estimate. Examples include  𝛽0  and  𝛽1  in a linear model.
 Hyperparameters are quantities our model cannot learn, but affect the fit of our model. Examples include  𝑘  in  𝑘 -nearest neighbors and  𝑎𝑙𝑝ℎ𝑎  in regularization.
+---------------------------------------------MONDAY 4 MAY-----------------------------------------------------
+-----------------------------------------------PROJECT 2------------------------------------------------------
+kaggle is unique where test file given with no target.
+since train file enough data, can do train-validation split on the train.csv and perform workflow as per normal
+option 2 is to run workflow on the entire train data set. ideally just do train-val split.
+
+ending comparing .score is compare for train vs valid set to see if model got overfit.
+can use pipeline.score so no need do standardscaler separately
+
+cross_val_score is do only for training set before .score to get estimate.
+cross_val_score internally got do train_test_split. pipeline_gridsearch(X_train,y_train).score = cv(X,y)
+can just cross_val_score(pipeline,train)
+
+gridsearch is to choose hyperparameter. do cross_val_score after that. then final score.
+
+parameter model can got calculation. fit is for X_train. wont affect is send X_test to pipeline cause once fit, it will only transform for scaler
 --------------------------------------------TUESDAY 5 MAY-----------------------------------------------------
 --------------------------------------WEB SCRAPING & REGEX----------------------------------------------------
 # To install libraries
