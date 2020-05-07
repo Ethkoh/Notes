@@ -841,6 +841,14 @@ Transformers may have hyperparameters as well - but we can't GridSearch over a t
 
 Statistical parameters are quantities that a model can learn or estimate. Examples include  𝛽0  and  𝛽1  in a linear model.
 Hyperparameters are quantities our model cannot learn, but affect the fit of our model. Examples include  𝑘  in  𝑘 -nearest neighbors and  𝑎𝑙𝑝ℎ𝑎  in regularization.
+---------------------------------------------THURSDAY 30 APRIL -----------------------------------------------------
+----------------------------------------------------API-------------------------------------------------------------
+curl www.example.com in terminal to open url
+
+json look like python dictionary 
+json file inside json validator (can google). it will convert to nicer dictionary-like format
+
+read api documentation before calling to know how to call properly
 ---------------------------------------------MONDAY 4 MAY-----------------------------------------------------
 -----------------------------------------------PROJECT 2------------------------------------------------------
 kaggle is unique where test file given with no target.
