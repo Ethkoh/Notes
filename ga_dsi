@@ -917,7 +917,19 @@ def parse(self, response): # Define parse() function.
  
  4) run this in terminal at the craigslist/craigslist directory to generate the csv file "item.csv": 
     scrapy crawl craigslist -o items.csv -t csv
-    
+--------------------------------------------FRIDAY 8 MAY-----------------------------------------------------
+--------------------------------------------NAIVE BAYES------------------------------------------------------
+https://sqlzoo.net/wiki/SELECT_basics
+
+P(A|B)P(B)=P(B|A)P(A)
+
+naive bayes model to use:
+-bernoulli: feature set X are binary
+-multinomial: feature set X are integers
+-gaussian: feature set X is normally distributed
+
+naive bayes also a parametric model. coefficient of nb model is useful
+
 ------------------------------------------------LINKS ------------------------------------------------------------
 Run code: https://repl.it/
 https://www.hackerrank.com/challenges/nested-list/problem
@@ -957,7 +969,7 @@ https://www.data-blogger.com/2017/11/15/python-matplotlib-pyplot-a-perfect-combi
 https://towardsdatascience.com/the-bias-variance-trade-off-explanation-and-demo-8f462f8d6326
 https://readthedocs.org/projects/patsy/downloads/pdf/latest/
 https://thispointer.com/python-pandas-how-to-drop-rows-in-dataframe-by-conditions-on-column-values/
-
+bayesian vs frequentist
 
 ---------------------------------------------SELF RESEARCH---------------------------------------------------------
 # plot subplots using pandas lib
