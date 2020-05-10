@@ -456,6 +456,7 @@ df.iloc[ , ]
 
 panda gives ordinal instead of simply categorical data
 map is for dataseries. apply for dataframe. map and apply same if apply for dataseries
+
 --------------------------------------------TUESDAY 14 APRIL -----------------------------------------------------
 --------------------------------------------DATA VISUALISATION------------------------------------------------------
 method:
@@ -689,6 +690,7 @@ y = target
 model = sm.OLS(y, X)
 model = model.fit()
 predictions = model.predict()
+
 --------------------------------------------WEDNESDAY 22 APRIL -----------------------------------------------------
 -----------------------------------BIAS-VARIANCE TRADEOFF & TRAIN-TEST-SPLIT----------------------------------------
 deal with categorical data:
@@ -704,6 +706,8 @@ variance = ability to replicate the results with similar sum of squared errors f
 can be caused by variables with high collinearity
 how to tell overfit: var will increase with new dataset.
 solutions: regularization, bagging and boosting
+
+train-test-split if unbalanced proportion for target, rmbr to stratify
 --------------------------------------------THURSDAY 23 APRIL -----------------------------------------------------
 ------------------------------------FEATURE ENGINEERING AND REGULARIZATION-----------------------------------------
 Others:
@@ -721,6 +725,7 @@ nc = [x for x in df.columns if x != target]
 df[nc] = (df[nc]-df[nc].mean())/ df[nc].std()
 
 standardization only to x. no need to y.
+
 --------------------------------------------FRIDAY 23 APRIL -----------------------------------------------------
 -------------------------------------------MISSING DATA IMPUTATION-----------------------------------------------
 correct term: data science with missing data not 'handle missing data'
@@ -802,6 +807,7 @@ that Y = 1 or, equivalently, the log-odds that Y = 1.
 success pi.
  Independence of Independent Variables: The independent variables X1...Xm are independent
 of one another.
+
 --------------------------------------------TUESDAY 28 APRIL -----------------------------------------------------
 ------------------------------------------CLASSIFICATION METRICS--------------------------------------------------
 -Use training data to imputate missing data for test data
@@ -826,6 +832,7 @@ type 2 error: FN
 
 variance can look at cross_val_score
 bias can look at r2 or accuracy from score. from score also see if got drop. if yes, suggest overfit. do knn.score(X_train_scaled,y_train)  and knn.score(X_test_scaled,y_test) 
+
 --------------------------------------------WEDNESDAY 29 APRIL -----------------------------------------------------
 --------------------------------------HYPERPARAMETER TUNING AND PIPELINES-------------------------------------------
 Logistic=logit_inv
@@ -865,6 +872,7 @@ can just cross_val_score(pipeline,train)
 gridsearch is to choose hyperparameter. do cross_val_score after that. then final score.
 
 parameter model can got calculation. fit is for X_train. wont affect is send X_test to pipeline cause once fit, it will only transform for scaler
+
 --------------------------------------------TUESDAY 5 MAY-----------------------------------------------------
 --------------------------------------WEB SCRAPING & REGEX----------------------------------------------------
 # To install libraries
@@ -917,16 +925,64 @@ def parse(self, response): # Define parse() function.
  
  4) run this in terminal at the craigslist/craigslist directory to generate the csv file "item.csv": 
     scrapy crawl craigslist -o items.csv -t csv
---------------------------------------------FRIDAY 8 MAY-----------------------------------------------------
---------------------------------------------NAIVE BAYES------------------------------------------------------
-https://sqlzoo.net/wiki/SELECT_basics
 
+--------------------------------------------WEDNESDAY 6 MAY-----------------------------------------------------
+------------------------------------------NATURAL LANGUAGE PROCESSING-----------------------------------------------------
+Pre-Processing:
+-Tokenizing: chop words using regex (split manually also can. in nlp 1)
+-Regular Expressions: regex
+-Lemmatizing/Stemming: converte to root word. stemming more crude than lemmatizing
+-Cleaning (i.e. removing HTML) (use beautiful soup)
+
+NLP convert unstructed text data to structured text data. 
+Sentiment analysis is an area of natural language processing in which we seek to classify text as having positive or negative emotion.
+
+In Python, searching a set is much faster than searching a list, so convert the stopwords to a set.
+
+convert text to numerical: countvectorizer
+(can add things like len of review etc not just countvectorizer method to complement in the model)
+
+bag of words: transformation tool such as countvectorizer or tfidvectorizer. convert text to data
+
+A collection of text is a document. You can think of a document as a row in your feature matrix.
+A collection of documents is a corpus. You can think of your full dataframe as the corpus.
+
+nltk vs sklearn stopwords are different. 
+
+dont want number of features to be more than number of obs. hence usually set max_features
+
+A pipeline stacks together one or more transformers with an estimator at the end. The estimator allows us to .predict() and get a score!
+
+if set stopwords, words like not good will not be taken for ngram
+
+--------------------------------------------FRIDAY 8 MAY-----------------------------------------------------------
+-------------------------------------SQL(brief) & NAIVE BAYES------------------------------------------------------
+RDBMS = Relational database management system
+
+SQL = structured query language = english-like statements to retrieve data usually
+each row is a record. each key identifies the record
+
+To build a web site that shows data from a database, you will need:
+An RDBMS database program (i.e. MS Access, SQL Server, MySQL)
+To use a server-side scripting language, like PHP or ASP
+To use SQL to get the data you want
+To use HTML / CSS to style the page
+
+bayes' theorem:
 P(A|B)P(B)=P(B|A)P(A)
 
+naive bayes algorithm:
+-is a classification modeling technique
+-relies on bayes theorem
+-assumes features are independent of one another!!
+-cons: while classification is usually accurate, predict probability is usually quite bad. (.predict is ok but not .predict_proba_)
+
 naive bayes model to use:
--bernoulli: feature set X are binary
--multinomial: feature set X are integers
--gaussian: feature set X is normally distributed
+-bernoulliNB: feature set X are binary
+-multinomialNB: feature set X are integers. can use for countvectorizer data or tfidfvectorizer data
+-gaussianNB: feature set X is normally distributed (Practically, though, it gets used whenever BernoulliNB and MultinomialNB are inappropriate.)
+
+need to decide prior also. can be set.
 
 naive bayes also a parametric model. coefficient of nb model is useful
 
@@ -970,7 +1026,7 @@ https://towardsdatascience.com/the-bias-variance-trade-off-explanation-and-demo-
 https://readthedocs.org/projects/patsy/downloads/pdf/latest/
 https://thispointer.com/python-pandas-how-to-drop-rows-in-dataframe-by-conditions-on-column-values/
 bayesian vs frequentist
-
+auc roc
 ---------------------------------------------SELF RESEARCH---------------------------------------------------------
 # plot subplots using pandas lib
 for idx, feature in enumerate(df.columns[:-1]):
