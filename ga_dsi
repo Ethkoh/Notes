@@ -956,6 +956,7 @@ A pipeline stacks together one or more transformers with an estimator at the end
 
 if set stopwords, words like not good will not be taken for ngram
 
+can use countvectorizer hyperparameter tokenizer/stopwords etc but better to split it up to see each step for backtracking purpose
 --------------------------------------------FRIDAY 8 MAY-----------------------------------------------------------
 -------------------------------------SQL(brief) & NAIVE BAYES------------------------------------------------------
 RDBMS = Relational database management system
@@ -992,7 +993,7 @@ Pip install -U spacy
 python3 -m spacy download en_core_web_sm
 
 -------------------------------------------MONDAY 11 MAY-----------------------------------------------------------
-----------------------------------------cART, BOOTSTRAPPING AND BAGGING -------------------------------------------
+----------------------------------------CART, BOOTSTRAPPING AND BAGGING -------------------------------------------
 multiclass =! multilabel
 use threshold to decide if fall into a few label using existing prob
 
