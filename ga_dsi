@@ -986,6 +986,10 @@ need to decide prior also. can be set.
 
 naive bayes also a parametric model. coefficient of nb model is useful
 
+install spacy library:
+Pip install -U spacy
+python3 -m spacy download en_core_web_sm
+
 -------------------------------------------MONDAY 11 MAY-----------------------------------------------------------
 ----------------------------------------cART, BOOTSTRAPPING AND BAGGING -------------------------------------------
 multiclass =! multilabel
@@ -1024,6 +1028,7 @@ https://docs.python.org/3/tutorial/errors.html
 https://campus.datacamp.com/courses/kaggle-r-tutorial-on-machine-learning/chapter-3-improving-your-predictions-through-random-forests?ex=1
 https://automatetheboringstuff.com/
 jupyter viewer for github: https://nbviewer.jupyter.org/
+https://www.khanacademy.org/computing/computer-programming/sql
 --------------------------------------------TO THINK -------------------------------------------------------------
 Think what is enumerate again (practice odds_and_even)
 Diff between lambda and list comprehension
