@@ -986,6 +986,35 @@ need to decide prior also. can be set.
 
 naive bayes also a parametric model. coefficient of nb model is useful
 
+-------------------------------------------MONDAY 11 MAY-----------------------------------------------------------
+----------------------------------------cART, BOOTSTRAPPING AND BAGGING -------------------------------------------
+multiclass =! multilabel
+use threshold to decide if fall into a few label using existing prob
+
+decision tree is easier to visualize. if-else type of intuition. split data until target y is 'pure' (same).
+uses gini impurity to measure impurity for decision tree
+gini = 0 means pure
+complexity alpha is like alpha in regularization. default is 0.
+decision tree cons: tend to learn irregular pattern, cause overfit training data easily
+only concern for accuracy on test data. better test score will mean drop in train score in decision tree models.
+Decision trees are nonparametric, meaning we don't make assumptions about how our data or errors are distributed.
+
+bootstrapping is random resampling with replacement
+Take many sub-samples (say 𝐵) of size 𝑛 from your sample with replacement. These are called bootstrapped samples.
+You have now generated 𝐵 bootstrapped samples, where each sample is of size 𝑛
+Instead of building one model on our original sample, we will now build one model on each bootstrapped sample, giving us  𝐵  models in total!
+This sets up the idea of an ensemble model.
+bootstrapped sample use same n as original sample data
+bootstrap use on training data.normally after train-test-split.
+
+bagging = bootstrap aggregating
+default bagging classifier from sklearn uses decision tree
+
+What is bootstrapping?
+Bootstrapping is random resampling with replacement.
+We bootstrap when fitting bagged decision trees so that we can fit multiple decision trees on slightly different sets of data. Bagged decision trees tend to outperform single decision trees.
+Bootstrapping can also be used to conduct hypothesis tests and generate confidence intervals directly from resampled data.
+
 ------------------------------------------------LINKS ------------------------------------------------------------
 Run code: https://repl.it/
 https://www.hackerrank.com/challenges/nested-list/problem
@@ -1035,3 +1064,27 @@ for idx, feature in enumerate(df.columns[:-1]):
 
 # plot subplots using pandas lib
 df[:10].plot(kind = 'hist',subplots=True, layout = (3,4) ,legend=False,title = ['Ladder',....])
+
+--------------------------------------------GOOD SAMPLE---------------------------------------------------------------
+# Drop the `Unnamed: 0` column.
+df.drop('Unnamed: 0', axis=1, inplace=True)
+
+# Drop NAs.
+df.dropna(inplace=True)
+
+# Create dummies for the `ChestPain`, `Thal`, and `AHD` columns.
+# Be sure to set `drop_first=True`.
+df = pd.get_dummies(df,
+                    columns=['ChestPain', 'Thal', 'AHD'],
+                    drop_first=True)
+
+# Define X and y.
+X = df.drop('AHD_Yes', axis='columns')
+y = df['AHD_Yes']
+
+# Split data into training and testing sets.
+X_train, X_test, y_train, y_test = train_test_split(X,
+                                                    y,
+                                                    random_state=42,
+                                                    stratify=y)
+                                                    
