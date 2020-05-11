@@ -926,6 +926,7 @@ def parse(self, response): # Define parse() function.
  4) run this in terminal at the craigslist/craigslist directory to generate the csv file "item.csv": 
     scrapy crawl craigslist -o items.csv -t csv
 
+good auto webscape tool:Edgar web scraping
 --------------------------------------------WEDNESDAY 6 MAY-----------------------------------------------------
 ------------------------------------------NATURAL LANGUAGE PROCESSING-----------------------------------------------------
 Pre-Processing:
@@ -1061,6 +1062,8 @@ https://readthedocs.org/projects/patsy/downloads/pdf/latest/
 https://thispointer.com/python-pandas-how-to-drop-rows-in-dataframe-by-conditions-on-column-values/
 bayesian vs frequentist
 auc roc
+Rmse vs r2 is it always inverse
+Find an example with k=no of rows
 ---------------------------------------------SELF RESEARCH---------------------------------------------------------
 # plot subplots using pandas lib
 for idx, feature in enumerate(df.columns[:-1]):
