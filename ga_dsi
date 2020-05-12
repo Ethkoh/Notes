@@ -1055,6 +1055,15 @@ After each fit, the importance weights on each observation need to be updated.
 
 votingclassifier is a voting system. different model predict and then vote
 
+Gradient boosting Regressors look at residuals. Is like regression makes prediction not classification
+
+Can built say boosting on top of decision tree etc? yes. But harder to interpret.
+Voting more common than stacked model after another and harder to interpret.
+
+All model do bootstrap first including boosting. By default already run bootstrap
+
+Look at both train n test so they roughly same. not just push test. Decision all these tend to overfit due to the way it works. 
+So just need tune further to fit a better fit for both train and test.
 ------------------------------------------------LINKS ------------------------------------------------------------
 Run code: https://repl.it/
 https://www.hackerrank.com/challenges/nested-list/problem
