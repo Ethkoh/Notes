@@ -1013,13 +1013,47 @@ This sets up the idea of an ensemble model.
 bootstrapped sample use same n as original sample data
 bootstrap use on training data.normally after train-test-split.
 
-bagging = bootstrap aggregating
+bagging = bootstrap +a model+aggregating
 default bagging classifier from sklearn uses decision tree
 
 What is bootstrapping?
 Bootstrapping is random resampling with replacement.
 We bootstrap when fitting bagged decision trees so that we can fit multiple decision trees on slightly different sets of data. Bagged decision trees tend to outperform single decision trees.
 Bootstrapping can also be used to conduct hypothesis tests and generate confidence intervals directly from resampled data.
+reduce overfit
+
+decision tree split based on highest drop in gini/rsme
+-------------------------------------------TUESDAY 12 MAY-----------------------------------------------------------
+----------------------------------------RANDOM TREE, EXTRATREES AND BOOSTING----------------------------------------
+With bagged decision trees, we generate many different trees on pretty similar data. 
+These trees are strongly correlated with one another. Because these trees are correlated with one another, they will have high variance. 
+
+If  𝑇1  and  𝑇2  are highly correlated, then the variance will about as high as we'd see with individual decision trees. 
+By "de-correlating" our trees from one another, we can drastically reduce the variance of our model.
+
+Random forests differ from bagging decision trees in only one way: 
+they use a modified tree learning algorithm that selects, at each split in the learning process, a random subset of the features. 
+This process is sometimes called the random subspace method.
+still using bootstrapping
+
+random forest: every tree at every note use random subset of features
+useful when we have very strong predictors that will keep being used in decision tree despite bootstrapping (using different data)
+
+For a problem with 𝑝 features, it is typical to use:
+√p  (rounded down) features in each split for a classification problem.
+𝑝/3  (rounded down) with a minimum node size of 5 as the default for a regression problem.
+
+extratrees: not only use random subset of eatures, use random of split. still using bootstrapped data
+ 
+ Random forest: max_features = 'None' = bagged decision tree. also need set n_estimator=1 because rf is ensemble technique
+
+bagging focus on reducing variance
+boosting focus on reducing bias. also ensemble technique
+
+The core principle of AdaBoost is to fit a sequence of weak learners (i.e., models that are only slightly better than random guessing, such as a single-split tree) on repeatedly modified versions of the data (changing prob of picking the data). 
+After each fit, the importance weights on each observation need to be updated.
+
+votingclassifier is a voting system. different model predict and then vote
 
 ------------------------------------------------LINKS ------------------------------------------------------------
 Run code: https://repl.it/
@@ -1097,3 +1131,6 @@ X_train, X_test, y_train, y_test = train_test_split(X,
                                                     random_state=42,
                                                     stratify=y)
                                                     
+                                                    
+# to 1 and 0                                                     
+train['Cabin'] = train['Cabin'].notnull().astype(int)                                                    
