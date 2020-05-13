@@ -1064,6 +1064,21 @@ All model do bootstrap first including boosting. By default already run bootstra
 
 Look at both train n test so they roughly same. not just push test. Decision all these tend to overfit due to the way it works. 
 So just need tune further to fit a better fit for both train and test.
+-------------------------------------------WEDNESDAY 13 MAY-----------------------------------------------------------
+----------------------------------------SUPPORT VECTOR MACHINE--------------------------------------------------------
+svm is a classification model different from decision tree
+
+specific term used to describe how SVMs transform features into higher dimensions is called the kernel trick
+
+cannot use maximum margin classifier if have overlaping class
+
+linerly separated can use sv classifier.
+
+if not use svm
+
+SVMs will have two main hyperparameters: C and kernel.
+
+svm can use for multiclass classification also
 ------------------------------------------------LINKS ------------------------------------------------------------
 Run code: https://repl.it/
 https://www.hackerrank.com/challenges/nested-list/problem
@@ -1143,4 +1158,8 @@ X_train, X_test, y_train, y_test = train_test_split(X,
                                                     
                                                     
 # to 1 and 0                                                     
-train['Cabin'] = train['Cabin'].notnull().astype(int)                                                    
+train['Cabin'] = train['Cabin'].notnull().astype(int)            
+
+SQL
+CAST -chop away decimal
+ROUND -round but still leaves 0. use cast and round tgt to remove
