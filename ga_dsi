@@ -942,6 +942,7 @@ In Python, searching a set is much faster than searching a list, so convert the 
 
 convert text to numerical: countvectorizer
 (can add things like len of review etc not just countvectorizer method to complement in the model)
+CountVectorizer requires a vector, so make sure you set X to be a pandas Series, not a DataFrame
 
 bag of words: transformation tool such as countvectorizer or tfidvectorizer. convert text to data
 
@@ -1079,6 +1080,57 @@ if not use svm
 SVMs will have two main hyperparameters: C and kernel.
 
 svm can use for multiclass classification also
+-------------------------------------------THURSDAY 14 MAY-----------------------------------------------------------
+----------------------------------------GENERALIZED LINEAR MODEL-----------------------------------------------------
+glm is parametric model (important for inference)
+
+a linear model is can be written in function form. even polynomial
+
+prediction vs inference: convern y_hat vs beta_hat
+
+why logistic regression (classification, but also GLM) no error term? bernoulli distribution component
+y distributed as bernoulli.
+yi~ Ber(p_i)
+logit p_i = X_i T (beta)
+
+OLS: (regression. also GLM)
+yi~ N(miu_i,sigma)
+miu_i = X_i T (beta)
+
+GLM:
+-systematic component(linear component)
+-random component
+-link function (identity function): maps miu to real numbers. eg for logisitc reg is logit function or log odds.
+
+python is Object-Oriented Programming. not functional programming.
+The OOP paradigm involves creating your own data types. 
+These data types can maintain their own state and have their own methods and functions assocated with them.
+-------------------------------------------FRIDAY 15 MAY-----------------------------------------------------------
+---------------------------------------------API & FLASK-----------------------------------------------------------
+An endpoint is a URL pattern used to communicate with an API.
+
+run virtual env:
+
+mkdir ~/virtualenvs
+ cd ~/virtualenvs
+virtualenv my_special_env
+cd my_special_env
+. bin/activate : must have . Space
+
+
+Once activated your can proceed to pip install all relevant libraries you need. Do note that since this is a new (virtual) environment, previous installations of other libraries in base library do not exist. So you have to install it again.
+pip install Flask pandas scikit-learn scipy
+
+To deactivate: deactivate
+
+export FLASK_APP=service.py
+export FLASK_DEBUG=1 ## check for debug
+flask run
+
+when edit py file, no need refresh to open. just use the same url
+
+http://127.0.0.1:5000/predict-student?speed=15 : send speed=15 to the endpoint
+
 ------------------------------------------------LINKS ------------------------------------------------------------
 Run code: https://repl.it/
 https://www.hackerrank.com/challenges/nested-list/problem
@@ -1124,6 +1176,15 @@ bayesian vs frequentist
 auc roc
 Rmse vs r2 is it always inverse
 Find an example with k=no of rows
+https://netflixprize.com/assets/GrandPrize2009_BPC_BigChaos.pdf
+https://netflixprize.com/assets/GrandPrize2009_BPC_PragmaticTheory.pdf
+https://netflixprize.com/assets/GrandPrize2009_BPC_BellKor.pdf
+https://arxiv.org/pdf/1704.03477.pdf
+https://www.datacamp.com/community/tutorials/wordcloud-python
+https://kavita-ganesan.com/news-classifier-with-logistic-regression-in-python/#.XsHEwNMzYcg
+https://medium.com/@annabiancajones/sentiment-analysis-on-reviews-feature-extraction-and-logistic-regression-43a29635cc81
+http://rstudio-pubs-static.s3.amazonaws.com/21395_3c4bfb6f49cd4724ba3c6453663adf95.html
+
 ---------------------------------------------SELF RESEARCH---------------------------------------------------------
 # plot subplots using pandas lib
 for idx, feature in enumerate(df.columns[:-1]):
