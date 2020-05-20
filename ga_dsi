@@ -1131,6 +1131,152 @@ when edit py file, no need refresh to open. just use the same url
 
 http://127.0.0.1:5000/predict-student?speed=15 : send speed=15 to the endpoint
 
+---------------------------------------------WEEK 7 DAY 1 -------------------------------------------------------------
+--------------------------------------------MONDAY 18 MAY------------------------------------------------------------
+------------------------------------------P3 AND INTRO TO AWS AND DOCKERS---------------------------------------------
+Feedback for P3 from instructor for all teams: 
+Talk about the data -> what are the kind of discussions that happen in both the subreddits
+EDA
+Wordcloud -> unigram, bigram etc
+Length
+Upvotes
+Comments
+Time of post etc.
+Add to your stop words
+User activity -> rate of activity
+Which class has a greater effect of the vocab?
+3.    Baseline accuracy
+4.   Many models are overfit —> better hyper parameter tuning
+5.  Remember DS is an iterative process -> Either mention as Future work, or limitation of the model
+Use only upvoted post
+Use non-moderator posts - Remove moderated posts
+Add to stop words - Hey, hello, May, June etc.
+Look at the misclassification post
+
+can use 'pickle' to save model
+
+Google collaborators is a Paas
+Runtime -> change runtime type
+Tools set to GPU for higher gpu power
+None is cpu
+ tpu is multi dimensional
+
+Resources in which cloud computer is categorised
+Iaas
+Paas
+Saas = software as a service
+Eg email
+
+aws/Sagemaker similar to google cola
+
+
+VM vs containers
+
+Dockers
+Windows home cat run docker. Only window professional.
+Mac can run
+
+NIC = network interface card
+
+---------------------------------------------WEEK 7 DAY 2 -------------------------------------------------------------
+---------------------------------------------TUESDAY 19 MAY------------------------------------------------------------
+------------------------------------------CLUSTERING K-Means & DBSCAN--------------------------------------------------
+Container engine is the docker
+Container is the app packaged with the dependency
+
+Clustering:
+
+Inertia - measure intra-cluster distance (within cluster) (want this to be small)
+Silhouette score - measure inter-cluster distance (between cluster) (want this to be large)(closer to 1 better)
+
+If target value y given but still want use clustering, can use metrics like homogeneity, completeness and v-measure.
+
+Its called classes when we have y. Called clusters when no y.
+
+Unsupervised learning methods:
+- Network analysis
+- Topic modeling (algorithm: latent dirichlet allocation)
+- PCA: dimensionality reduction
+
+clustering algorithms:
+* K-Means (mean centroids)
+* DBSCAN (density based)
+* Hierarchical (nested clusters by merging or splitting successively)
+* Affinity Propagation (graph based approach to let points 'vote' on their preferred 'exemplar')
+* Mean Shift (can find number of clusters)
+* Spectral Clustering
+* Agglomerative Clustering (suite of algorithms all based on applying the same criteria/characteristics of one cluster to others)
+
+Methods in unsupervised learning can be applied to supervised learning problems
+
+K-means Clustering cons:
+-prone to error for uniform distr
+-sensitive to outlier
+
+K-means works well only if each clusters  points are close to its respective centroid
+
+Clustering cannot use to predict any unknown point. Clustering does not do any prediction. It merely group.
+Using the cluster output however you can build into classification model to predict. 
+
+ss.inverse_transform : to scale back using fitted mean and sd
+
+DBSCAN - density based spatial clustering
+Compensate outlier that kmeans is sensitive to.
+It clusters area with high density.
+
+2 main hyperparameter:
+- Min_samples: number of points required for a cluster
+- Epsilon: the bigger, the further it takes points
+
+Because clustering models are based on distance, we don't want the magnitude of our features to affect the algorithm. Therefore, when clustering you should always scale your data.
+
+df.groupby('cluster').mean().T[[0,1]]
+# to look to decide what the clusters imply
+
+---------------------------------------------WEEK 7 DAY 3 -------------------------------------------------------------
+-------------------------------------------WEDNESDAY 20 MAY------------------------------------------------------------
+----------------------------------------Hierarchical Clustering & PCA--------------------------------------------------
+For regression we focus on reducing residual
+
+For classification we focus on reducing misclassification
+
+hierarchical clustering take way longer than k means clustering
+
+Simple linkage use smallest
+
+If too many points, then don’t plot dendogram.
+Look at fcluster
+
+Pca compress data in systematic way. Can use as preprocessing 
+
+PCA: good for dimensionality reduction and visualise feature space
+
+Pca is linear transformation of original space
+
+PCA lose interpretation of features unlike linear regression
+
+Pca always choose the top pca component that explains max var in data
+
+If data is very random and no specific direction and quite uniformly distributed, then pca will not be good cause cannot really find good maximum variance. Cause the variance of x will be quite evenly distributed. Eg 25% each for 4 variables. So each variable explain the data equally. 
+r^2 is about variance of target y.
+
+Pca is a transformer instead of estimator
+
+Pca creates its pca feature which is a linear combi of original features
+
+Metrics for PCA:
+var_exp = pca.explained_variance_ratio_
+print('Explained variance:            ', var_exp)
+cum_var_exp = np.cumsum(var_exp)
+print('Cumulative explained variance: ', cum_var_exp)
+
+PCA is unsupervised learning. No y to do cross_val_score
+
+---------------------------------------------WEEK 7 DAY 4 -------------------------------------------------------------
+-------------------------------------------THURSDAY 21 MAY------------------------------------------------------------
+-------------------------------------------RECOMMENDER SYSTEM----------------------------------------------------------
+
+
 ------------------------------------------------LINKS ------------------------------------------------------------
 Run code: https://repl.it/
 https://www.hackerrank.com/challenges/nested-list/problem
@@ -1195,6 +1341,12 @@ for idx, feature in enumerate(df.columns[:-1]):
 df[:10].plot(kind = 'hist',subplots=True, layout = (3,4) ,legend=False,title = ['Ladder',....])
 
 --------------------------------------------GOOD SAMPLE---------------------------------------------------------------
+#njob=-1 to use all cores
+
+# trick to download github ipynb
+click raw->right click->save link as
+#if folder just dl as zip
+
 # Drop the `Unnamed: 0` column.
 df.drop('Unnamed: 0', axis=1, inplace=True)
 
@@ -1224,3 +1376,69 @@ train['Cabin'] = train['Cabin'].notnull().astype(int)
 SQL
 CAST -chop away decimal
 ROUND -round but still leaves 0. use cast and round tgt to remove
+
+# wordcloud
+# Generate a preliminary word cloud using stopwords in-built in wordcloud
+wordcloud = WordCloud(width = 1700, height = 800, background_color="white",stopwords='english').generate(text)
+
+# Display the generated image
+plt.figure(figsize = (13, 6))
+# interpolation bilinear makes the wordcloud's text smoother easier to read
+plt.imshow(wordcloud,interpolation="bilinear")
+plt.axis("off")
+plt.show()
+----------------------------------------------------P3 outline---------------------------------------------------
+version 1:
+Remove null
+Remove duplicate
+Reset index
+X_casualconv
+X_parenting
+y_casualconv
+y_parenting
+USE STOPwORDS to DO PRELIMINARY WORDCLOUD
+X = conc
+Y = conc
+Reset index
+Export to csv as X and y	
+Choose stopwords
+Split to X_train, y_train, X_test, y_test
+Word preprocessing to X_test to clean_test_posts and X_train to clean_train_posts
+Turn text into features (count vectoriser): maxfeature = 600
+fit_transform(clean_train_[posts)
+Baseline accuracy
+Fit a Naive Bayes model
+Fit a Logistic Regression model
+Fit Random Forest Classifier
+Combine a few models and get best score
+Fine tuning Logistic Regression hyperparameters
+Fit Final Logistic Model
+Conclusion
+Limitations and Recommendation
+Sources
+
+version 2:
+Load Dataset from CSV
+Macro Analysis
+Data Cleaning
+Remove Null values
+Remove Duplicates
+Choose stopwords library to use
+Number of words in total for each subreddit preprocessing
+Calculate and Plot Word Frequency
+Create final stopwords
+Combine into X and y
+Split data into training and testing sets
+Words Preprocessing
+Turn text into features
+Baseline accuracy
+Fit a Naive Bayes model
+Fit a Logistic Regression model
+Fit Random Forest Classifier
+Combine a few models and get best score
+Fine tuning Logistic Regression hyperparameters
+Fit Final Logistic Model
+Conclusion
+Limitations and Recommendation
+Sources
+
