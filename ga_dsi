@@ -1275,6 +1275,24 @@ PCA is unsupervised learning. No y to do cross_val_score
 ---------------------------------------------WEEK 7 DAY 4 -------------------------------------------------------------
 -------------------------------------------THURSDAY 21 MAY------------------------------------------------------------
 -------------------------------------------RECOMMENDER SYSTEM----------------------------------------------------------
+commonly modeled techniques:
+- content filtering: map users and items to features space
+- collaborative filtering
+
+recommender system look at similarity
+---------------------------------------------WEEK 7 DAY 5 -------------------------------------------------------------
+-------------------------------------------FRIDAY 22 MAY---------------------------------------------------------------
+--------------------------------------CORRELATED DATA AND TIME SERIES--------------------------------------------------
+omitted variable bias : bias exist because important predictor left out or omitted from our model
+
+dependence:
+-temporal dependence is like time series
+-spatial dependence
+
+eg of correlated data:
+-time series data
+-spatial data
+-network data: number of network depends on number of connections my network has
 
 
 ------------------------------------------------LINKS ------------------------------------------------------------
