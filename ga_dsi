@@ -303,7 +303,7 @@ Anaconda includes many of the Python packages we’ll be using in-class:
 ○ Sqlite: Standalone, lightweight SQL database engine.
 ○ Statsmodels: Simple statistical computation (used with SciPy).
 
-
+---------------------------------------------WEEK 1 DAY 1 -------------------------------------------------------------
 --------------------------------------------MONDAY 6 APRIL -----------------------------------------------------
 to set your account's default identity:
 git config --global user.email "you@example.com"
@@ -365,7 +365,7 @@ Shift + tab to take find purpose of method/when calling function can see what ar
 
 Np array has to be homogenous values. Eg all int or all float 
 
-
+---------------------------------------------WEEK 1 DAY 2 -------------------------------------------------------------
 --------------------------------------------TUESDAY 7 APRIL -----------------------------------------------------
 Default value: Only if no parameter passed then default used.
 Cannot put Default value for argument in first argument. doesn't seem to work
@@ -379,12 +379,16 @@ def function3():
     g_var2 = "Inside"
 
 Split method by default look for a space. Doesn’t split when no space
+
+---------------------------------------------WEEK 1 DAY 3 -------------------------------------------------------------
 --------------------------------------------WEDNESDAY 8 APRIL -----------------------------------------------------
 Don’t append or remove the main list while trying to run a for loop. Will cause the length of the list to change
 
 Sample space is all outcomes of the experiment
 
 Event: collection of outcome of experiment: Eg. A = Event of getting 2 heads
+
+---------------------------------------------WEEK 1 DAY 4 -------------------------------------------------------------
 --------------------------------------------THURSDAY 9 APRIL -----------------------------------------------------
 Distribution: frequency of all possible outcomes
 
@@ -393,6 +397,8 @@ Distribution illustration and formula: https://seeing-theory.brown.edu/probabili
 Probability mass function shows us the probability that our random variable takes on a specific value.
 
 Cumulative distribution function shows us the probability that our random variable takes on any value less than or equal to a specific value.
+
+---------------------------------------------WEEK 2 DAY 1 -------------------------------------------------------------
 --------------------------------------------MONDAY 13 APRIL -----------------------------------------------------
 --------------------------------------------INTRO TO PANDAS------------------------------------------------------
 methods:
@@ -457,6 +463,9 @@ df.iloc[ , ]
 panda gives ordinal instead of simply categorical data
 map is for dataseries. apply for dataframe. map and apply same if apply for dataseries
 
+dict-in-dict into dataframe: pd.DataFrame(dict).T
+
+---------------------------------------------WEEK 2 DAY 2 -------------------------------------------------------------
 --------------------------------------------TUESDAY 14 APRIL -----------------------------------------------------
 --------------------------------------------DATA VISUALISATION------------------------------------------------------
 method:
@@ -481,6 +490,7 @@ others:
 -have slides with just graph and no text describing them. explain the graph instead
 -ideally use [] to refer to df columns instead of
 
+---------------------------------------------WEEK 2 DAY 3 -------------------------------------------------------------
 --------------------------------------------WEDNESDAY 15 APRIL -----------------------------------------------------
 -----------------------------------------EXPLORATORY DATA ANALYSIS--------------------------------------------------
 methods:
@@ -495,6 +505,7 @@ plt.figure()
 others:
 .() : is like a method whereas . is like an attribute
 
+---------------------------------------------WEEK 2 DAY 4 -------------------------------------------------------------
 --------------------------------------------THURSDAY 16 APRIL -----------------------------------------------------
 --------------------------------CONFIDENCE INTERVAL AND HYPOTHESIS TESTING-------------------------------------------
 methods:
@@ -517,6 +528,7 @@ others:
 -H0 is about the population. We draw sample to make inference about the population.
 -standard deviation of sampling distribution = standard error
 
+---------------------------------------------WEEK 2 DAY 5 -------------------------------------------------------------
 --------------------------------------------FRIDAY 17 APRIL -----------------------------------------------------
 --------------------------------ADVANCED TRANSFORMATION USING PANDAS---------------------------------------------
 df.values = array : df to array
@@ -542,6 +554,7 @@ group.get_group("groupname") : get subset of dataframe. access each group.
 .groups : shows groups in groupby by index.
 for groupname,groupdf in category: : iterate over the groups
 
+---------------------------------------------WEEK 3 DAY 2 -------------------------------------------------------------
 --------------------------------------------TUESDAY 21 APRIL -----------------------------------------------------
 --------------------------------------------LINEAR REGRESSION-----------------------------------------------------
 ### Plot scatter
@@ -691,6 +704,7 @@ model = sm.OLS(y, X)
 model = model.fit()
 predictions = model.predict()
 
+---------------------------------------------WEEK 3 DAY 3 -------------------------------------------------------------
 --------------------------------------------WEDNESDAY 22 APRIL -----------------------------------------------------
 -----------------------------------BIAS-VARIANCE TRADEOFF & TRAIN-TEST-SPLIT----------------------------------------
 deal with categorical data:
@@ -708,6 +722,8 @@ how to tell overfit: var will increase with new dataset.
 solutions: regularization, bagging and boosting
 
 train-test-split if unbalanced proportion for target, rmbr to stratify
+
+---------------------------------------------WEEK 3 DAY 4 -------------------------------------------------------------
 --------------------------------------------THURSDAY 23 APRIL -----------------------------------------------------
 ------------------------------------FEATURE ENGINEERING AND REGULARIZATION-----------------------------------------
 Others:
@@ -726,6 +742,7 @@ df[nc] = (df[nc]-df[nc].mean())/ df[nc].std()
 
 standardization only to x. no need to y.
 
+---------------------------------------------WEEK 3 DAY 5 -------------------------------------------------------------
 --------------------------------------------FRIDAY 23 APRIL -----------------------------------------------------
 -------------------------------------------MISSING DATA IMPUTATION-----------------------------------------------
 correct term: data science with missing data not 'handle missing data'
@@ -782,6 +799,8 @@ to interpret categorical or integer: boxplot or compare the means if drastically
 Many missing data approaches simplify the problem by throwing away data. We discuss in this section how these approaches may lead to biased estimates (one of
 these methods tries to directly address this issue). In addition, throwing away data can lead to estimates with larger standard errors due to reduced sample size.
 http://www.stat.columbia.edu/~gelman/arm/missing.pdf
+
+---------------------------------------------WEEK 4 DAY 1 -------------------------------------------------------------
 --------------------------------------------MONDAY 27 APRIL -----------------------------------------------------
 ---------------------------CLASSIFICATION, LOGISTIC REGRSSION, K-NEAREST NEIGHBORS-------------------------------
 unsupervised learning: no target y. 
@@ -808,6 +827,7 @@ success pi.
  Independence of Independent Variables: The independent variables X1...Xm are independent
 of one another.
 
+---------------------------------------------WEEK 4 DAY 2 -------------------------------------------------------------
 --------------------------------------------TUESDAY 28 APRIL -----------------------------------------------------
 ------------------------------------------CLASSIFICATION METRICS--------------------------------------------------
 -Use training data to imputate missing data for test data
@@ -833,6 +853,7 @@ type 2 error: FN
 variance can look at cross_val_score
 bias can look at r2 or accuracy from score. from score also see if got drop. if yes, suggest overfit. do knn.score(X_train_scaled,y_train)  and knn.score(X_test_scaled,y_test) 
 
+---------------------------------------------WEEK 4 DAY 3 -------------------------------------------------------------
 --------------------------------------------WEDNESDAY 29 APRIL -----------------------------------------------------
 --------------------------------------HYPERPARAMETER TUNING AND PIPELINES-------------------------------------------
 Logistic=logit_inv
@@ -848,6 +869,7 @@ Transformers may have hyperparameters as well - but we can't GridSearch over a t
 
 Statistical parameters are quantities that a model can learn or estimate. Examples include  𝛽0  and  𝛽1  in a linear model.
 Hyperparameters are quantities our model cannot learn, but affect the fit of our model. Examples include  𝑘  in  𝑘 -nearest neighbors and  𝑎𝑙𝑝ℎ𝑎  in regularization.
+---------------------------------------------WEEK 4 DAY 4 -------------------------------------------------------------
 ---------------------------------------------THURSDAY 30 APRIL -----------------------------------------------------
 ----------------------------------------------------API-------------------------------------------------------------
 curl www.example.com in terminal to open url
@@ -856,6 +878,7 @@ json look like python dictionary
 json file inside json validator (can google). it will convert to nicer dictionary-like format
 
 read api documentation before calling to know how to call properly
+---------------------------------------------WEEK 5 DAY 1 -------------------------------------------------------------
 ---------------------------------------------MONDAY 4 MAY-----------------------------------------------------
 -----------------------------------------------PROJECT 2------------------------------------------------------
 kaggle is unique where test file given with no target.
@@ -873,6 +896,7 @@ gridsearch is to choose hyperparameter. do cross_val_score after that. then fina
 
 parameter model can got calculation. fit is for X_train. wont affect is send X_test to pipeline cause once fit, it will only transform for scaler
 
+---------------------------------------------WEEK 5 DAY 2 -------------------------------------------------------------
 --------------------------------------------TUESDAY 5 MAY-----------------------------------------------------
 --------------------------------------WEB SCRAPING & REGEX----------------------------------------------------
 # To install libraries
@@ -927,6 +951,7 @@ def parse(self, response): # Define parse() function.
     scrapy crawl craigslist -o items.csv -t csv
 
 good auto webscape tool:Edgar web scraping
+---------------------------------------------WEEK 5 DAY 3 -------------------------------------------------------------
 --------------------------------------------WEDNESDAY 6 MAY-----------------------------------------------------
 ------------------------------------------NATURAL LANGUAGE PROCESSING-----------------------------------------------------
 Pre-Processing:
@@ -958,6 +983,7 @@ A pipeline stacks together one or more transformers with an estimator at the end
 if set stopwords, words like not good will not be taken for ngram
 
 can use countvectorizer hyperparameter tokenizer/stopwords etc but better to split it up to see each step for backtracking purpose
+---------------------------------------------WEEK 5 DAY 5 -------------------------------------------------------------
 --------------------------------------------FRIDAY 8 MAY-----------------------------------------------------------
 -------------------------------------SQL(brief) & NAIVE BAYES------------------------------------------------------
 RDBMS = Relational database management system
@@ -993,6 +1019,7 @@ install spacy library:
 Pip install -U spacy
 python3 -m spacy download en_core_web_sm
 
+---------------------------------------------WEEK 6 DAY 1 -------------------------------------------------------------
 -------------------------------------------MONDAY 11 MAY-----------------------------------------------------------
 ----------------------------------------CART, BOOTSTRAPPING AND BAGGING -------------------------------------------
 multiclass =! multilabel
@@ -1024,6 +1051,7 @@ Bootstrapping can also be used to conduct hypothesis tests and generate confiden
 reduce overfit
 
 decision tree split based on highest drop in gini/rsme
+---------------------------------------------WEEK 6 DAY 2 -------------------------------------------------------------
 -------------------------------------------TUESDAY 12 MAY-----------------------------------------------------------
 ----------------------------------------RANDOM TREE, EXTRATREES AND BOOSTING----------------------------------------
 With bagged decision trees, we generate many different trees on pretty similar data. 
@@ -1065,6 +1093,7 @@ All model do bootstrap first including boosting. By default already run bootstra
 
 Look at both train n test so they roughly same. not just push test. Decision all these tend to overfit due to the way it works. 
 So just need tune further to fit a better fit for both train and test.
+---------------------------------------------WEEK 6 DAY 3 -------------------------------------------------------------
 -------------------------------------------WEDNESDAY 13 MAY-----------------------------------------------------------
 ----------------------------------------SUPPORT VECTOR MACHINE--------------------------------------------------------
 svm is a classification model different from decision tree
@@ -1080,6 +1109,7 @@ if not use svm
 SVMs will have two main hyperparameters: C and kernel.
 
 svm can use for multiclass classification also
+---------------------------------------------WEEK 6 DAY 4 -------------------------------------------------------------
 -------------------------------------------THURSDAY 14 MAY-----------------------------------------------------------
 ----------------------------------------GENERALIZED LINEAR MODEL-----------------------------------------------------
 glm is parametric model (important for inference)
@@ -1105,6 +1135,7 @@ GLM:
 python is Object-Oriented Programming. not functional programming.
 The OOP paradigm involves creating your own data types. 
 These data types can maintain their own state and have their own methods and functions assocated with them.
+---------------------------------------------WEEK 6 DAY 5 -------------------------------------------------------------
 -------------------------------------------FRIDAY 15 MAY-----------------------------------------------------------
 ---------------------------------------------API & FLASK-----------------------------------------------------------
 An endpoint is a URL pattern used to communicate with an API.
@@ -1294,7 +1325,7 @@ eg of correlated data:
 -spatial data
 -network data: number of network depends on number of connections my network has
 
-
+time series: rmbr to sort first just in case before doing any shift or rolling etc.
 ------------------------------------------------LINKS ------------------------------------------------------------
 Run code: https://repl.it/
 https://www.hackerrank.com/challenges/nested-list/problem
