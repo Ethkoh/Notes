@@ -1391,6 +1391,35 @@ make sure use representative locations as test locations (cluster sample)
 ---------------------------------------------WEEK 8 DAY 4 -------------------------------------------------------------
 -------------------------------------------THURSDAY 28 MAY-------------------------------------------------------------
 ----------------------------------------------NETWORK ANALYSIS---------------------------------------------------------
+eulerian path exist if every node have even number of edges or exactly 2 notes have odd number of edges.
+
+types of network:
+undirected: connection extends in both directions. eg fb friends
+directed: connection only flow in one direction. eg paying utilities transaction,water pipe, follow someone on ig
+
+cyclic: contains at least one cycle. a cycle exist when a node can be connected to itself by traversing at least one edge
+acyclic: contains no cycles. eg decision trees (directed acyclic graph)
+
+multigraph: multiple links connecting to same pair of node
+
+degee: number of links of that node. (in degree/out degree)
+
+average degree: measure of connectivity
+degree of distribution of network
+
+represent network with an adjacency matrix
+
+take adjacency matrix raise to nth power. can see how many paths of length n exist from node to node
+
+minimum path length: min number of edges required to traverse from node i to node j
+diameter: max shortest path length
+connected: exist a path from node i to node j
+isomorphic: two graphs are isomorphic if we can twist one graph to look like another without cutting or gluing 
+
+difficulty of network analysis:
+-storage
+-inference
+-visaulization
 
 ------------------------------------------------LINKS ------------------------------------------------------------
 Run code: htt  \ ps://repl.it/
