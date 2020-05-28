@@ -1326,8 +1326,74 @@ eg of correlated data:
 -network data: number of network depends on number of connections my network has
 
 time series: rmbr to sort first just in case before doing any shift or rolling etc.
+
+---------------------------------------------WEEK 8 DAY 2 -------------------------------------------------------------
+-------------------------------------------TUESDAY 26 MAY---------------------------------------------------------------
+-----------------------------------------------ARIMA--------------------------------------------------
+lr,decision trees etc assume obs not corr
+
+time series data can use:
+- linear model (omitted bias)(correlated data ignored)
+- arima model
+- exponential smoothing methods
+- Recurrent neural networks (rnn)
+- etc
+
+arima good for short term forecast. will soon start predicting mean.
+
+autocorrelation = corr of variable with itself
+autoregressive = regress variable on itself (regress newer values on older values). 
+ar model: explain long term trends in data. gridsearch hyperparam p.
+regress future values on past values
+
+moveing average model =! moving average smoothing
+moving average model: takes previous error terms as inputs. isnt identical to boosting but similar. 
+explains sudden shocks in data. 
+hyperparameter q (number of previous errors) to gridsearch.
+predicting y.
+work in statsmodels cause better. manually gridsearch to find lowest AIC (akaike information criterion)
+time series cnt do cv
+regress future values on past errors
+
+intergated:
+data must be stationary before applying arima
+do difference(d) on y variable to ensure stationarity
+augmented Dickey-Fuller test is a hypothesis test that tests for stationarity
+
+score using rmse for time series instead of r^2 even though default r^2 given.
+
+pacf to observe p,q,d,S
+
+---------------------------------------------WEEK 8 DAY 3 -------------------------------------------------------------
+-------------------------------------------WEDNESDAY 27 MAY-------------------------------------------------------------
+------------------------------------------SPATIAL DATA ANALYSIS---------------------------------------------------------
+spatiotemporal data: data vary with space or/and time
+
+why is it a problem to use standard method of analysis for spatiotemporal data?
+-observation not independent. they are correlated
+- omitted variable bias
+
+tobler first law of geography: 'Everything is related to everything else, but near things are more
+related than distant things.'
+
+types of spatial data:
+- areal process: non-overlapping region eg zipcode
+- geostatistical process: continuous
+- point pattern data : random points
+
+areal processes:
+-define weights. wii is always 0.
+
+to detect whether spatial autocorr exist: moran's I statistic. is a permutation test
+
+make sure use early time for training and later time for testing
+make sure use representative locations as test locations (cluster sample)
+---------------------------------------------WEEK 8 DAY 4 -------------------------------------------------------------
+-------------------------------------------THURSDAY 28 MAY-------------------------------------------------------------
+----------------------------------------------NETWORK ANALYSIS---------------------------------------------------------
+
 ------------------------------------------------LINKS ------------------------------------------------------------
-Run code: https://repl.it/
+Run code: htt  \ ps://repl.it/
 https://www.hackerrank.com/challenges/nested-list/problem
 https://www.python.org/dev/peps/pep-0008/#tabs-or-spaces
 https://docs.python.org/3/library/exceptions.html
