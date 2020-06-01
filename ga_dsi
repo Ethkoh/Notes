@@ -1388,6 +1388,7 @@ to detect whether spatial autocorr exist: moran's I statistic. is a permutation 
 
 make sure use early time for training and later time for testing
 make sure use representative locations as test locations (cluster sample)
+
 ---------------------------------------------WEEK 8 DAY 4 -------------------------------------------------------------
 -------------------------------------------THURSDAY 28 MAY-------------------------------------------------------------
 ----------------------------------------------NETWORK ANALYSIS---------------------------------------------------------
@@ -1437,7 +1438,68 @@ second order gradient descend: newton method
 
 step size: learning rate
 
-------------------------------------------------LINKS ------------------------------------------------------------
+---------------------------------------------WEEK 9 DAY 1 -------------------------------------------------------------
+---------------------------------------------MONDAY 1 JUNE-------------------------------------------------------------
+-------------------------------------INTRO TO NEURAL NETWORK AND KERAS-------------------------------------------------
+
+NN requires huge computing power that computer in the past cannot, hence lessed used though available. 
+NN are statistical models. can be used for both regression and classification.
+NN mimic neuron brain process.
+
+our keras is built on to of tensorflow.
+
+convolutional neural network deals with image data.
+recurrent neural network deals with sequence data such as time series or natural language data
+
+inverse logit = sigmoid function
+
+input layer -> 2 hidden layer -> output layer = 3 layer model
+
+cons of NN: overfitting
+
+types:
+feed forward: calculations are passed down network in one direction
+fully connected: each node is conencted to every node in previous layer, and every node in next later
+
+constructing NN need decide:
+- no of hidden layer (more tends to mean more complexity of relationship learned)
+- no of nodes in each hidden layer
+- choice of activation functions: transformation applied to output of layer. 
+- loss function
+
+to get best result, need trial and error. no hard rule.
+
+add noise and see how NN perform to see if its good
+
+for explanability: 
+- add noise see how weights change
+- reference dataset to compare result
+
+activation functions:
+-sigmoid activation function. ranges from 0 to 1. preferred for use in output layer
+-Rectified linear unit (ReLU) most common activation for hidden later.
+never use identity activation as a hidden layer activation. it returns itself.
+
+softmax: extension of sigmoid to multiclass classification
+output activation for multiclass classification.
+vector of probabilities
+
+hidden layer activation: transformation to allow NN to learn complex relationship
+
+for regression, can just use linear/identity acitivation. no need transform output. 
+
+NN are fitted using gradient descent with respect to loss function.
+
+epoch : one run through full dataset
+minibatch: smaller subsampling of full dataset
+
+
+---------------------------------------------WEEK 9 DAY 2 -------------------------------------------------------------
+---------------------------------------------TUESDAY 2 JUNE-------------------------------------------------------------
+-------------------------------------------------------------------------------------
+
+
+------------------------------------------------LINKS -----------------------------------------------------------------
 Run code: htt  \ ps://repl.it/
 https://www.hackerrank.com/challenges/nested-list/problem
 https://www.python.org/dev/peps/pep-0008/#tabs-or-spaces
@@ -1448,6 +1510,8 @@ https://automatetheboringstuff.com/
 jupyter viewer for github: https://nbviewer.jupyter.org/
 https://www.khanacademy.org/computing/computer-programming/sql
 https://www.codewars.com/users/Ethkoh/completed_solutions
+Tensorflow Playground: https://playground.tensorflow.org/
+papers: https://arxiv.org/
 --------------------------------------------TO THINK -------------------------------------------------------------
 Think what is enumerate again (practice odds_and_even)
 Diff between lambda and list comprehension
@@ -1490,7 +1554,7 @@ https://www.datacamp.com/community/tutorials/wordcloud-python
 https://kavita-ganesan.com/news-classifier-with-logistic-regression-in-python/#.XsHEwNMzYcg
 https://medium.com/@annabiancajones/sentiment-analysis-on-reviews-feature-extraction-and-logistic-regression-43a29635cc81
 http://rstudio-pubs-static.s3.amazonaws.com/21395_3c4bfb6f49cd4724ba3c6453663adf95.html
-
+https://ieeexplore.ieee.org/document/8781773
 ---------------------------------------------SELF RESEARCH---------------------------------------------------------
 # plot subplots using pandas lib
 for idx, feature in enumerate(df.columns[:-1]):
