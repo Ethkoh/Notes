@@ -1495,8 +1495,67 @@ minibatch: smaller subsampling of full dataset
 
 
 ---------------------------------------------WEEK 9 DAY 2 -------------------------------------------------------------
----------------------------------------------TUESDAY 2 JUNE-------------------------------------------------------------
--------------------------------------------------------------------------------------
+---------------------------------------------TUESDAY 2 JUNE------------------------------------------------------------
+-----------------------------DEEP LEARNING REGLUARIZATION AND WORD VECTOR----------------------------------------------
+topology = architecture of network
+
+building nn using tensorflow(by google):
+topology: 
+-no of input nodes (number of features)
+-no of output nodes
+-no of hidden layers
+- no of nodes each layer
+
+compile network:
+-loss function: mse,binary_crossentropy,categorical_crossentropy
+-optimizer: adam,rmsprop,agrad
+-metrics
+
+fit model:
+-batch-size: subset of training data on which the weights get updated
+-epoch: the training dataset passed through the NN
+
+each neuron is the linear combination of the features coming to it
+
+training: forward and backward proogation
+inference: forward propagation
+
+types of NN:
+- fully connected NN
+-covolutional NN
+-recurrent NN
+
+techinique to prevent overfittig in NN:
+- L1 and L2 norm regularization
+- dropout
+- early stopping
+
+L2 (lasso)(sum of sq of weights) more aggressive than L1 (ridge)(sum of weights).
+
+l1_l2 is elasticnet
+
+dropout regularization: make less dependent on training data. 
+dropout only for hidden layer. not for output or input.
+
+dropout possible to do with l1 or l2.
+
+normally ppl just write each dense layer out 
+
+continous bag of words: 2 layer NN.
+after training, the hidden layer is the word2vec.
+
+word2vec can also use for sentimental analysis to get the similar words
+
+corpus trained affect the word vector
+
+countvectorizer: vector to word
+word2vec: word to vec
+
+LDA (topic modeling) is unsupervised learning. dimensionality reduction technique
+
+---------------------------------------------WEEK 9 DAY 3 --------------------------------------------------------------
+---------------------------------------------WEDNESDAY 3 JUNE-----------------------------------------------------------
+----------------------------------------CONVOLUTION NEURAL NETWORKS ----------------------------------------------------
 
 
 ------------------------------------------------LINKS -----------------------------------------------------------------
