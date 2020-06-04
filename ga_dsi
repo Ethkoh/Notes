@@ -1556,8 +1556,42 @@ LDA (topic modeling) is unsupervised learning. dimensionality reduction techniqu
 ---------------------------------------------WEEK 9 DAY 3 --------------------------------------------------------------
 ---------------------------------------------WEDNESDAY 3 JUNE-----------------------------------------------------------
 ----------------------------------------CONVOLUTION NEURAL NETWORKS ----------------------------------------------------
+applications: neural style transfer, image classification, object detection
+no of params if use fully connected NN: area size of image(256*256) * no of hidden notes
+RGB image is 3d
 
+vertical edge filter
 
+forward propogation: give output
+backward propagation: update weights
+
+to ensure corner pixels get same influence on convul image, perform padding
+
+coonvolution+relu+pooling = feature engineering
+
+filter usually in order of 2. not too big
+
+stride increase to compress image
+---------------------------------------------WEEK 9 DAY 4 --------------------------------------------------------------
+---------------------------------------------THURSDAY 4 JUNE-----------------------------------------------------------
+----------------------------------------RECURRENT NEURAL NETWORKS ----------------------------------------------------
+RNN use on sequence data.
+eg autocompletion, text to speech, time series
+
+rnn suffer from short term memory due to back propagation though time (bptt).
+no problem if use lstm and gru. but cons are slower
+
+types of rnn:
+-vanilla nn. (one to one)(fixed input fixed output). eg image classification
+-sequence output. (one to many) eg image captioning
+-sequence input. (many to one) eg sentiment classification
+-sequence input and output. (many to many) eg machine translation
+-synced sequence input and output. (many to many) eg video classification on frame level
+
+Long short term memory(LSTM) got forget gate (decide which values of memory cell to reset)(sigmoid layer).
+LSTM slightly faster than GRU (Gated Recurrent units) cause GRU combine forget and input into update gate
+
+popular complex architecture: vgg16, inceptionv3
 ------------------------------------------------LINKS -----------------------------------------------------------------
 Run code: htt  \ ps://repl.it/
 https://www.hackerrank.com/challenges/nested-list/problem
