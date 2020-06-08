@@ -1,0 +1,29 @@
+### AI4IMPACT X DataScience SG: Neural Networks for Forecasting - Tips and Tricks
+### 30 April 2020
+
+MAE vs RMSE
+RMSE if not much outliers or shocks. 
+
+using other features such as day or time for time series?
+day of week is bad. is 1 to 7 but 1 to 7 is suppose to be side by side.
+day of year not too bad.
+time is bad. think of angle around circle.
+instead of using one number for cyclic data, think of using uv inputs (2 values).
+
+Can you elaborate a little on how you normalize your timeseries? Are all values relative to T0 or would you use other baselines such as moving averages?
+random boost or xgboost dont need normalize but very impt for neural network
+why need normalize?
+-saturation
+-inputs need to be about same size. otherwise if take dotproduct will dorminate other numbers
+
+neural network tip
+-difference network: add y(T+0) to output.
+why? beats persistence, no need detrending, spikes are ok
+-momentum and force inputs.
+first and second order differences of all inputs as new input 
+-input scaling subnet 
+symmetric squashing function (tanh)
+-dimension reduction subnet
+NN dont work well with large dimensional inputs(>100). reduce dimensions using dim reduction/compression
+-squared inputs
+have properties of both perceptrons and rbf neurons
