@@ -1165,7 +1165,8 @@ http://127.0.0.1:5000/predict-student?speed=15 : send speed=15 to the endpoint
 ---------------------------------------------WEEK 7 DAY 1 -------------------------------------------------------------
 --------------------------------------------MONDAY 18 MAY------------------------------------------------------------
 ------------------------------------------P3 AND INTRO TO AWS AND DOCKERS---------------------------------------------
-Feedback for P3 from instructor for all teams: 
+Feedback for P3 from instructor for all teams:
+dont assume people know what is scatterplot
 Talk about the data -> what are the kind of discussions that happen in both the subreddits
 EDA
 Wordcloud -> unigram, bigram etc
@@ -1592,6 +1593,51 @@ Long short term memory(LSTM) got forget gate (decide which values of memory cell
 LSTM slightly faster than GRU (Gated Recurrent units) cause GRU combine forget and input into update gate
 
 popular complex architecture: vgg16, inceptionv3
+
+---------------------------------------------WEEK 10 DAY 1 ------------------------------------------------------------------
+---------------------------------------------MONDAY 8 JUNE-------------------------------------------------------------------
+----------------------------P4 AND MACHINE LEARNING & DEEP LEARNING APPLICATIONS --------------------------------------------
+P4 feedback:
+plots not make it too complicated. be selective on what you show
+label axis
+
+machine learning vs deep learning approach:
+feature extraction and classification separate vs together
+
+if data not big, use predefined embedding like glove or word2vec. otherwise can customise
+
+embedding is vector representation of a sentence
+
+if use predefined embedding, may be better off not using lematize for our data
+
+sematic similarity: similarity between 2 sentences
+
+state of art NLP: bert
+
+---------------------------------------------WEEK 10 DAY 2 ------------------------------------------------------------------
+---------------------------------------------TUESDAY 9 JUNE-------------------------------------------------------------------
+--------------------------------------------------SQL-------------------------------------------------------------------------
+
+For those who are unable to restore database from pgadmin, we can do it via the command line. 
+Open you terminal or command prompt:
+set "PGPASSWORD=postgres"
+/Library/PostgreSQL/12/bin/pg_restore --host "localhost" --port "5432" --username "postgres" --dbname "pagila” --verbose "/Users/Ethan/Desktop/sql/pagila.tar”
+
+Change “ to “ again in terminal
+
+The query to get all tables in a database:
+SELECT "table_name","column_name", "data_type", "table_schema"
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE "table_schema" = 'public'
+ORDER BY table_name
+
+---------------------------------------------WEEK 10 DAY 3 ------------------------------------------------------------------
+---------------------------------------------WEDNESDAY 10 JUNE-------------------------------------------------------------------
+---------------------------------------------SCALA AND SPARK-------------------------------------------------------------------------
+
+
+
+
 ------------------------------------------------LINKS -----------------------------------------------------------------
 Run code: htt  \ ps://repl.it/
 https://www.hackerrank.com/challenges/nested-list/problem
@@ -1605,6 +1651,7 @@ https://www.khanacademy.org/computing/computer-programming/sql
 https://www.codewars.com/users/Ethkoh/completed_solutions
 Tensorflow Playground: https://playground.tensorflow.org/
 papers: https://arxiv.org/
+https://machinelearninginterview.com/
 --------------------------------------------TO THINK -------------------------------------------------------------
 Think what is enumerate again (practice odds_and_even)
 Diff between lambda and list comprehension
