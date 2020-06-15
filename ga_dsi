@@ -1633,11 +1633,30 @@ ORDER BY table_name
 
 ---------------------------------------------WEEK 10 DAY 3 ------------------------------------------------------------------
 ---------------------------------------------WEDNESDAY 10 JUNE-------------------------------------------------------------------
----------------------------------------------SCALA AND SPARK-------------------------------------------------------------------------
+---------------------------------------------SCALA AND SPARK----------------------------------------------------------------------
 
 
+---------------------------------------------WEEK 11 DAY 1 ------------------------------------------------------------------
+----------------------------------------------MONDAY 15 JUNE-------------------------------------------------------------------
+-------------------------------------------BAYES INTRO AND INFERENCE------------------------------------------------------------
+bayesian approach: 
+-estimate the posterior distribution.
+-assume population parameter is distribution
+-credible interval: there is 95% chance the true pop mean is between ....
+-P(hypo|data)
+-post = (likelihood*prior)/normalizing constant
+-interest: posterior distribution
+-posterior distribtn is more strongly influenced by whichever (prior or likelihood) that has a smaller std deviatn
 
+frequentist approach: 
+- long-run behaviour
+-assume population parameter is constant
+-confidence interval: there is 95% confident the true pop mean is between ....
+-p-value = P(data|null hypo) : likelihood
 
+process of inference: population-> sampling-> inference (confidence interval,hypo testing)
+
+conjugacy:
 ------------------------------------------------LINKS -----------------------------------------------------------------
 Run code: htt  \ ps://repl.it/
 https://www.hackerrank.com/challenges/nested-list/problem
@@ -1652,6 +1671,7 @@ https://www.codewars.com/users/Ethkoh/completed_solutions
 Tensorflow Playground: https://playground.tensorflow.org/
 papers: https://arxiv.org/
 https://machinelearninginterview.com/
+https://leetcode.com/problemset/database/
 --------------------------------------------TO THINK -------------------------------------------------------------
 Think what is enumerate again (practice odds_and_even)
 Diff between lambda and list comprehension
@@ -1704,6 +1724,15 @@ for idx, feature in enumerate(df.columns[:-1]):
 # plot subplots using pandas lib
 df[:10].plot(kind = 'hist',subplots=True, layout = (3,4) ,legend=False,title = ['Ladder',....])
 
+#types of lemmatization using the following python packages
+https://www.machinelearningplus.com/nlp/lemmatization-examples-python/#:~:text=2.,and%20most%20commonly%20used%20lemmatizers.
+-Wordnet Lemmatizer
+-Spacy Lemmatizer
+-TextBlob
+-CLiPS Pattern
+-Stanford CoreNLP
+-Gensim Lemmatizer
+-TreeTagger
 --------------------------------------------GOOD SAMPLE---------------------------------------------------------------
 #njob=-1 to use all cores
 
