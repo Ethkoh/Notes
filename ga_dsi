@@ -1019,13 +1019,14 @@ install spacy library:
 Pip install -U spacy
 python3 -m spacy download en_core_web_sm
 
----------------------------------------------WEEK 6 DAY 1 -------------------------------------------------------------
--------------------------------------------MONDAY 11 MAY-----------------------------------------------------------
-----------------------------------------CART, BOOTSTRAPPING AND BAGGING -------------------------------------------
-multiclass =! multilabel
+-----------------------------------------------WEEK 6 DAY 1 ---------------------------------------------------------
+---------------------------------------------MONDAY 11 MAY-----------------------------------------------------------
+------------------------------------------CART, BOOTSTRAPPING AND BAGGING -------------------------------------------
+multiclass != multilabel
 use threshold to decide if fall into a few label using existing prob
 
-decision tree is easier to visualize. if-else type of intuition. split data until target y is 'pure' (same).
+decision tree is easier to visualize. if-else type of intuition. split data until target y is 'pure' (same)
+decision tree split based on highest drop in gini/rsme
 uses gini impurity to measure impurity for decision tree
 gini = 0 means pure
 complexity alpha is like alpha in regularization. default is 0.
@@ -1033,24 +1034,26 @@ decision tree cons: tend to learn irregular pattern, cause overfit training data
 only concern for accuracy on test data. better test score will mean drop in train score in decision tree models.
 Decision trees are nonparametric, meaning we don't make assumptions about how our data or errors are distributed.
 
-bootstrapping is random resampling with replacement
+Where do decision trees tend to fall on the Bias/Variance spectrum?
+Decision trees very easily overfit.
+]They tend to suffer from high error due to variance.
+
+What is bootstrapping?
+bootstrapping is random resampling with replacement. a way of sampling data: use one sample to create more samples.
 Take many sub-samples (say 𝐵) of size 𝑛 from your sample with replacement. These are called bootstrapped samples.
 You have now generated 𝐵 bootstrapped samples, where each sample is of size 𝑛
 Instead of building one model on our original sample, we will now build one model on each bootstrapped sample, giving us  𝐵  models in total!
 This sets up the idea of an ensemble model.
-bootstrapped sample use same n as original sample data
+bootstrapped sample should use same n as X_train (not full data set. should still leave validation set out. n refers to number of X_train obs) so it's comparable between the bootstrapped samples and original sample data. 
 bootstrap use on training data.normally after train-test-split.
+We bootstrap when fitting bagged decision trees so that we can fit multiple decision trees on slightly different sets of data. Bagged decision trees tend to outperform single decision trees.
+Bootstrapping can also be used to conduct hypothesis tests and generate confidence intervals (use calculation or via bootstrap) directly from resampled data.
+It might be impossible to develop one model that globally optimizes our objective function. (Remember that CART reach locally-optimal solutions that aren't guaranteed to be the globally-optimal solution.) In these cases, it may be impossible for one CART to arrive at the true function.
+However, generating many different models and averaging their predictions may allow us to get results that are closer to the global optimum than any individual model.
 
-bagging = bootstrap +a model+aggregating
+bagging = bootstrap + model + aggregating = bootstrap aggregation
 default bagging classifier from sklearn uses decision tree
 
-What is bootstrapping?
-Bootstrapping is random resampling with replacement.
-We bootstrap when fitting bagged decision trees so that we can fit multiple decision trees on slightly different sets of data. Bagged decision trees tend to outperform single decision trees.
-Bootstrapping can also be used to conduct hypothesis tests and generate confidence intervals directly from resampled data.
-reduce overfit
-
-decision tree split based on highest drop in gini/rsme
 ---------------------------------------------WEEK 6 DAY 2 -------------------------------------------------------------
 -------------------------------------------TUESDAY 12 MAY-----------------------------------------------------------
 ----------------------------------------RANDOM TREE, EXTRATREES AND BOOSTING----------------------------------------
