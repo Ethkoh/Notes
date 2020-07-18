@@ -27,3 +27,8 @@ symmetric squashing function (tanh)
 NN dont work well with large dimensional inputs(>100). reduce dimensions using dim reduction/compression
 -squared inputs
 have properties of both perceptrons and rbf neurons
+
+### Deep Learning for Science School 2019 - Lawrence Berkeley National Lab
+### 01 - Introduction to Machine Learning - Brenda Ng
+https://www.youtube.com/watch?v=KpDV_FBCWj0&list=PL20S5EeApOSvfvEyhCPOUzU7zkBcR5-eL
+
