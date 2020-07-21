@@ -57,3 +57,29 @@ https://www.youtube.com/watch?v=Wu-faXFJIzw&list=PL20S5EeApOSvfvEyhCPOUzU7zkBcR5
 relu one of the most common activation functions
 
 sigmoid and tanh common used for output layer. sigmoid for probability
+
+### NYU Deep Learning Spring 2020
+### Week 1 – Lecture: History, motivation, and evolution of Deep Learning
+
+VGG 19 layers
+ResNet 50 layers.
+
+can use deep learning for segmentation not just detection
+
+networks are widely over-parameterized but it doesnt overfit. which goes against statistics textbook
+hard to prove in theory yet why it works so well despite more parameters than training examples
+
+svm is like 2 layeer nn. first layer train, second layer classifier.
+why deep learning good? dont need kernal function to fit
+
+
+### NYU Deep Learning Spring 2020
+### Week 1 – Practicum: Classification, linear algebra, and visualisation
+https://www.youtube.com/watch?v=5_qrxVq1kvc&list=PLLHTzKZzVU9eaEyErdV26ikyolxOsz6mq&index=2
+
+single layer nn can do scaling,rotation,translation,reflection,shearing
+
+### NYU Deep Learning Spring 2020
+### Week 2 – Lecture: Stochastic gradient descent and backpropagation
+https://www.youtube.com/watch?v=d9vdh3b787Y&list=PLLHTzKZzVU9eaEyErdV26ikyolxOsz6mq&index=3
+
