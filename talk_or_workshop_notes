@@ -1,4 +1,4 @@
-### AI4IMPACT X DataScience SG: Neural Networks for Forecasting - Tips and Tricks
+######################## AI4IMPACT X DataScience SG: Neural Networks for Forecasting - Tips and Tricks#################################
 ### 30 April 2020
 
 MAE vs RMSE
@@ -28,7 +28,9 @@ NN dont work well with large dimensional inputs(>100). reduce dimensions using d
 -squared inputs
 have properties of both perceptrons and rbf neurons
 
-### Deep Learning for Science School 2019 - Lawrence Berkeley National Lab
+###########################################################################################################################
+#################### Deep Learning for Science School 2019 - Lawrence Berkeley National Lab################################
+
 ### 01 - Introduction to Machine Learning - Brenda Ng
 https://www.youtube.com/watch?v=KpDV_FBCWj0&list=PL20S5EeApOSvfvEyhCPOUzU7zkBcR5-eL
 
@@ -50,7 +52,6 @@ continous bag-of-words(CBOW) is faster to train than Skip-Gram(SG) and yields sl
 
 reinforcement learning: DL models have been applied to learn policy mappings, value functions and dynamic models
 
-### Deep Learning for Science School 2019 - Lawrence Berkeley National Lab
 ### 02 - Introduction to Neural Networks I - Mustafa Mustafa
 https://www.youtube.com/watch?v=Wu-faXFJIzw&list=PL20S5EeApOSvfvEyhCPOUzU7zkBcR5-eL&index=2
 
@@ -58,7 +59,18 @@ relu one of the most common activation functions
 
 sigmoid and tanh common used for output layer. sigmoid for probability
 
-### NYU Deep Learning Spring 2020
+What is NN? 
+family of parametric,non-linear, and hierarchial representation learning functions which are massively optimized with stochastic gradient descent
+
+what kind of functions can NN approximate?
+universal approximate theorem
+
+
+###################################################################################################
+############################## NYU Deep Learning Spring 2020 ########################################
+
+https://atcold.github.io/pytorch-Deep-Learning/
+
 ### Week 1 – Lecture: History, motivation, and evolution of Deep Learning
 
 VGG 19 layers
@@ -72,14 +84,13 @@ hard to prove in theory yet why it works so well despite more parameters than tr
 svm is like 2 layeer nn. first layer train, second layer classifier.
 why deep learning good? dont need kernal function to fit
 
-
-### NYU Deep Learning Spring 2020
 ### Week 1 – Practicum: Classification, linear algebra, and visualisation
 https://www.youtube.com/watch?v=5_qrxVq1kvc&list=PLLHTzKZzVU9eaEyErdV26ikyolxOsz6mq&index=2
 
 single layer nn can do scaling,rotation,translation,reflection,shearing
 
-### NYU Deep Learning Spring 2020
+
 ### Week 2 – Lecture: Stochastic gradient descent and backpropagation
 https://www.youtube.com/watch?v=d9vdh3b787Y&list=PLLHTzKZzVU9eaEyErdV26ikyolxOsz6mq&index=3
 
+###################################################################################################
