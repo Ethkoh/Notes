@@ -365,6 +365,61 @@ Shift + tab to take find purpose of method/when calling function can see what ar
 
 Np array has to be homogenous values. Eg all int or all float 
 
+Tuple usually unpack instead of  access using index. Good practice
+instructor = ("Tim", "Book")
+first, last = instructor
+
+Unpack can use for lists also but not common. usually use index instead
+
+slecting list elements = slicing/indexing
+
+Sets in alphabetical order
+
+datatype: type()
+
+athimetic:
+mod: %
+expo: **
+floor division: //
+
+String
+.split(' ')[1]
+
+Sets
+.union()
+.intersection()
+.add()
+.remove()
+
+Lists
+“Test”.join(list)
+.append()
+.remove()
+
+Backwards
+list[::-1]
+
+Tuples
+* Immutable 
+* Heterogeneous 
+
+Dictionaries unordered
+dict.get() to ensure key exists
+
+NOT gives opposite
+
+== Equal to
+
+can share jupyter notebook as html file also. file->download as->html
+
+additional:
+Rational numbers in most programming languages are called Floating numbers - due to various factors, they are an approximation of their equivalent in Decimal.
+In Javascript and Python the final result of 0.1 + 0.2 equals to 0.30000000000000004.
+In C is 0.300000011920928955
+
+control flow- when we want to implement logic
+
+Backslashes allow you to have \"quotes\" inside your quotes!
 ---------------------------------------------WEEK 1 DAY 2 -------------------------------------------------------------
 --------------------------------------------TUESDAY 7 APRIL -----------------------------------------------------
 Default value: Only if no parameter passed then default used.
