@@ -7,7 +7,7 @@ A list can contain different types. eg int, float
 
 copy of variable content using list() or using [:]
 
-###list to variable
+### list to variable
 variable=np.array(variable)
 
 ### list vs numpy array
