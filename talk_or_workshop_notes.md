@@ -1,4 +1,4 @@
-######################## AI4IMPACT X DataScience SG: Neural Networks for Forecasting - Tips and Tricks#################################
+### AI4IMPACT X DataScience SG: Neural Networks for Forecasting - Tips and Tricks
 ### 30 April 2020
 
 MAE vs RMSE
@@ -28,9 +28,7 @@ NN dont work well with large dimensional inputs(>100). reduce dimensions using d
 -squared inputs
 have properties of both perceptrons and rbf neurons
 
-###########################################################################################################################
-#################### Deep Learning for Science School 2019 - Lawrence Berkeley National Lab################################
-
+### Deep Learning for Science School 2019 - Lawrence Berkeley National Lab
 ### 01 - Introduction to Machine Learning - Brenda Ng
 https://www.youtube.com/watch?v=KpDV_FBCWj0&list=PL20S5EeApOSvfvEyhCPOUzU7zkBcR5-eL
 
@@ -66,8 +64,8 @@ what kind of functions can NN approximate?
 universal approximate theorem
 
 
-###################################################################################################
-############################## NYU Deep Learning Spring 2020 ########################################
+
+# NYU Deep Learning Spring 2020 
 
 https://atcold.github.io/pytorch-Deep-Learning/
 
@@ -92,5 +90,3 @@ single layer nn can do scaling,rotation,translation,reflection,shearing
 
 ### Week 2 – Lecture: Stochastic gradient descent and backpropagation
 https://www.youtube.com/watch?v=d9vdh3b787Y&list=PLLHTzKZzVU9eaEyErdV26ikyolxOsz6mq&index=3
-
-###################################################################################################
