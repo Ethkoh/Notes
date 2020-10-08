@@ -1,4 +1,5 @@
-'''
+# Power BI
+
 Visualizations – A visual representation of data, sometimes just called visuals
 Datasets – A collection of data that Power BI uses to create visualizations
 Reports – A collection of visuals from a dataset, spanning one or more pages
@@ -20,4 +21,3 @@ In Power Query Editor, you can build queries and transform data, load that refin
 to start Home>get data>more
 
 
-'''
