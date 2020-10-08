@@ -1,3 +1,6 @@
+#SQL
+
+### Introduction to SQL
 SQL, which stands for Structured Query Language, is a language for interacting with data stored in something called a relational database.
 Each row, or record, of a table contains information about a single entity. Each column contains single attribute for all rows in the table.
 
@@ -85,3 +88,26 @@ By default ORDER BY will sort in ascending order. If you want to sort the result
 SELECT title
 FROM films
 ORDER BY release_year DESC;
+
+ORDER BY can also be used to sort on multiple columns. It will sort by the first column specified, then sort by the next, then the next, and so on.
+SELECT birthdate, name
+FROM people
+ORDER BY birthdate, name;
+
+GROUP BY always goes after the FROM clause!
+SQL will return an error if you try to SELECT a field that is not in your GROUP BY clause without using it to calculate some kind of value about the entire group.
+GROUP BY allows you to group a result by one or more columns, like so:
+SELECT sex, count(*)
+FROM employees
+GROUP BY sex
+ORDER BY count DESC;
+
+aggregate functions can't be used in WHERE clauses. 
+hat's where the HAVING clause comes in. For example,
+SELECT release_year
+FROM films
+GROUP BY release_year
+HAVING COUNT(title) > 10
+ORDER BY release_year;
+
+### Joining Data in SQL
