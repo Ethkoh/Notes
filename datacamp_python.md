@@ -1,4 +1,6 @@
 # Python - Datacamp
+
+## Introduction to python and Intermediate Python
 x[2][:2]
 x[2] results in a list, that you can subset again by adding additional square brackets.
 A list can contain any Python type. But a list itself is also a Python type. That means that a list can also contain a list
@@ -53,15 +55,19 @@ plt.show()
 plt.clf()
 
 ### example Scatter plot
+s argument means size
+col means color
+alpha means opacity
+
 plt.scatter(x = gdp_cap, y = life_exp, s = np.array(pop) * 2, c = col, alpha = 0.8)
 plt.xscale('log') 
 plt.xlabel('GDP per Capita [in USD]')
 plt.ylabel('Life Expectancy [in years]')
 plt.title('World Development in 2007')
 plt.xticks([1000,10000,100000], ['1k','10k','100k'])
-plt.text(1550, 71, 'India')
-plt.text(5700, 80, 'China')
-plt.grid(True)
+plt.text(1550, 71, 'India') #additional points
+plt.text(5700, 80, 'China')  #additional points
+plt.grid(True) # add grid lines
 plt.show()
 
 ### dictionaries
@@ -164,4 +170,6 @@ MOR            70        Morocco          True
 observation that i made:
 - i think array cannot use .index. dataframe and list can.
 
-
+## introduction to importing data in python
+### display the contents of your current directory
+IPython magic command ! ls 
