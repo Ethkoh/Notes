@@ -85,7 +85,7 @@ europe['spain']['population']
 add new key-value pair to dictionary. example
 europe['italy']='rome'
 
-#remove key-value pair from dictionary. example
+### remove key-value pair from dictionary. example
 del(europe['australia'])
 
 The DataFrame is one of Pandas' most important data structures. 
