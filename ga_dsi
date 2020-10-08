@@ -373,6 +373,7 @@ first, last = instructor
 Unpack can use for lists also but not common. usually use index instead
 
 slecting list elements = slicing/indexing
+can slice strings also.
 
 Sets in alphabetical order
 
@@ -405,9 +406,29 @@ list[::-1]
 Tuples
 * Immutable 
 * Heterogeneous 
+Tuples have no append or extend method.
+Elements cannot be removed from a tuple.
+You can find elements in a tuple, since this doesn’t change the tuple.
+You can also use the in operator to check if an element exists in the tuple.
+Tuples are faster than lists. If you’re defining a constant set of values and all you’re ever going to do with it is iterate through it, use a tuple instead of a list.
+It makes your code safer if you “write-protect” data that does not need to be changed.
+count() Returns the number of times a specified value occurs in a tuple
+index() Searches the tuple for a specified value and returns the position of where it was found
+
 
 Dictionaries unordered
-dict.get() to ensure key exists
+-Each key in a single Dictionary object must be unique.
+-Dictionaries can also be used to sort, iterate and compare data.
+-dict.get() to ensure key exists or use key in dict
+-Adding new items to a Dictionary: To add a value to a Dictionary, specify the new key and set a value. 
+-Removing items from a Dictionary: del dict[key]: To remove a value from a dictionary, use the del method and specify the key to remove
+-Counting Items in the Dictionary: Use the len() property to obtain a count of the number of key:value pairs in the dictionary.
+-Use the variable name and the key value in brackets [] to get the value associated with the key.
+-The .keys() and .values() methods return an array containing all the keys or values from the dictionary. 
+- .items() to loop dictionary
+
+another way to create dictionary from a list of tuples:
+room_num1 = dict([('john', 425), ('tom', 212), ('sally', 325)])
 
 NOT gives opposite
 
@@ -435,7 +456,10 @@ If you want to round the number because that's what your mathematical formula or
 If you just want to restrict the display to a certain precision, then don't even use round and just format it as that string.
 s for string, d to display decimal integers (10-base), and f which we’ll use to display floats with decimal places
 eg print("${:.2f}".format(refund))
-
+using formatters to increase field size and modify alignment can make your output more readable.
+eg for i in range(3,13):
+    print("{:6d} {:6d} {:6d}".format(i, i*i, i*i*i))
+    
 control flow- when we want to implement logic. eg conditionals, for loops, list comprehension, while loop, nested loops
 
 Backslashes allow you to have \"quotes\" inside your quotes!
@@ -444,7 +468,7 @@ Sometimes, more than one statement may be put on a single line. In Python a semi
 loop thru item in lists: for i in list 
 loop thru range: for i in range(100)
 
-for lists, can enumnerate:
+for LISTS, can ENUMERATE:
 for index,value in enumerate(names):
     print(f"index {value}")
     
@@ -458,7 +482,7 @@ for index,value in enumerate(names):
 for animal, cls in animals:
     print(f"{animal} is a type of {cls}.")
     
- for dictionary, can use items:
+for DICTIONARY, can use ITEMS:
  animals = {
     'zebra': 'mammal',
     'tuna': 'fish'
@@ -526,9 +550,10 @@ def titanic_name(first_name, last_name, title='Mr'):
     return '{}, {}. {}'.format(last_name,title,first_name)
     
 concatenate = combine 
+
 ---------------------------------------------WEEK 1 DAY 2 -------------------------------------------------------------
 --------------------------------------------TUESDAY 7 APRIL -----------------------------------------------------------
-
+----------------------------------- FUNCTIONS AND LIST COMPREHENSION---------------------------------------------------
 Default value: Only if no parameter passed then default used.
 Cannot put Default value for argument in first argument. doesn't seem to work
 
@@ -563,8 +588,36 @@ def quadratic_function(a,b,c):
 
 quadratic_function(3,0,1)(2)
 
+repeat without counting: for _ in range(10)
 
+list comprehension example:
+# Recreate squared_numbers using list comprehension
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+squared_numbers = [num**2 for num in numbers] #in lists
 
+list comprehension with filtering example:
+classroom_teachers=[members for members in classroom if members['role'] == "teacher"]
+
+list comprehension can work for dictionaries also. wrap in {} instead of []
+list comprehension with dictonary example:
+users={i: v.lower() for i,v in users.items()}
+Or
+users={i:users[i].lower() for i in users}
+
+#create list of integers
+list(range(1,101))
+
+additional:
+map(f,data) is running iterable of function over data
+has no datatype. to return list: list(map(f,data))
+use lambda expression to iterate if its just a single expression not function
+
+filter(function/lambda expression,data): this filters only return for which function is true
+filter(None,data): need to be super careful. None in python represents "",0,0.0,[],{},() etc. so it can filter away zero values also
+
+reduce function now not built in. its under functools
+it runs iteration against its previous solution.
+reduce(f,data)
 
 ---------------------------------------------WEEK 1 DAY 3 -------------------------------------------------------------
 --------------------------------------------WEDNESDAY 8 APRIL -----------------------------------------------------
@@ -573,6 +626,11 @@ Don’t append or remove the main list while trying to run a for loop. Will caus
 Sample space is all outcomes of the experiment
 
 Event: collection of outcome of experiment: Eg. A = Event of getting 2 heads
+
+max(["words","words]): max list of words give the word in the lowest end of alphabetical order. not length
+should do this:  len(max(list_of_words, key=len))
+
+list.remove(): remove a specific value
 
 ---------------------------------------------WEEK 1 DAY 4 -------------------------------------------------------------
 --------------------------------------------THURSDAY 9 APRIL -----------------------------------------------------
