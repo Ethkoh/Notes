@@ -1,4 +1,6 @@
-### AI4IMPACT X DataScience SG: Neural Networks for Forecasting - Tips and Tricks
+# Talks and Workshops
+
+## AI4IMPACT X DataScience SG: Neural Networks for Forecasting - Tips and Tricks
 ### 30 April 2020
 
 MAE vs RMSE
