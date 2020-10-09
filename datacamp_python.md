@@ -170,6 +170,21 @@ MOR            70        Morocco          True
 observation that i made:
 - i think array cannot use .index. dataframe and list can.
 
-## introduction to importing data in python
+##  Introduction to importing data in python
 ### display the contents of your current directory
 IPython magic command ! ls 
+
+'with' command is context manager
+
+# Open a file: file
+file = open('moby_dick.txt', mode='r')
+# Print it
+print(file.read())
+# Check whether file is closed
+print(file.closed)
+# Close file
+file.close()
+# Check whether file is closed
+print(file.closed)
+
+readline(): print only the first few lines. When a file called file is open, you can print out the first line by executing file.readline(). If you execute the same command again, the second line will print, and so on.
