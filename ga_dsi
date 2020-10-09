@@ -375,8 +375,6 @@ Unpack can use for lists also but not common. usually use index instead
 slecting list elements = slicing/indexing
 can slice strings also.
 
-Sets in alphabetical order
-
 datatype: type()
 
 athimetic:
@@ -390,18 +388,30 @@ String
 .replace(,)
 
 Sets
+.elements in set are immutable. hence a tuple may be inside a set but not dict or lists
+.Sets are unordered.
+.Sets are in alphabetical order when called
+.Set elements are unique
+.can have different types in a set
 .union()
 .intersection()
 .add()
 .remove()
+.Strings are also iterable, so a string can be passed to set() as well. set(s) generates a set of the characters in s:
+s = 'quux'
+set(s)
+{'q', 'u', 'x'}
 
 Lists
 “Test”.join(list)
 .append()
 .remove()
+.Backwards: list[::-1]
 
-Backwards
-list[::-1]
+Boolean
+Strings can also be used with Boolean operators. They are case-sensitive.
+print("Sammy == sammy: ", Sammy == sammy)
+Sammy == sammy:  False
 
 Tuples
 * Immutable 
@@ -426,7 +436,21 @@ Dictionaries unordered
 -Use the variable name and the key value in brackets [] to get the value associated with the key.
 -The .keys() and .values() methods return an array containing all the keys or values from the dictionary. 
 - .items() to loop dictionary
-
+-sorting dictionaries:
+by key:
+for k, v in sorted(room_num.items(),reverse=True):
+    print(k + ' is in room ' + str(v))
+    
+ or 
+ dict={}
+for i,j in sorted(room_num.items()):
+    dict[i]=j
+ by values:
+ print(sorted(room_num.values()))
+ by keys backwards:
+ for k, v in sorted(room_num.items(),reverse=True):
+    print(k + ' is in room ' + str(v))  
+    
 another way to create dictionary from a list of tuples:
 room_num1 = dict([('john', 425), ('tom', 212), ('sally', 325)])
 
@@ -460,8 +484,6 @@ using formatters to increase field size and modify alignment can make your outpu
 eg for i in range(3,13):
     print("{:6d} {:6d} {:6d}".format(i, i*i, i*i*i))
     
-control flow- when we want to implement logic. eg conditionals, for loops, list comprehension, while loop, nested loops
-
 Backslashes allow you to have \"quotes\" inside your quotes!
 Sometimes, more than one statement may be put on a single line. In Python a semicolon (;) can be used to separate multiple statements on the same line. 
 
@@ -549,8 +571,59 @@ def titanic_name(first_name, last_name, title='Mr'):
     # printing is merely for you the developer to debug your code. In order to use result from titanic_name elsewhere in our code, we need to explicitly return it
     return '{}, {}. {}'.format(last_name,title,first_name)
     
+Operators
+arithmetic operators, comparison operators, concatenation operators, and logical operators.
+When expressions contain operators from more than one category, arithmetic operators are evaluated first, comparison operators are evaluated next, and logical operators are evaluated last.
 concatenate = combine 
 
+Arithmetic operators are have order of precedence
+-Exponentiation	**
+-Unary negation	-
+-Multiplication	*, -Division	/
+-Modulus arithmetic	%
+-Addition	+, -Subtraction	-
+-String concatenation	& ( not an arithmetic operator, but in precedence it falls after all arithmetic operators and before all comparison operators.)
+
+Comparison operators all have equal precedence; that is, they are evaluated in the left-to-right order in which they appear.
+-Less than	<
+-Greater than	>
+-Less than or equal to	<=
+-Greater than or equal to	>=
+-Equality	==
+-Inequality	!=
+-Object equivalence	is
+
+x = y # Sets x equal to y. this is assignment
+x == y # Evaluates whether x is equal to y. this is comparison operator
+
+logical operator
+-Logical negation	not
+-Logical conjunction	and
+-Logical disjunction	or
+-Logical exclusion	xor
+-Logical equivalence	eqv
+-Logical implication	imp
+
+CONTROL FLOW: when we want to implement logic. eg conditionals, for loops, list comprehension, while loop, nested loops
+There are three control flow statements in Python - if , for and while .
+control flow (or flow of control) is the order in which individual statements, instructions or function calls of an imperative program are executed or evaluated. 
+
+conditional statements:
+if…elif…elif…else nested statement
+Python programming language assumes any non-zero and non-null values as TRUE, and if it is either zero or null, then it is assumed as FALSE value.
+
+for loop statements
+You can exit any for statement before the counter reaches its end value by using the break statement. 
+Because you usually want to exit only in certain situations, such as when an error occurs, you could also use the if statement in the True statement block. If the condition is _False_, the loop runs as usual.
+
+example of while loop:
+while True:
+    n = input("Please enter 'hello':")
+    if n.strip() == 'hello':
+        break
+
+2 'for' in list comprehension: [(x, y) for x in [1,2,3] for y in [3,1,4] if x != y]
+nested list comprehension example: [ y for x in non_flat if len(x) > 2 for y in x ]
 ---------------------------------------------WEEK 1 DAY 2 -------------------------------------------------------------
 --------------------------------------------TUESDAY 7 APRIL -----------------------------------------------------------
 ----------------------------------- FUNCTIONS AND LIST COMPREHENSION---------------------------------------------------
@@ -623,8 +696,8 @@ reduce(f,data)
 --------------------------------------------WEDNESDAY 8 APRIL -----------------------------------------------------
 Don’t append or remove the main list while trying to run a for loop. Will cause the length of the list to change
 
+Experiment: procedure can be repeat inifite number of times and has well defined set of outcomes
 Sample space is all outcomes of the experiment
-
 Event: collection of outcome of experiment: Eg. A = Event of getting 2 heads
 
 max(["words","words]): max list of words give the word in the lowest end of alphabetical order. not length
@@ -632,6 +705,16 @@ should do this:  len(max(list_of_words, key=len))
 
 list.remove(): remove a specific value
 
+what is datascience process?
+-define problem
+-gather data
+-explore data
+-modelling with data
+-evaluate model
+-solve business problem
+order may not be as such. more explore first then know what problem to fix
+
+know when will the model work and will not.
 ---------------------------------------------WEEK 1 DAY 4 -------------------------------------------------------------
 --------------------------------------------THURSDAY 9 APRIL -----------------------------------------------------
 Distribution: frequency of all possible outcomes
