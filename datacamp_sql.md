@@ -1,6 +1,6 @@
 # SQL
 
-### Introduction to SQL
+## Introduction to SQL
 SQL, which stands for Structured Query Language, is a language for interacting with data stored in something called a relational database.
 Each row, or record, of a table contains information about a single entity. Each column contains single attribute for all rows in the table.
 
@@ -110,4 +110,40 @@ GROUP BY release_year
 HAVING COUNT(title) > 10
 ORDER BY release_year;
 
-### Joining Data in SQL
+## Joining Data in SQL
+
+can join table with itself
+
+if same name in other database join, will have error if never specify which database SELECT columns is from
+SELECT *
+FROM left_table
+INNER JOIN right_table
+ON left_table.id = right_table.id;
+
+SELECT c1.name AS city, c2.name AS country
+FROM cities AS c1
+INNER JOIN countries AS c2
+ON c1.country_code = c2.code;
+
+When joining tables with a common field name, You can use USING as a shortcut:
+SELECT *
+FROM countries
+  INNER JOIN economies
+    USING(code)
+    
+CASE WHEN THEN can do if-else for sql
+You can use CASE with WHEN, THEN, ELSE, and END to define a new grouping field.
+SELECT name, continent, code, surface_area,
+    -- 1. First case
+    CASE WHEN surface_area > 2000000 THEN 'large'
+        -- 2. Second case
+        WHEN surface_area> 350000 THEN 'medium'
+        -- 3. Else clause + end
+        ELSE 'small' END
+        -- 4. Alias name
+        AS geosize_group
+-- 5. From table
+FROM countries;
+
+Use INTO to save the result of the previous query
+
