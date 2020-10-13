@@ -214,6 +214,7 @@ touch index.html style.css
 Removing Files
 Be careful when using rm. Unlike moving files to the trash or recycle bin, deleting files with rm removes them permanently!
 Eg rm -r ~/sales
+or rm -r /Users/name/sales
 
 To remove directories as well. 
 Type rm -r myfolder to remove the myfolder directory.
