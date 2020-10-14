@@ -1,6 +1,7 @@
-# Python - Datacamp
+# Datacamp Python
 
-## Introduction to python and Intermediate Python
+## Introduction to Python and Intermediate Python
+
 x[2][:2]
 x[2] results in a list, that you can subset again by adding additional square brackets.
 A list can contain any Python type. But a list itself is also a Python type. That means that a list can also contain a list
@@ -58,7 +59,7 @@ plt.clf()
 s argument means size
 col means color
 alpha means opacity
-
+```
 plt.scatter(x = gdp_cap, y = life_exp, s = np.array(pop) * 2, c = col, alpha = 0.8)
 plt.xscale('log') 
 plt.xlabel('GDP per Capita [in USD]')
@@ -69,7 +70,7 @@ plt.text(1550, 71, 'India') #additional points
 plt.text(5700, 80, 'China')  #additional points
 plt.grid(True) # add grid lines
 plt.show()
-
+```
 ### dictionaries
 my_dict = {
    "key1":"value1",
@@ -170,21 +171,220 @@ MOR            70        Morocco          True
 observation that i made:
 - i think array cannot use .index. dataframe and list can.
 
+### dataframe 
+Columnaccessbrics[["country", "capital"]]Rowaccess:onlythroughslicingbrics[1:4]loc(label-based)Rowaccessbrics.loc[["RU", "IN", "CH"]]Columnaccessbrics.loc[:, ["country", "capital"]]
+
+### Comparison operators
+Before, the operational operators like < and >= worked with Numpy arrays out of the box. Unfortunately, this is not true for the boolean operators and, or, and not.
+```
+area=np.array([10,15,23])
+eg print(area<10)
+```
+To use these operators with Numpy, you will need np.logical_and(), np.logical_or() and np.logical_not()
+eg print(np.logical_and(my_house > 13, 
+               your_house < 15))
+               
+```
+# Create medium: observations with cars_per_cap between 100 and 500
+cpc=cars['cars_per_cap']
+between=np.logical_and(cpc>100, cpc<500)
+medium=cars[between]
+print(medium)
+```
+
+### for loop for lists
+```
+for height in areas:
+   print('height')
+```
+
+### using enumerate
+```
+fam = [1.73, 1.68, 1.71, 1.89]
+for index, height in enumerate(fam) :
+    print("person " + str(index) + ": " + str(height))
+```
+
+### for loop for lists in lists
+```
+# house list of lists
+house = [["hallway", 11.25], 
+         ["kitchen", 18.0], 
+         ["living room", 20.0], 
+         ["bedroom", 10.75], 
+         ["bathroom", 9.50]]
+         
+# Build a for loop from scratch
+for y in house:
+    print("the " + str(y[0])+ " is " + str(y[1])+" sqm")
+```
+
+### for loop for dictionary
+```
+# Iterate over europe
+for country,capital in europe.items():
+    print("the capital of "+country+" is "+capital )
+```
+
+### every element in 2D np array
+A 2D array is built up of multiple 1D arrays. To explicitly iterate over all separate elements of a multi-dimensional array, you'll need this syntax:
+```
+for x in np.nditer(my_array) :
+    ...
+```
+
+### Iterating over a Pandas DataFrame 
+iterrows() method. Used in a for loop, every observation is iterated over and on every iteration the row label and actual row contents are available:
+```
+for lab, row in brics.iterrows() :
+    ...
+    
+# example
+# Code for loop that adds COUNTRY column
+for lab,x in cars.iterrows():
+    cars.loc[lab,'COUNTRY']=cars.loc[lab,'country'].upper()
+```
+
+### additional: numpy 
+ndarray slices are actually views on the same data buffer. If you modify it, it is going to modify the original ndarray as well.
+NumPy array slice	
+```
+>>> a = np.array([1, 2, 5, 7, 8])
+>>> a_slice = a[1:5]
+>>> a_slice[1] = 1000
+>>> a
+array([   1,    2, 1000, 7,    8])
+# Original array was modified
+```
+
+### additional: numpy vs pandas
+Though Pandas are built on the top of NumPy and they may appear to be similar, however, they both have unique functionalities and purposes.
+
+Let’s start with NumPy. NumPy is a Python package written in C which is used to perform numerical operations and for processing n-dimensional arrays.
+
+Coming on to Pandas, it is defined as a python package which provides high-performance data manipulation in Python and requires NumPy for operating as it is built on the top of NumPy. Both NumPy and Pandas are open source libraries.
+
+Now majorly the difference between these two lies in their data structure, memory consumption, and usage.
+
+NumPy majorly works with numerical data whereas Pandas works with tabular data.
+The data structure in Pandas are Series, Dataframes and Panel whose objects can go upto three. Whereas NumPy has Arrays whose objects can go upto n dimensions.
+NumPy consumes less memory as compared to Pandas.
+Pandas perform better with the data having 500K rows or more whereas NumPy performances better for 50K rows or less.
+Pandas is more widely used in industry than NumPy.
+
+### using 'apply' for function over series
+apply function on a column element wise. not for method
+pd['new_column']=pd['old_column'].apply(function)
+```
+for lab, row in brics.iterrows() :
+    brics.loc[lab, "name_length"] = len(row["country"])
+
+brics["name_length"] = brics["country"].apply(len)
+```
+
+### using 'apply' for methods over series
+```
+Use .apply(str.upper)
+cars["COUNTRY"] = cars['country'].apply(lambda x: x.upper())
+```
+
+### additional
+Python uses 0-based indexing
+
+### slicing subsets of rows
+Slicing using the [] operator selects a set of rows and/or columns from a DataFrame. To slice out a set of rows, you use the following syntax: data[start:stop]
+
+### Slicing Subsets of Rows and Columns 
+We can select specific ranges of our data in both the row and column directions using either label or integer-based indexing.
+
+loc is primarily label based indexing. Integers may be used but they are interpreted as a label.
+iloc is primarily integer based indexing
+
+### Subsetting Data using Criteria
+We can also select a subset of our data using criteria. For example, we can select all rows that have a year value of 2002:
+surveys_df[surveys_df.year == 2002]
+
+### random number
+```
+# Import numpy as np
+import numpy as np
+
+# Set the seed
+np.random.seed(123)
+
+# Generate and print random float
+print(np.random.rand())
+
+# integer
+The following call generates the integer 4, 5, 6 or 7 randomly. 8 is not included.
+import numpy as np
+np.random.randint(4, 8)
+```
+
+### random walk example
+```
+# Numpy is imported, seed is set
+
+# Initialize random_walk
+random_walk=[0]
+
+# Complete the ___
+for x in range(100) :
+    # Set step: last element in random_walk
+    step=random_walk[-1]
+
+    # Roll the dice
+    dice = np.random.randint(1,7)
+
+    # Determine next step
+    if dice <= 2:
+        step = step - 1
+    elif dice <= 5:
+        step = step + 1
+    else:
+        step = step + np.random.randint(1,7)
+
+    # append next_step to random_walk
+    random_walk.append(step)
+
+# Print random_walk
+print(random_walk)
+```
+
+### random walk example 2
+```
+import numpy as np
+import matplotlib.pyplot as plt
+np.random.seed(123)
+final_tails = []
+for x in range(100) :
+            tails = [0]
+            for x in range(10) :  
+                        coin = np.random.randint(0, 2)   
+                        tails.append(tails[x] + coin)                                             final_tails.append(tails[-1])
+plt.hist(final_tails, bins = 10)
+plot.show()
+```
+
+
+
+
 ##  Introduction to importing data in python
 ### display the contents of your current directory
 IPython magic command ! ls 
 
 'with' command is context manager
 
-# Open a file: file
+### Open a file: file
 file = open('moby_dick.txt', mode='r')
-# Print it
+### Print it
 print(file.read())
-# Check whether file is closed
+### Check whether file is closed
 print(file.closed)
-# Close file
+### Close file
 file.close()
-# Check whether file is closed
+### Check whether file is closed
 print(file.closed)
 
 readline(): print only the first few lines. When a file called file is open, you can print out the first line by executing file.readline(). If you execute the same command again, the second line will print, and so on.
+
