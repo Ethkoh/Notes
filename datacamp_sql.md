@@ -19,7 +19,7 @@ SELECT *
 FROM people
 LIMIT 10;
 
-# DISTINCT
+### DISTINCT
 If you want to select all the unique values from a column
 SELECT DISTINCT language
 FROM films;
