@@ -19,6 +19,7 @@ SELECT *
 FROM people
 LIMIT 10;
 
+# DISTINCT
 If you want to select all the unique values from a column
 SELECT DISTINCT language
 FROM films;
@@ -53,7 +54,8 @@ Note that you need to specify the column name separately for every AND condition
 BETWEEN keyword provides a useful shorthand for filtering values within a specified range. 
 It's important to remember that BETWEEN is inclusive, meaning the beginning and end values are included in the results!
 
-The IN operator allows you to specify multiple values in a WHERE clause, making it easier and quicker to specify multiple OR conditions!
+### IN operator
+ allows you to specify multiple values in a WHERE clause, making it easier and quicker to specify multiple OR conditions!
 SELECT name
 FROM kids
 WHERE age IN (2, 4, 6, 8, 10);
@@ -63,6 +65,8 @@ opposite is IS NOT NULL
 
 In SQL, the LIKE operator can be used in a WHERE clause to search for a pattern in a column. 
 You can also use the NOT LIKE operator to find records that don't match the pattern you specify.
+
+### Wildcard % and _
 The % wildcard will match zero, one, or many characters in text. 
 The _ wildcard will match a single character. 
 
@@ -76,7 +80,7 @@ eg SELECT AVG(budget)
 SQL assumes that if you divide an integer by an integer, you want to get an integer back. So be careful when dividing!
 If you want more precision when dividing, you can add decimal places to your numbers. For example,
 SELECT (4.0 / 3.0) AS result;
-gives you the result you would expect: 1.333.
+gives you the result you would expect: 1.333. 
 
 Aliasing simply means you assign a temporary name to something. To alias, you use the AS keyword
 SELECT MAX(budget) AS max_budget,
@@ -115,6 +119,7 @@ ORDER BY release_year;
 can join table with itself
 
 if same name in other database join, will have error if never specify which database SELECT columns is from
+```
 SELECT *
 FROM left_table
 INNER JOIN right_table
@@ -124,26 +129,266 @@ SELECT c1.name AS city, c2.name AS country
 FROM cities AS c1
 INNER JOIN countries AS c2
 ON c1.country_code = c2.code;
-
-When joining tables with a common field name, You can use USING as a shortcut:
+```
+When joining tables with a common field name, You can use USING as a shortcut instead of ON. rmbr to use ():
+```
 SELECT *
 FROM countries
   INNER JOIN economies
     USING(code)
-    
+```
+
 CASE WHEN THEN can do if-else for sql
 You can use CASE with WHEN, THEN, ELSE, and END to define a new grouping field.
-SELECT name, continent, code, surface_area,
-    -- 1. First case
-    CASE WHEN surface_area > 2000000 THEN 'large'
-        -- 2. Second case
-        WHEN surface_area> 350000 THEN 'medium'
-        -- 3. Else clause + end
-        ELSE 'small' END
-        -- 4. Alias name
-        AS geosize_group
--- 5. From table
-FROM countries;
+```
+SELECT country_code, size,
+  CASE WHEN size > 50000000
+            THEN 'large'
+       WHEN size > 1000000
+            THEN 'medium'
+       ELSE 'small' END
+       AS popsize_group
+INTO pop_plus       
+FROM populations
+WHERE year = 2015;
+```
 
 Use INTO to save the result of the previous query
+Use INTO before FROM
+
+3 types of outer joins: left, right, full
+
+comments use /* comments */
+
+### Left Join, Group BY
+```
+-- Select fields
+SELECT region, AVG(gdp_percapita) AS avg_gdp
+-- From countries (alias as c)
+FROM countries AS c
+  -- Left join with economies (alias as e)
+  LEFT JOIN economies AS e
+    -- Match on code fields
+    ON c.code = e.code
+-- Focus on 2010
+WHERE year=2010
+-- Group by region
+GROUP BY region
+-- Order by descending avg_gdp
+ORDER BY avg_gdp DESC;
+```
+
+### 2 Left Join
+```
+SELECT cities.name AS city, urbanarea_pop, countries.name AS country,
+       indep_year, languages.name AS language, percent
+FROM cities
+  LEFT JOIN countries
+    ON cities.country_code = countries.code
+  LEFT JOIN languages
+    ON countries.code = languages.code
+ORDER BY city, language;
+```
+
+### Full Join
+```
+SELECT name AS country, code, region, basic_unit
+-- 3. From countries
+FROM currencies
+  -- 4. Join to currencies
+  FULL JOIN countries
+    -- 5. Match on code
+    USING (code)
+-- 1. Where region is North America or null
+WHERE region = 'North America' OR region IS NULL
+-- 2. Order by region
+ORDER BY region;
+```
+
+```
+SELECT c1.name AS country, region, l.name AS language,
+       frac_unit, 	basic_unit
+-- 1. From countries (alias as c1)
+FROM countries AS c1
+  -- 2. Join with languages (alias as l)
+  FULL JOIN languages AS l
+    -- 3. Match on code
+    USING (code)
+  -- 4. Join with currencies (alias as c2)
+  FULL JOIN currencies AS c2
+    -- 5. Match on code
+    USING (code)
+-- 6. Where region like Melanesia and Micronesia
+WHERE region LIKE 'M%esia';
+```
+
+### Cross Join
+number of ids will be num of ids 1 * ids 2
+no need on/using clause
+
+### Union all vs union
+union all include all duplicates. they dont lookup. simply stack one table on top of another.
+union dont include duplciates. each entries 1
+
+### Intersect
+only records common in both tables
+if more than one column, look for record same 
+
+### Except
+include data only in one table
+
+### Semi Join / Subqueries
+chooses records in the first table where conditions are met in the second table 
+
+example:
+```
+-- Select distinct fields
+SELECT DISTINCT name
+  -- From languages
+  FROM languages
+-- Where in statement
+WHERE code IN
+  -- Subquery
+  (SELECT code
+   FROM countries
+   WHERE region = 'Middle East')
+-- Order by name
+ORDER BY name;
+```
+Sometimes problems solved with semi-joins can also be solved using an inner join.
+```
+SELECT DISTINCT languages.name AS language
+FROM languages
+INNER JOIN countries
+ON languages.code = countries.code
+WHERE region = 'Middle East'
+ORDER BY language;
+```
+
+### Anti Join
+chooses records in the first table where conditions are not met in the second table
+
+example:
+```
+-- 3. Select fields
+SELECT c1.code,c1.name
+  -- 4. From Countries
+  FROM countries AS c1
+  -- 5. Where continent is Oceania
+  WHERE continent ='Oceania'
+  	-- 1. And code not in
+  	AND code NOT IN
+  	-- 2. Subquery
+  	(SELECT code
+  	FROM currencies
+);
+```
+
+### summary of joins
+1. inner
+- self
+2. outer
+- left
+- right
+- full
+3. cross join
+4. semi join
+5. anti join
+
+### summary of set theory
+1. union 
+2. union all
+3. intercept (not same as inner join)
+4. except
+
+### Example of joins and set theories
+```
+-- Select the city name
+SELECT name
+  -- Alias the table where city name resides
+  FROM cities AS c1
+  -- Choose only records matching the result of multiple set theory clauses
+  WHERE country_code IN
+(
+    -- Select appropriate field from economies AS e
+    SELECT e.code
+    FROM economies AS e
+    -- Get all additional (unique) values of the field from currencies AS c2  
+    UNION ALL
+    SELECT c2.code
+    FROM currencies AS c2
+    -- Exclude those appearing in populations AS p
+    EXCEPT
+    SELECT p.country_code
+    FROM populations AS p
+);
+```
+
+### Subquery in SELECT
+= nested query
+
+commonly Subqueries inside WHERE and SELECT clauses
+
+Example:
+```
+/*SELECT countries.name AS country, COUNT(*) AS cities_num
+  FROM cities
+    INNER JOIN countries
+    ON countries.code = cities.country_code
+GROUP BY country
+ORDER BY cities_num DESC, country
+LIMIT 9;
+*/
+```
+Alternative solution:
+```
+SELECT name AS country,
+  (SELECT COUNT(name)
+   FROM cities
+   WHERE countries.code = cities.country_code) AS cities_num
+FROM countries 
+ORDER BY cities_num DESC, country
+LIMIT 9;
+```
+### Subquery in WHERE
+Most common where subquery found
+example:
+```
+SELECT name, fert_rate
+FROM states
+WHERE continent = 'Asia'
+AND fert_rate <
+(SELECT AVG(fert_rate)
+FROM states);
+```
+another example:
+```
+-- Select fields
+SELECT code,inflation_rate, unemployment_rate
+  -- From economies
+  FROM economies
+  -- Where year is 2015 and code is not in
+ WHERE year = 2015 AND code NOT IN 
+  	-- Subquery
+  	(SELECT code
+  	 FROM countries
+  	 WHERE (gov_form = 'Constitutional Monarchy' OR gov_form LIKE '%Republic%')) 
+-- Order by inflation rate
+ORDER BY inflation_rate;
+```
+
+ 
+### Subquery in FROM 
+as a temporary table
+
+example:
+```
+SELECT DISTINCT monarchs.continent, subquery.max_perc
+FROM monarchs,
+(SELECT continent, MAX(women_parli_perc) AS max_perc
+FROM states
+GROUP BY continent) AS subquery
+WHERE monarchs.continent = subquery.continent
+ORDER BY continent;
+```
 
