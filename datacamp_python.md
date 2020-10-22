@@ -369,13 +369,657 @@ plt.hist(final_tails, bins = 10)
 plot.show()
 ```
 
-# transpose 
+### transpose 
 transpose random walk to visualize
 np.transpose(list)
+
+## Toolbox Part 1
+print() is type NoneType
+
+### scopes searched (LEGB rule):
+in a function, python will first look for local scope. if no local scope defined, then will look for global scope
+1. local
+2. enclosing functions
+3. global
+4. builtin/ predefined
+
+print list of all the names in module/package
+dir(module)
+
+
+### alter global in function
+```
+def ...():
+    global var
+    var = ...
+    return var
+```
+
+### alter name in enclosing scope in nested function
+```
+def ...():
+    var=...
+    def ...():
+    nonlocal var
+    var = ...
+    return var
+```
+```
+# Define echo_shout()
+def echo_shout(word):
+    """Change the value of a nonlocal variable"""
+    
+    # Concatenate word with itself: echo_word
+    echo_word = word * 2
+    
+    # Print echo_word
+    print(echo_word)
+    
+    # Define inner function shout()
+    def shout():
+        """Alter a variable in the enclosing scope"""    
+        # Use echo_word in nonlocal scope
+        nonlocal echo_word
+        
+        # Change echo_word to echo_word concatenated with '!!!'
+        echo_word = echo_word+"!!!"
+    
+    # Call function shout()
+    shout()
+    
+    # Print echo_word
+    print(echo_word)
+
+# Call function echo_shout() with argument 'hello'
+echo_shout('hello')
+```
+
+### nested function
+example:
+```
+def mod2plus5(x1, x2, x3):
+    def inner(x):
+    return x % 2 + 5
+    
+    return (inner(x1), inner(x2), inner(x3))
+    
+print(mod2plus5(1, 2, 3))(6, 5, 6)
+```
+another example:
+```
+def raise_val(n):
+    def inner(x):
+        raised = x ** n
+        return raised
+    return inner
+
+square = raise_val(2)
+cube = raise_val(3)
+print(square(2), cube(4))
+```
+
+### flexible arguments
+dont need to specify specific number of arguments
+
+single * example:
+turns all the arguments passed to the function into a tuple called args
+```
+def add_all(*args):
+# Initialize sum
+sum_all = 0
+# Accumulate the sum
+for num in args:
+sum_all += num
+return sum_all
+```
+
+double ** example:
+```
+def print_all(**kwargs):
+# Print out the key-value pairs
+for key, value in kwargs.items():
+print(key + \": \" + value)
+print_all(name="dumbledore", job="headmaster")
+```
+double ** example:
+```
+# Define report_status
+def report_status(**kwargs):
+
+    # Iterate the key-value pairs of kwargs
+    for key, value in kwargs.items():
+        # Print out the keys and values, separated by a colon ':'
+        print(key + ": " + value)
+
+    print("\nEND REPORT")
+
+# First call to report_status()
+report_status(name='luke',affiliation="jedi",status="missing")
+
+# Second call to report_status()
+report_status(name='anakin', affiliation='sith lord', status='deceased')
+```
+
+### map(func,seq)
+map() applies function to all elements in the sequence
+
+example:
+```
+nums = [48, 6, 9, 21, 1]
+square_all = map(lambda num: num ** 2, nums)
+print(square_all)
+<map object at 0x103e065c0>
+print(list(square_all))
+[2304, 36, 81, 441, 1]
+```
+
+### filter and lambda
+```
+# Create a list of strings: fellowship
+fellowship = ['frodo', 'samwise', 'merry', 'pippin', 'aragorn', 'boromir', 'legolas', 'gimli', 'gandalf']
+
+# Use filter() to apply a lambda function over fellowship: result
+result = filter(lambda x: len(x)>6, fellowship)
+
+# Convert result to a list: result_list
+result_list=list(result)
+
+# Print result_list
+print(result_list)
+```
+
+### Error handling with error raising
+example:
+```
+def sqrt(x):
+"""Returns the square root of a number."""
+    if x < 0:
+        raise ValueError('x must be non-negative')
+    try:
+        return x ** 0.5
+    except TypeError:
+        print('x must be an int or float')
+```
+
+example raise error if column name not in column:
+```
+def ...
+....
+
+  # Raise a ValueError if col_name is NOT in DataFrame
+    if col_name not in df.columns:
+        raise ValueError('The DataFrame does not have a ' + col_name + ' column.')
+
+.....
+```
+
+### Error handling with try-except
+example:
+```
+def sqrt(x):
+"""Returns the square root of a number."""
+try:
+return x ** 0.5
+except:
+print('x must be an int or float')
+```
+
+## Toolbox Part 2
+
+
+### iter()
+applying to an iterable (eg list) creates an iterator (iter(), object with associate next method)
+use next() function to retrieve the values one by one from the iterator object
+
+```
+word = 'Da'
+it = iter(word)
+next(it)
+'D'
+```
+```
+# Create an iterator for range(3): small_value
+small_value = iter(range(3))
+
+# Print the values in small_value
+print(next(small_value))
+```
+
+### iterating at once with *
+```
+word =
+'Data'
+it = iter(word)
+print(*it)
+D a t a
+```
+
+### iterating over file connections
+```
+file = open('file.txt')
+it = iter(file)
+print(next(it))
+This is the first line.
+print(next(it))
+This is the second line.
+```
+
+range() doesn't actually create the list; instead, it creates a range object with an iterator that produces the values until it reaches the limit
+
+fun fact: The value 10100 is actually what's called a Googol which is a 1 followed by a hundred 0s. That's a huge number!
+
+### enumerate()
+for list to unpack index and values
+```
+avengers = ['hawkeye', 'iron man', 'thor', 'quicksilver']
+e = enumerate(avengers)
+print(type(e))
+<class 'enumerate'>
+e_list = list(e)
+print(e_list)
+[(0, 'hawkeye'), (1, 'iron man'), (2, 'thor'), (3, 'quicksilver')]
+```
+
+```
+avengers = ['hawkeye', 'iron man', 'thor', 'quicksilver']
+for index, value in enumerate(avengers):
+print(index, value)
+```
+
+### zip()
+accept arbitray number of iterables and returns iterator of tuples
+
+```
+avengers = ['hawkeye', 'iron man', 'thor', 'quicksilver']
+names = ['barton', 'stark', 'odinson', 'maximoff']
+z = zip(avengers, names)
+print(type(z))
+<class 'zip'>
+z_list = list(z)
+print(z_list)
+[('hawkeye', 'barton'), ('iron man', 'stark'),
+('thor', 'odinson'), ('quicksilver', 'maximoff')]
+```
+
+### create dictionary from zip lists
+```
+# Zip lists: zipped_lists
+zipped_lists = zip(feature_names,row_vals)
+
+# Create a dictionary: rs_dict
+rs_dict = dict(zipped_lists)
+
+# Print the dictionary
+print(rs_dict)
+```
+
+### to create list of dictionary
+
+```
+# Define lists2dict()
+def lists2dict(list1, list2):
+    """Return a dictionary where list1 provides
+    the keys and list2 provides the values."""
+
+    # Zip lists: zipped_lists
+    zipped_lists = zip(list1, list2)
+
+    # Create a dictionary: rs_dict
+    rs_dict = dict(zipped_lists)
+
+    # Return the dictionary
+    return rs_dict
+
+# Turn list of lists into list of dicts: list_of_dicts
+list_of_dicts = [lists2dict(feature_names,sublist) for sublist in row_lists]
+
+# Print the first two dictionaries in list_of_dicts
+print(list_of_dicts[0])
+print(list_of_dicts[1])
+```
+
+### list of dics to Dataframe
+```
+# Turn list of dicts into a DataFrame: df
+df = pd.DataFrame(list_of_dicts)
+```
+
+### unpack zip()
+```
+avengers = ['hawkeye', 'iron man', 'thor', 'quicksilver']
+names = ['barton', 'stark', 'odinson', 'maximoff']
+for z1, z2 in zip(avengers, names):
+print(z1, z2)
+```
+
+### unpack zip() with *
+There is no unzip function for doing the reverse of what zip() does. We can, however, reverse what has been zipped together by using zip() with a little help from *! * unpacks an iterable such as a list or a tuple into positional arguments in a function call.
+
+once "unzip" with *, zip becomes "empty"
+```
+avengers = ['hawkeye', 'iron man', 'thor', 'quicksilver']
+names = ['barton', 'stark', 'odinson', 'maximoff']
+z = zip(avengers, names)
+print(*z)
+('hawkeye', 'barton') ('iron man', 'stark')
+('thor', 'odinson') ('quicksilver', 'maximoff')
+```
+
+```
+# Re-create a zip object from mutants and powers: z1
+z1 = zip(mutants,powers)
+
+# 'Unzip' the tuples in z1 by unpacking with * and zip(): result1, result2
+result1, result2 = zip(*z1)
+```
+
+### create list of tuples from list of strings
+```
+# Create a list of strings: mutants
+mutants = ['charles xavier', 
+            'bobby drake', 
+            'kurt wagner', 
+            'max eisenhardt', 
+            'kitty pryde']
+
+# Create a list of tuples: mutant_list
+mutant_list = list((enumerate(mutants)))
+```
+
+### additional
+parameter is what is declared in the function, while an argument is what is passed through when calling the function
+
+### iterating over data: loading data in chunks
+Sometimes, the data we have to process reaches a size that is too much for a computer's memory to handle. A solution to this is to process an entire data source chunk by chunk, instead of a single go all at once.
+
+```
+import pandas as pd
+result = []
+for chunk in pd.read_csv('data.csv', chunksize=1000):
+result.append(sum(chunk['x']))
+total = sum(result)
+print(total)
+4252532
+```
+alternative:
+```
+import pandas as pd
+total = 0
+for chunk in pd.read_csv('data.csv', chunksize=1000):
+total += sum(chunk['x'])
+print(total)
+4252532
+```
+example function to iterate over file:
+```
+# Define count_entries()
+def count_entries(csv_file,c_size,colname):
+    """Return a dictionary with counts of
+    occurrences as value for each key."""
+    
+    # Initialize an empty dictionary: counts_dict
+    counts_dict = {}
+
+    # Iterate over the file chunk by chunk
+    for chunk in pd.read_csv(csv_file,chunksize=c_size):
+
+        # Iterate over the column in DataFrame
+        for entry in chunk[colname]:
+            if entry in counts_dict.keys():
+                counts_dict[entry] += 1
+            else:
+                counts_dict[entry] = 1
+
+    # Return counts_dict
+    return counts_dict
+
+```
+
+### list comprehension
+create lists from other lists,dataframe,columns etc.
+more efficient than for loop
+
+iterate over any iterables not just lists. 
+
+### nested loops for list comphrehension
+```
+pairs_2 = [(num1, num2) for num1 in range(0, 2) for num2 in range(6,
+print(pairs_2)
+[(0, 6), (0, 7), (1, 6), (1, 7)]
+```
+
+### matrices
+One of the ways in which lists can be used are in representing multi-dimension objects such as matrices. Matrices can be represented as a list of lists in Python.
+
+```
+# Create a 5 x 5 matrix using a list of lists: matrix
+matrix = [[col for col in range(5)] for row in range(5)]
+```
+
+
+### if-else in list comprehension
+```
+# Create list comprehension: new_fellowship
+new_fellowship = [member if len(member)>6 else '' for member in fellowship ]
+```
+
+### generator object vs list comprehension
+generators returns generator object. dont store elements in memory
+list comphresion returns a list
+both are iterable
+things that list comprehension can do can be done on generators also.
+ Generators allow users to lazily evaluate data. This concept of lazy evaluation is useful when you have to deal with very large datasets because it lets you generate values in an efficient manner by yielding only chunks of data at a time instead of the whole thing at once.
+
+```
+# Create generator object: result
+result = (num for num in range(31))
+
+# Print the first 5 values
+print(next(result))
+print(next(result))
+print(next(result))
+print(next(result))
+print(next(result))
+
+
+# Print the rest of the values
+for value in result:
+    print(value)
+```
+
+```
+result = (num for num in range(6))
+for num in result:
+print(num)
+```
+
+```
+# Create a list of strings: lannister
+lannister = ['cersei', 'jaime', 'tywin', 'tyrion', 'joffrey']
+
+# Create a generator object: lengths
+lengths = (len(person) for person in lannister)
+
+# Iterate over and print the values in lengths
+for value in lengths:
+    print(value)
+
+```
+
+### generator function: yield() 
+generator functions produces generators objects when called.
+define like regular function
+yields sequence of values
+example:
+```
+def num_sequence(n):
+"""Generate values from 0 to n."""
+i = 0
+while i < n:
+yield i
+i += 1
+```
+
+```
+# Create a list of strings
+lannister = ['cersei', 'jaime', 'tywin', 'tyrion', 'joffrey']
+
+# Define generator function get_lengths
+def get_lengths(input_list):
+    """Generator function that yields the
+    length of the strings in input_list."""
+
+    # Yield the length of a string
+    for person in input_list:
+        yield len(person)
+        
+
+# Print the values generated by get_lengths()
+for value in get_lengths(lannister):
+    print(value)
+```
+
+### file connection: context manager
+Note that when you open a connection to a file, the resulting file object is already a generator! So out in the wild, you won't have to explicitly create generator objects in cases such as this.
+```
+# Open a connection to the file
+with open('world_dev_ind.csv') as file:
+
+    # Skip the column names
+    file.readline()
+
+    # Initialize an empty dictionary: counts_dict
+    counts_dict = {}
+
+    # Process only the first 1000 rows
+    for j in range(0, 1000):
+
+        # Split the current line into a list: line
+        line = file.readline().split(',')
+
+        # Get the value for the first column: first_col
+        first_col = line[0]
+
+        # If the column value is in the dict, increment its value
+        if first_col in counts_dict.keys():
+            counts_dict[first_col] += 1
+
+        # Else, add to the dict and set value to 1
+        else:
+            counts_dict[first_col] = 1
+
+# Print the resulting dictionary
+print(counts_dict)
+```
+
+### reading data in chunks
+```
+# Import the pandas package
+import pandas as pd
+
+# Initialize reader object: df_reader
+df_reader = pd.read_csv('ind_pop.csv', chunksize=10)
+
+# Print two chunks
+print(next(df_reader))
+print(next(df_reader))
+```
+
+### append dataframe to dataframe
+A useful shortcut to concat() are the append() instance methods on Series and DataFrame. These methods actually predated concat. They concatenate along axis=0, namely the index.
+
+https://pandas.pydata.org/pandas-docs/stable/user_guide/merging.html
+
+### append dataframe,subsetting, chunksize, zip, list comprehension,scatter plot
+```
+# Define plot_pop()
+def plot_pop(filename, country_code):
+
+    # Initialize reader object: urb_pop_reader
+    urb_pop_reader = pd.read_csv(filename, chunksize=1000)
+
+    # Initialize empty DataFrame: data
+    data = pd.DataFrame()
+    
+    # Iterate over each DataFrame chunk
+    for df_urb_pop in urb_pop_reader:
+        # Check out specific country: df_pop_ceb
+        df_pop_ceb = df_urb_pop[df_urb_pop['CountryCode'] == country_code]
+
+        # Zip DataFrame columns of interest: pops
+        pops = zip(df_pop_ceb['Total Population'],
+                    df_pop_ceb['Urban population (% of total)'])
+
+        # Turn zip object into list: pops_list
+        pops_list = list(pops)
+
+        # Print pops_list
+        print(pops_list)
+
+        # Use list comprehension to create new DataFrame column 'Total Urban Population'
+        df_pop_ceb['Total Urban Population'] = [int(tup[0] * tup[1] * 0.01) for tup in pops_list]
+    
+        # Append DataFrame chunk to data: data
+        data = data.append(df_pop_ceb)
+
+    # Plot urban population data
+    data.plot(kind='scatter', x='Year', y='Total Urban Population')
+    plt.show()
+
+# Set the filename: fn
+fn = 'ind_pop_data.csv'
+
+# Call plot_pop for country code 'CEB'
+plot_pop(fn,'CEB')
+
+# Call plot_pop for country code 'ARB'
+plot_pop(fn,'ARB')
+```
+## Introduction to Relational Databases in SQL
+
+these help preserve data quality:
+1. constraints
+2. keys
+3. referential integrity
+
+### metadatabases
+holds information regarding your databases
+
+### create tables
+semicolon at the end impt
+```
+CREATE TABLE table_name (
+ column_a data_type,
+ column_b data_type,
+ column_c data_type
+);
+```
+
+### add columns to table
+add columns you can use the following SQL query:
+```
+ALTER TABLE table_name
+ADD COLUMN column_name data_type;
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 ##  Introduction to importing data in python
+
 ### display the contents of your current directory
 IPython magic command ! ls 
 
