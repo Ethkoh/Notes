@@ -975,48 +975,6 @@ plot_pop(fn,'CEB')
 # Call plot_pop for country code 'ARB'
 plot_pop(fn,'ARB')
 ```
-## Introduction to Relational Databases in SQL
-
-these help preserve data quality:
-1. constraints
-2. keys
-3. referential integrity
-
-### metadatabases
-holds information regarding your databases
-
-### create tables
-semicolon at the end impt
-```
-CREATE TABLE table_name (
- column_a data_type,
- column_b data_type,
- column_c data_type
-);
-```
-
-### add columns to table
-add columns you can use the following SQL query:
-```
-ALTER TABLE table_name
-ADD COLUMN column_name data_type;
-```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ##  Introduction to importing data in python
 
