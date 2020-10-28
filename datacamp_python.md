@@ -979,12 +979,13 @@ plot_pop(fn,'ARB')
 ##  Introduction to importing data in python
 
 ### display the contents of your current directory
-IPython magic command ! ls 
-
-'with' command is context manager
+starting a line with ! gives you complete system shell access. 
+command: ls or ! ls
 
 ### Open a file: file
 file = open('moby_dick.txt', mode='r')
+r means read
+w means write
 ### Print it
 print(file.read())
 ### Check whether file is closed
@@ -994,5 +995,106 @@ file.close()
 ### Check whether file is closed
 print(file.closed)
 
+### Context manager with
+create context by executing commands with file open.
+once out of this contet, file no longer open.
+means no need close file.
+bind a variable 'file' by using a context manager construct.
+```
+with open('huck_finn.txt', 'r') as file:
+print(file.read())
+```
+
+
+### print lines only
 readline(): print only the first few lines. When a file called file is open, you can print out the first line by executing file.readline(). If you execute the same command again, the second line will print, and so on.
+
+the variable file will be bound to open('huck_finn.txt'); thus, to print the file to the shell, all the code you need to execute is:
+```
+with open('huck_finn.txt') as file:
+    print(file.readline())
+```
+
+### Flat files
+- Text files containing records
+- table data
+- Record: row of fields or attributes
+eg .txt, .csv
+
+### Importing flat files using NumPy
+'''
+filename = 'MNIST_header.txt'
+data = np.loadtxt(filename, delimiter=',', skiprows=1, usecols=[0, 2])
+print(data)
+'''
+There are a number of arguments that np.loadtxt() takes that you'll find useful:
+- delimiter changes the delimiter that loadtxt() is expecting.You can use ',' for comma-delimited.
+You can use '\t' for tab-delimited.
+- skiprows allows you to specify how many rows (not indices) you wish to skip
+- usecols takes a list of the indices of the columns you wish to keep.
+
+### Customizing your NumPy import
+load as string type instead of numerical
+```
+data = np.loadtxt(filename, delimiter=',', dtype=str)
+```
+can load as 'float' also
+however, loadtxt will break down if got mixed datatypes
+so need to use np.genfromtxt()
+
+### mixed datatypes in numpy (np.genfromtxt(), np.recfromcsv())
+If we pass dtype=None to it, it will figure out what types each column should be.
+```
+data = np.genfromtxt('titanic.csv', delimiter=',', names=True, dtype=None)
+```
+Here, the first argument is the filename, the second specifies the delimiter , and the third argument names tells us there is a header. Because the data are of different types, data is an object called a structured array. Because numpy arrays have to contain elements that are all the same type, the structured array solves this by being a 1D array, where each element of the array is a row of the flat file imported. You can test this by checking out the array's shape in the shell by executing np.shape(data).
+Accessing rows and columns of structured arrays is super-intuitive: to get the ith row, merely execute data[i] and to get the column with name 'Fare', execute data['Fare'].
+
+There is also another function np.recfromcsv() that behaves similarly to np.genfromtxt(), except that its default dtype is None
+```
+data = np.genfromtxt('titanic.csv', delimiter=',', names=True, dtype=None)
+```
+same as 
+```
+data = np.recfromcsv('titanic.csv', delimiter=',', names=True)
+```
+
+### numpy array from dataframe
+```
+# Build a numpy array from the DataFrame: data_array
+data_array=data.values
+```
+
+### import using pandas 
+- sep - the pandas version of delim
+- comment takes characters that comments occur after in the file
+- na_values takes a list of strings to recognize as NA/NaN, in this case the string 'Nothing'.
+
+example:
+ import a slightly corrupted copy of the Titanic dataset titanic_corrupt.txt, which
+- contains comments after the character '#'
+- is tab-delimited.
+```
+# Import file: data
+data = pd.read_csv(file, sep='\t', comment='#', na_values='Nothing')
+```
+
+new type of dataframe introduced in 2016 is feather.
+
+### plot histogram
+```
+# Plot 'Age' variable in a histogram
+pd.DataFrame.hist(data[['Age']])
+plt.xlabel('Age (years)')
+plt.ylabel('count')
+plt.show()
+```
+
+### picked files
+file 
+
+### assign excel file to variable
+d
+
+
 
