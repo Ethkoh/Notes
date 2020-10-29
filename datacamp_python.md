@@ -1021,6 +1021,8 @@ with open('huck_finn.txt') as file:
 - Record: row of fields or attributes
 eg .txt, .csv
 
+.xlsx is not a flat because it is a spreadsheet consisting of many sheets, not a single table.
+
 ### Importing flat files using NumPy
 '''
 filename = 'MNIST_header.txt'
@@ -1091,10 +1093,298 @@ plt.show()
 ```
 
 ### picked files
-file 
+- File type native to Python
+- Motivation: many datatypes for which it isn’t obvious how to eg dictonaries (usually stored as json)
+- store them
+- Pickled files are serialized
+- Serialize = convert object to bytestream
 
-### assign excel file to variable
-d
+easier to import to python
 
+```
+import pickle
+with open('pickled_fruit.pkl', 'rb') as file:
+data = pickle.load(file)
+print(data)
+```
+rb means read and binary only. file that has been pickled. computer readable not human readable.
+
+### library os in python
+natively in Python using the library os, which consists of miscellaneous operating system interfaces.
+
+The first line of the following code imports the library os, the second line stores the name of the current directory in a string called wd and the third outputs the contents of the directory in a list to the shell.
+```
+import os
+wd = os.getcwd()
+os.listdir(wd)
+```
+
+### Importing Excel spreadsheets
+```
+import pandas as pd
+file = 'urbanpop.xlsx'
+data = pd.ExcelFile(file)
+# print sheet names
+print(data.sheet_names)
+['1960-1966', '1967-1974', '1975-2011']
+
+# to load sheet via name or index
+# All these arguments can be assigned to lists containing the specific row numbers, strings and column numbers, as appropriate.
+df1 = data.parse('1960-1966') # sheet name, as a string
+df2 = data.parse(0) # sheet index, as a float
+```
+
+```
+# Import pandas
+import pandas as pd
+
+# Assign spreadsheet filename: file
+file = pd.ExcelFile('battledeath.xlsx')
+
+# Load spreadsheet: xls
+xls = pd.ExcelFile(file)
+
+# Print sheet names
+print(xls.sheet_names)
+
+# Load a sheet into a DataFrame by name: df1
+df1 = xls.parse('2004')
+
+# Print the head of the DataFrame df1
+print(df1.head())
+
+# Load a sheet into a DataFrame by index: df2
+df2=xls.parse(0)
+
+# Print the head of the DataFrame df2
+print(df2.head())
+```
+
+### Customizing spreadsheet import
+```
+# Parse the first sheet by index. In doing so, skip the first row of data and name the columns 'Country' and 'AAM due to War (2002)' using the argument names. The values passed to skiprows and names all need to be of type list.
+
+# Parse the second sheet by index. In doing so, parse only the first column with the usecols parameter, skip the first row and rename the column 'Country'. The argument passed to usecols also needs to be of type list
+
+# Parse the first sheet and rename the columns: df1
+df1 = xls.parse(0, skiprows=1, names=['Country','AAM due to War (2002)'])
+
+# Print the head of the DataFrame df1
+print(df1.head())
+
+# Parse the first column of the second sheet and rename the column: df2
+df2 = xls.parse(1, usecols=[0], skiprows=1, names=['Country'])
+
+# Print the head of the DataFrame df2
+print(df2.head())
+
+```
+
+
+### SAS and Stata files
+SAS: Statistical Analysis System
+Stata: “Statistics” + “data”
+SAS: business analytics and biostatistics
+Stata: academic social sciences research
+
+### Importing SAS files
+```
+import pandas as pd
+from sas7bdat import SAS7BDAT
+with SAS7BDAT('urbanpop.sas7bdat') as file:
+df_sas = file.to_data_frame()
+```
+
+
+### Importing Stata files
+```
+import pandas as pd
+data = pd.read_stata('urbanpop.dta')
+```
+
+### hdf5 file
+- Hierarchical Data Format version 5
+- Standard for storing large quantities of numerical data
+- Datasets can be hundreds of gigabytes or terabytes
+- HDF5 can scale to exabytes
+- becoming popular way to store large data
+
+### Importing HDF5 files
+```
+import h5py
+filename = 'H-H1_LOSC_4_V1-815411200-4096.hdf5'
+data = h5py.File(filename, 'r') # 'r' is to read
+print(type(data))
+<class 'h5py._hl.files.File'>
+```
+example:
+```
+# Import packages
+import numpy as np
+import h5py
+
+# Assign filename: file
+file='LIGO_data.hdf5'
+
+# Load file: data
+data = h5py.File(file, 'r')
+
+# Print the datatype of the loaded file
+print(type(data))
+
+# Print the keys of the file
+for key in data.keys():
+    print(key)
+
+```
+
+### The structure of HDF5 files
+```
+for key in data.keys():
+print(key)
+meta
+quality
+strain
+print(type(data['meta']))
+<class 'h5py._hl.group.Group'>
+```
+
+example:
+```
+for key in data['meta'].keys():
+print(key)
+
+Description
+DescriptionURL
+Detector
+Duration
+GPSstart
+Observatory
+Type
+UTCstart
+
+print(data['meta']['Description'].value, data['meta']['Detector'].value)
+b'Strain data time series from LIGO' b'H1'
+```
+
+### MATLAB
+- “Matrix Laboratory”
+- Industry standard in engineering and science
+- Data saved as .mat  les
+- powerful in linear algebra and marix capability
+- scipy.io.loadmat() - read .mat files
+- scipy.io.savemat() - write .mat files
+
+### Importing a .mat file
+```
+import scipy.io
+filename = 'workspace.mat'
+mat = scipy.io.loadmat(filename)
+print(type(mat))
+<class 'dict'>
+
+print(type(mat['x']))
+<class 'numpy.ndarray'>
+```
+keys = MATLAB variable names
+values = objects assigned to variables
+
+### What is a relational database?
+- tables are like dataframes
+- each rows is an instance of the entity
+- each column represents an attribute of each instance
+- must have key for each table
+- tables are linked
+- eg postgreSQL, SQLite, MySQL
+- to access many RDMS can use SQLAlchemy package
+
+### Creating a database engine 
+to communicate queries with database
+
+sqlite:///name.sqlite is known as communication string
+```
+from sqlalchemy import create_engine
+engine = create_engine('sqlite:///Northwind.sqlite')
+
+# geting table names
+table_names = engine.table_names()
+print(table_names)
+```
+
+### Workflow of SQL querying
+1. Import packages and functions
+2. Create the database engine
+3. Connect to the engine
+4. Query the database
+5. Save query results to a DataFrame
+6. Close the connection
+
+```
+# Import packages
+from sqlalchemy import create_engine
+import pandas as pd
+
+# Create engine: engine
+engine = create_engine('sqlite:///Chinook.sqlite')
+
+# Open engine connection: con
+print(engine.table_names())
+con=engine.connect()
+
+# creates a SQLAlchemy result object assigned to rs
+# Perform query: rs
+rs = con.execute("SELECT * FROM Album")
+
+# Save results of the query to DataFrame: df
+# fetchall fetches all rows
+df = pd.DataFrame(rs.fetchall())
+
+# Close connection
+con.close()
+
+# Print head of DataFrame df
+print(df.head())
+
+```
+
+Using the context manager
+and if only select a few columns
+```
+from sqlalchemy import create_engine
+import pandas as pd
+engine = create_engine('sqlite:///Northwind.sqlite')
+
+# Open engine in context manager
+# Perform query and save results to DataFrame: df
+with engine.connect() as con:
+    rs = con.execute('SELECT LastName, Title FROM Employee')
+    df = pd.DataFrame(rs.fetchmany(size=3))
+    df.columns = rs.keys()
+
+# Print the length of the DataFrame df
+print(len(df))
+
+# Print the head of the DataFrame df
+print(df.head())
+```
+
+using pandas
+```
+# Import packages
+from sqlalchemy import create_engine
+import pandas as pd
+
+# Create engine: engine
+engine=create_engine('sqlite:///Chinook.sqlite')
+
+# Execute query and store records in DataFrame: df
+df = pd.read_sql_query("SELECT OrderID, CompanyName FROM Orders
+INNER JOIN Customers on Orders.CustomerID = Customers.CustomerID", engine)
+
+# Print head of DataFrame
+print(df.head())
+
+```
+to confirm that both methods yield the same result equals(df))
 
 

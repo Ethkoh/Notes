@@ -770,3 +770,9 @@ ALTER TABLE affiliations
 ADD CONSTRAINT affiliations_organization_id_fkey FOREIGN KEY (organization_id) REFERENCES organizations (id) ON DELETE CASCADE;
 ```
 
+## Intermediate SQL
+
+### case statements
+CASE WHEN x = 1 THEN 'a'
+WHEN x = 2 THEN 'b'
+ELSE 'c' END AS new_column
