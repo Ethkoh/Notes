@@ -175,5 +175,19 @@ eter is currency of ethereum
 token - to give value to something and utility. exist in blockchain. sub category of eter more specific to the function, a separate value from eter. utility tokens, security tokens (currencies), basic attention token
 
 
+# Designing Intelligent Conversations: A Chatbot Workshop
+General Assembly 
+4 November 2020 430-7pm
+Instructor: Andy Leong
 
+turing test 
 
+try not to give yes or no answer in chatbot answers because it gives closest qns answer if exact question cannot be found.
+
+2 types of chatbot:
+- rule based
+- AI
+
+business avoid givingwrong ans. does it mean there is no incentive to use ai based chatbot. i believe fwd for now only use rule based?
+
+google have something call automl which does classification

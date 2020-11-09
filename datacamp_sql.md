@@ -773,6 +773,973 @@ ADD CONSTRAINT affiliations_organization_id_fkey FOREIGN KEY (organization_id) R
 ## Intermediate SQL
 
 ### case statements
+great for
+- Categorizing data
+- Filtering data
+- Aggregating data
+
+```
 CASE WHEN x = 1 THEN 'a'
 WHEN x = 2 THEN 'b'
 ELSE 'c' END AS new_column
+```
+
+example:
+```
+SELECT
+id,
+home_goal,
+away_goal,
+CASE WHEN home_goal > away_goal THEN 'Home Team Win'
+WHEN home_goal < away_goal THEN 'Away Team Win'
+ELSE 'Tie' END AS outcome
+FROM match
+WHERE season = '2013/2014';
+| id | home_goal | away_goal |
+```
+
+```
+SELECT date, hometeam_id, awayteam_id,
+  CASE WHEN hometeam_id = 8455 AND home_goal > away_goal
+    THEN 'Chelsea home win!'
+  WHEN awayteam_id = 8455 AND home_goal < away_goal
+    THEN 'Chelsea away win!'
+  LSE 'Loss or tie :(' END AS outcome
+FROM match
+WHERE hometeam_id = 8455 OR awayteam_id = 8455;
+```
+
+### NULL in CASE statements
+``` 
+SELECT date,
+CASE WHEN date > '2015-01-01' THEN 'More Recently'
+WHEN date < '2012-01-01' THEN 'Older'
+END AS date_category
+FROM match;
+```
+
+same as 
+```
+SELECT date,
+CASE WHEN date > '2015-01-01' THEN 'More Recently'
+WHEN date < '2012-01-01' THEN 'Older'
+ELSE NULL END AS date_category
+FROM match;
+```
+
+### Filter CASE in WHERE
+- to exclude data you dont want.
+- you can use the CASE statement as a filtering column like any other column in your database. The only difference is that you don't alias the statement in WHERE.
+- copy everything in CASE and put inside WHERE.
+```
+-- Select the season, date, home_goal, and away_goal columns
+SELECT 
+	season,
+    date,
+	home_goal,
+	away_goal
+FROM matches_italy
+WHERE 
+-- Exclude games not won by Bologna
+	CASE WHEN hometeam_id = 9857 AND home_goal > away_goal THEN 'Bologna Win'
+		WHEN awayteam_id = 9857 AND away_goal > home_goal THEN 'Bologna Win' 
+		END IS NOT NULL;
+```
+
+### CASE WHEN with COUNT
+end with column instead of string of text
+
+```
+SELECT
+season,
+COUNT(CASE WHEN hometeam_id = 8650
+AND home_goal > away_goal
+THEN id END) AS home_wins
+FROM match
+GROUP BY season;
+```
+
+```
+SELECT 
+	c.name AS country,
+    -- Count games from the 2012/2013 season
+	COUNT(CASE WHEN m.season = '2012/2013' 
+        	THEN m.id ELSE NULL END) AS matches_2012_2013
+FROM country AS c
+LEFT JOIN match AS m
+ON c.id = m.country_id
+-- Group by country name alias
+GROUP BY country;
+```
+
+### CASE WHEN with SUM
+```
+SELECT 
+	c.name AS country,
+    -- Sum the total records in each season where the home team won
+	SUM(CASE WHEN m.season = '2012/2013' AND m.home_goal > m.away_goal 
+        THEN 1 ELSE 0 END) AS matches_2012_2013,
+ 	SUM(CASE WHEN m.season = '2013/2014' AND m.home_goal > m.away_goal  
+        THEN 1 ELSE 0 END) AS matches_2013_2014,
+	SUM(CASE WHEN m.season = '2014/2015' AND m.home_goal > m.away_goal 
+        THEN 1 ELSE 0 END) AS matches_2014_2015
+FROM country AS c
+LEFT JOIN match AS m
+ON c.id = m.country_id
+-- Group by country name alias
+GROUP BY country;
+```
+
+
+### Percentages with CASE and AVG
+```
+SELECT 
+	c.name AS country,
+    -- Round the percentage of tied games to 2 decimal points
+	ROUND(AVG(CASE WHEN m.season='2013/2014' AND m.home_goal = m.away_goal THEN 1
+			 WHEN m.season='2013/2014' AND m.home_goal != m.away_goal THEN 0
+			 END),2) AS pct_ties_2 013_2014,
+	ROUND(AVG(CASE WHEN m.season='2014/2015' AND m.home_goal = m.away_goal THEN 1
+			 WHEN m.season='2014/2015' AND m.home_goal != m.away_goal THEN 0
+			 END),2) AS pct_ties_2014_2015
+FROM country AS c
+LEFT JOIN matches AS m
+ON c.id = m.country_id
+GROUP BY country;
+```
+
+### What is a subquery?
+A query nested inside another query
+```
+SELECT column
+FROM (SELECT column
+FROM table) AS subquery;
+```
+
+### Why subqueries?
+- Comparing groups to summarized values
+How did Liverpool compare to the English Premier League's average performance for that year?
+- Reshaping data
+What is the highest monthly average of goals scored in the Bundesliga?
+- Combining data that cannot be joined
+How do you get both the home and away team names into a table of match results?
+
+### Subqueries in the WHERE clause
+You can filter data based on single, scalar values using a subquery in ways you cannot by using WHERE statements or joins.
+
+In addition to filtering using a single-value (scalar) subquery, you can create a list of values in a subquery to filter data based on a complex set of conditions. This type of subquery generates a one column reference list for the main query. As long as the values in your list match a column in your main query's table, you don't need to use a join -- even if the list is from a separate table.
+```
+SELECT AVG(home_goal) FROM match;
+1.56091291478423
+SELECT date, hometeam_id, awayteam_id, home_goal, away_goal
+FROM match
+WHERE season = '2012/2013'
+AND home_goal > 1.56091291478423;
+```
+
+same as
+```
+SELECT date, hometeam_id, awayteam_id, home_goal, away_goal
+FROM match
+WHERE season = '2012/2013'
+AND home_goal > (SELECT AVG(home_goal)
+FROM match);
+```
+
+NOT IN
+```
+SELECT 
+	-- Select the team long and short names
+	team_long_name,
+	team_short_name
+FROM team 
+-- Exclude all values from the subquery
+WHERE team_api_id NOT IN
+     (SELECT DISTINCT hometeam_id  FROM match);
+```
+
+### Subqueries in FROM
+- Restructure and transform your data
+  - Transforming data from long to wide before selecting
+  - Prefiltering data
+- Calculating aggregates of aggregates
+  - Which 3 teams has the highest average of home goals scored?
+  1. Calculate the AVG for each team
+  2. Get the 3 highest of the AVG values
+
+example:
+```
+SELECT team, home_avg
+FROM (SELECT
+        t.team_long_name AS team,
+        AVG(m.home_goal) AS home_avg
+      FROM match AS m
+      LEFT JOIN team AS t
+      ON m.hometeam_id = t.team_api_id
+      WHERE season = '2011/2012'
+      GROUP BY team) AS subquery
+ORDER BY home_avg DESC
+LIMIT 3;
+```
+example:
+```
+SELECT
+	-- Select country name and the count match IDs
+    c.name AS country_name,
+    COUNT(*) AS matches
+FROM country AS c
+-- Inner join the subquery onto country
+-- Select the country id and match id columns
+INNER JOIN (SELECT country_id, id 
+           FROM match
+           -- Filter the subquery by matches with 10+ goals
+           WHERE (home_goal + away_goal) >=10) AS sub
+ON c.id = sub.country_id
+GROUP BY country_name;
+```
+example:
+```
+SELECT
+	-- Select country, date, home, and away goals from the subquery
+    country,
+    date,
+    home_goal,
+    away_goal
+FROM 
+	-- Select country name, date, and total goals in the subquery
+	(SELECT c.name AS country, 
+     	    m.date, 
+     		m.home_goal, 
+     		m.away_goal,
+           (m.home_goal + m.away_goal) AS total_goals
+    FROM match AS m
+    LEFT JOIN country AS c
+    ON m.country_id = c.id) AS subq
+-- Filter by total goals scored in the main query
+WHERE total_goals >= 10;
+```
+
+### Subqueries in SELECT
+- Returns a single value
+  - Include aggregate values to compare to individual values
+- Used in mathematical calculations
+  - Deviation from the average
+
+```
+SELECT
+  eason,
+  COUNT(id) AS matches,
+  12837 as total_matches
+FROM match
+GROUP BY season;
+```
+
+or use subquery
+```
+SELECT
+  season,
+  COUNT(id) AS matches,
+  (SELECT COUNT(id) FROM match) as total_matches
+FROM match
+GROUP BY season;
+```
+
+```
+SELECT
+  date,
+  (home_goal + away_goal) AS goals,
+  (home_goal + away_goal) -
+    (SELECT AVG(home_goal + away_goal)
+    FROM match
+    WHERE season = '2011/2012') AS diff
+FROM match
+WHERE season = '2011/2012';
+```
+
+REMEMBER TO PROPERLY FILTER BOTH MAIN AND SUBQUERY
+```
+SELECT
+  date,
+  (home_goal + away_goal) AS goals,
+  (home_goal + away_goal) -
+    (SELECT AVG(home_goal + away_goal)
+    FROM match
+    WHERE season = '2011/2012') AS diff
+FROM match
+WHERE season = '2011/2012';
+```
+
+example:
+```
+SELECT
+	-- Select the league name and average goals scored
+	name AS league,
+	ROUND(AVG(m.home_goal + m.away_goal),2) AS avg_goals,
+    -- Subtract the overall average from the league average
+	ROUND(AVG(m.home_goal + m.away_goal) - 
+		(SELECT AVG(home_goal + away_goal)
+		 FROM match 
+         WHERE season = '2013/2014'),2) AS diff
+FROM league AS l
+LEFT JOIN match AS m
+ON l.country_id = m.country_id
+-- Only include 2013/2014 results
+WHERE season = '2013/2014'
+GROUP BY l.name;
+```
+
+### comment in sql
+/* */
+
+### style for sql formatting
+holywell's sql style guide
+
+### example of subquery in SELECt, WHERE, FROM
+```
+SELECT 
+	-- Select the stage and average goals from s
+	s.stage,
+    ROUND(s.avg_goals,2) AS avg_goal,
+    -- Select the overall average for 2012/2013
+    (SELECT AVG(home_goal + away_goal) FROM match WHERE season = '2012/2013') AS overall_avg
+FROM 
+	-- Select the stage and average goals in 2012/2013 from match
+	(SELECT
+		 stage,
+         AVG(home_goal + away_goal) AS avg_goals
+	 FROM match
+	 WHERE season = '2012/2013'
+	 GROUP BY stage) AS s
+WHERE 
+	-- Filter the main query using the subquery
+	s.avg_goals > (SELECT AVG(home_goal + away_goal) 
+                    FROM match WHERE season = '2012/2013');
+```
+
+### Correlated subquery
+- Uses values from the outer query to generate a result
+- Re-run for every row generated in the final data set
+- Used for advanced joining, filtering, and evaluating data
+
+### Simple vs. correlated subqueries
+1. Simple Subquery
+  - Can be run independently from the main query
+  - Evaluated once in the whole
+query
+2. Correlated subqueries 
+  - are subqueries that reference one or more columns in the main query. Correlated subqueries depend on information in the main query to run, and thus, cannot be executed on their own.
+  - Evaluated in loops
+  - Correlated subqueries are evaluated in SQL once per row of data retrieved -- a process that takes a lot more computing power and time than a simple subquery.
+
+example of using join:
+What is the average number
+of goals scored in each
+country?
+```
+SELECT
+  c.name AS country,
+  AVG(m.home_goal + m.away_goal)
+    AS avg_goals
+FROM country AS c
+LEFT JOIN match AS m
+ON c.id = m.country_id
+GROUP BY country;
+```
+
+example of using correlated subqueries for the same thing:
+```
+SELECT
+  c.name AS country,
+  (SELECT
+    AVG(home_goal + away_goal)
+  FROM match AS m
+  WHERE m.country_id = c.id)
+    AS avg_goals
+FROM country AS c
+GROUP BY country;
+```
+
+
+```
+SELECT 
+	-- Select country ID, date, home, and away goals from match
+	main.country_id,
+    main.date,
+    main.home_goal, 
+    main.away_goal
+FROM match AS main
+WHERE 
+	-- Filter the main query by the subquery
+	(home_goal + away_goal) > 
+        (SELECT AVG((sub.home_goal + sub.away_goal) * 3)
+         FROM match AS sub
+         -- Join the main query to the subquery in WHERE
+         WHERE main.country_id = sub.country_id);
+```
+
+```
+SELECT 
+	-- Select country ID, date, home, and away goals from match
+	main.country_id,
+    main.date,
+    main.home_goal,
+    main.away_goal
+FROM match AS main
+WHERE 
+	-- Filter for matches with the highest number of goals scored
+	(home_goal + away_goal) =
+        (SELECT MAX(sub.home_goal + sub.away_goal)
+         FROM match AS sub
+         WHERE main.country_id = sub.country_id
+               AND main.season = sub.season);
+```
+
+### Nested subquery
+can be correlated or uncorrelated or both for the inter and outer subquery
+```
+SELECT
+  EXTRACT(MONTH FROM date) AS month,
+  SUM(m.home_goal + m.away_goal) AS total_goals,
+  SUM(m.home_goal + m.away_goal) -
+  (SELECT AVG(goals)
+  FROM (SELECT
+      EXTRACT(MONTH FROM date) AS month,
+      SUM(home_goal + away_goal) AS goals
+    FROM match
+    GROUP BY month) AS s) AS diff
+FROM match AS m
+GROUP BY month;
+
+| month | goals | diff |
+|-------|-------|----------|
+| 01 | 5821 | -36.25 |
+| 02 | 7448 | 1590.75 |
+| 03 | 7298 | 1440.75 |
+| 04 | 8145 | 2287.75 |
+```
+
+### Correlated nested subquery
+a nested subquery's components can be executed independently of the outer query, while a correlated subquery requires both the outer and inner subquery to run and produce results.
+
+example:
+What is the each country's average goals scored in the
+2011/2012 season?
+got second nested subquery inside SELECT
+```
+SELECT
+  c.name AS country,
+  (SELECT AVG(home_goal + away_goal)
+  FROM match AS m
+  WHERE m.country_id = c.id -- Correlates with main query
+      AND id IN (
+        SELECT id -- Begin inner subquery
+        FROM match
+        WHERE season = '2011/2012')) AS avg_goals
+FROM country AS c
+GROUP BY country;
+```
+
+
+### nested simple subqueries 
+example:
+nested subquery to examine the highest total number of goals in each season, overall, and during July across all seasons.
+```
+SELECT
+	-- Select the season and max goals scored in a match
+	season,
+    MAX(home_goal + away_goal) AS max_goals,
+    -- Select the overall max goals scored in a match
+    -- this is a value
+   (SELECT MAX(home_goal + away_goal) FROM match) AS overall_max_goals,
+   -- Select the max number of goals scored in any match in July
+   -- this is a value
+   (SELECT MAX(home_goal + away_goal) 
+    FROM match
+    WHERE id IN (
+          SELECT id FROM match WHERE EXTRACT(MONTH FROM date) = 07)) AS july_max_goals
+FROM match
+GROUP BY season;
+```
+
+### Nest a subquery in FROM
+example:
+What's the average number of matches per season where a team scored 5 or more goals? How does this differ by country?
+```
+SELECT
+	c.name AS country,
+    -- Calculate the average matches per season
+	AVG(outer_s.matches) AS avg_seasonal_high_scores
+FROM country AS c
+-- Left join outer_s to country
+LEFT JOIN (
+  SELECT country_id, season,
+         COUNT(id) AS matches
+  FROM (
+    SELECT country_id, season, id
+	FROM match
+	WHERE home_goal >= 5 OR away_goal >= 5) AS inner_s
+  -- Close parentheses and alias the subquery
+  GROUP BY country_id, season) AS outer_s
+ON c.id = outer_s.country_id
+GROUP BY country;
+```
+
+### Common Table Expressions (CTEs)
+- Table declared before the main query
+- Named and referenced later in FROM statement
+
+```
+WITH cte AS (
+SELECT col1, col2
+FROM table)
+SELECT
+AVG(col1) AS avg_col
+FROM cte;
+```
+
+more than 1 ctes:
+```
+WITH s1 AS (
+  SELECT country_id, id
+  FROM match
+  WHERE (home_goal + away_goal) >= 10),
+s2 AS ( -- New subquery
+  SELECT country_id, id
+  FROM match
+  WHERE (home_goal + away_goal) <= 1
+)
+SELECT
+  c.name AS country,
+  COUNT(s1.id) AS high_scores,
+  COUNT(s2.id) AS low_scores -- New column
+FROM country AS c
+INNER JOIN s1
+ON c.id = s1.country_id
+INNER JOIN s2 -- New join
+ON c.id = s2.country_id
+GROUP BY country;
+```
+
+```
+-- Set up your CTE
+WITH match_list AS (
+  -- Select the league, date, home, and away goals
+    SELECT 
+  		l.name AS league, 
+     	date, 
+  		m.home_goal, 
+  		m.away_goal,
+       (m.home_goal + m.away_goal) AS total_goals
+    FROM match AS m
+    LEFT JOIN league as l ON m.country_id = l.id)
+-- Select the league, date, home, and away goals from the CTE
+SELECT league, date, home_goal, away_goal
+FROM match_list
+-- Filter by total goals
+WHERE total_goals >=10;
+```
+
+```
+-- Set up your CTE
+WITH match_list AS (
+    SELECT 
+  		country_id,
+  	   (home_goal + away_goal) AS goals
+    FROM match
+  	-- Create a list of match IDs to filter data in the CTE
+    WHERE id IN (
+       SELECT id
+       FROM match
+       WHERE season = '2013/2014' AND EXTRACT(MONTH FROM date) = 08))
+-- Select the league name and average of goals in the CTE
+SELECT 
+	name,
+    AVG(goals)
+FROM league AS l
+-- Join the CTE onto the league table
+LEFT JOIN match_list ON l.id = match_list.country_id
+GROUP BY l.name;
+```
+
+### Why use CTEs?
+- Executed once
+- CTE is then stored in memory
+- Improves query performance
+- Improving organization of queries
+- Referencing other CTEs
+- Referencing itself ( SELF JOIN )
+
+### comparing joins, subqueries, ctes
+you can use multiple techniques in SQL to answer the same question.
+
+Joins:
+- Combine 2+ tables
+    - Simple
+    - operations/aggregations
+
+Correlated Subqueries:
+- Match subqueries & tables
+    - Avoid limits of joins 
+      example cant join 2 separate column to one single column
+- High processing time
+
+Multiple/Nested Subqueries:
+- Multi-step transformations
+- Improve accuracy and reproducibility
+
+Common Table Expressions:
+- Organize subqueries sequentially
+- Can reference other CTEs
+- CTEs are stored in memory, reducing query run time
+
+### subquery, join and cte example
+```
+SELECT
+	m.date,
+    -- Get the home and away team names
+    hometeam,
+    awayteam,
+    m.home_goal,
+    m.away_goal
+FROM match AS m
+
+-- Join the home subquery to the match table
+LEFT JOIN(
+  SELECT match.id, team.team_long_name AS hometeam
+  FROM match
+  LEFT JOIN team
+  ON match.hometeam_id = team.team_api_id) AS home
+ON home.id = m.id
+
+-- Join the away subquery to the match table
+LEFT JOIN (
+  SELECT match.id, team.team_long_name AS awayteam
+  FROM match
+  LEFT JOIN team
+  -- Get the away team ID in the subquery
+  ON match.awayteam_id = team.team_api_id) AS away
+ON  away.id= m.id;
+```
+
+same as the following using just subquery
+```
+SELECT
+    m.date,
+    (SELECT team_long_name
+     FROM team AS t
+     WHERE t.team_api_id = m.hometeam_id) AS hometeam,
+    -- Connect the team to the match table
+    (SELECT team_long_name
+     FROM team AS t
+     WHERE t.team_api_id = m.awayteam_id) AS awayteam,
+    -- Select home and away goals
+     home_goal,
+     away_goal
+FROM match AS m;
+```
+
+same as the following using ctes:
+```
+WITH home AS (
+  SELECT m.id, m.date, 
+  		 t.team_long_name AS hometeam, m.home_goal
+  FROM match AS m
+  LEFT JOIN team AS t 
+  ON m.hometeam_id = t.team_api_id),
+-- Declare and set up the away CTE
+away AS (
+  SELECT m.id, m.date, 
+  		 t.team_long_name AS awayteam, m.away_goal
+  FROM match AS m
+  LEFT JOIN team AS t 
+  ON m.awayteam_id = t.team_api_id)
+-- Select date, home_goal, and away_goal
+SELECT 
+	home.date,
+    home.hometeam,
+    away.awayteam,
+    home.home_goal,
+    away.away_goal
+-- Join away and home on the id column
+FROM home
+INNER JOIN away
+ON home.id = away.id;
+```
+
+
+### cte with join example
+```
+-- Declare the home CTE
+WITH home as (
+	SELECT m.id, t.team_long_name AS hometeam
+	FROM match AS m
+	LEFT JOIN team AS t 
+	ON m.hometeam_id = t.team_api_id)
+-- Select everything from home
+SELECT *
+FROM home;
+```
+
+same as:
+```
+SELECT 
+	-- Select match id and team long name
+    m.id, 
+    t.team_long_name AS hometeam
+FROM match AS m
+-- Join team to match using team_api_id and hometeam_id
+LEFT JOIN team AS t 
+ON t.team_api_id = m.hometeam_id;
+```
+
+### window function
+Working with aggregate values, requires you to use GROUP BY with all non-aggregate
+columns.
+
+but window function can work around it.
+
+- Perform calculations on an already generated result set (a window)
+- Aggregate calculations
+  - Similar to subqueries in SELECT
+  - Running totals, rankings, moving averages
+
+
+- Processed after every part of query except ORDER BY
+  - Uses information in result set rather than database
+- Available in PostgreSQL, Oracle, MySQL, SQL Server...
+  - ...but NOT SQLite
+
+
+### OVER() clause in window function
+allows you to pass an aggregate function down a data set, similar to subqueries in SELECT. The OVER() clause offers significant benefits over subqueries in select -- namely, your queries will run faster, and the OVER() clause has a wide range of additional functions and clauses you can include with
+
+```
+SELECT
+  date,
+  (home_goal + away_goal) AS goals,
+  AVG(home_goal + away_goal) OVER() AS overall_avg
+FROM match
+WHERE season = '2011/2012';
+```
+
+### RANK() clause in window function
+Window functions allow you to create a RANK of information according to any variable you want to use to sort your data. When setting this up, you will need to specify what column/calculation you want to use to calculate your rank. This is done by including an ORDER BY clause inside the OVER() clause. 
+
+```
+SELECT
+  date,
+  (home_goal + away_goal) AS goals,
+  RANK() OVER(ORDER BY home_goal + away_goal DESC) AS goals_rank
+FROM match
+WHERE season = '2011/2012';
+
+
+| date | goals | goals_rank |
+|------------|-------|------------|
+| 2012-04-28 | 0 | 1 |
+| 2011-12-26 | 0 | 1 |
+| 2011-09-10 | 0 | 1 |
+
+```
+
+```
+SELECT 
+	-- Select the league name and average goals scored
+	name AS league,
+    AVG(m.home_goal + m.away_goal) AS avg_goals,
+    -- Rank leagues in descending order by average goals
+    RANK() OVER(ORDER BY AVG(m.home_goal + m.away_goal) DESC) AS league_rank
+FROM league AS l
+LEFT JOIN match AS m 
+ON l.id = m.country_id
+WHERE m.season = '2011/2012'
+GROUP BY l.name
+-- Order the query by the rank you created
+ORDER BY league_rank;
+```
+
+### OVER and PARTITION BY
+- Calculate separate values for diferent categories
+- Calculate different calculations in the same column
+
+```
+AVG(home_goal) OVER(PARTITION BY season)
+```
+
+PARTITION BY considerations
+- Can partition data by 1 or more columns
+- Can partition aggregate calculations, ranks, etc
+
+
+The PARTITION BY clause allows you to calculate separate "windows" based on columns you want to divide your results. For example, you can create a single column that calculates an overall average of goals scored for each season.
+
+example partition by one column:
+```
+SELECT
+  date,
+  (home_goal + away_goal) AS goals,
+  AVG(home_goal + away_goal) OVER(PARTITION BY season) AS season_avg
+FROM match;
+```
+
+example partition by multiple columns:
+```
+SELECT
+  c.name,
+  m.season,
+  (home_goal + away_goal) AS goals,
+  AVG(home_goal + away_goal)
+    OVER(PARTITION BY m.season, c.name) AS season_ctry_avg
+FROM country AS c
+LEFT JOIN match AS m
+ON c.id = m.country_id
+
+| name | season | goals | season_ctry_avg |
+|-------------|-----------|-----------|-----------------|
+| Belgium | 2011/2012 | 1 | 2.88 |
+| Netherlands | 2014/2015 | 1 | 3.08 |
+| Belgium | 2011/2012 | 1 | 2.88 |
+
+```
+
+```
+SELECT
+	date,
+	season,
+	home_goal,
+	away_goal,
+	CASE WHEN hometeam_id = 8673 THEN 'home' 
+		 ELSE 'away' END AS warsaw_location,
+    -- Calculate the average goals scored partitioned by season
+    AVG(home_goal) OVER(PARTITION BY season) AS season_homeavg,
+	AVG(away_goal) OVER(PARTITION BY season) AS season_awayavg
+FROM match
+-- Filter the data set for Legia Warszawa matches only
+WHERE 
+	hometeam_id = 8673
+    OR awayteam_id = 8673
+ORDER BY (home_goal + away_goal) DESC;
+```
+
+```
+SELECT 
+	date,
+	season,
+	home_goal,
+	away_goal,
+	CASE WHEN hometeam_id = 8673 THEN 'home' 
+         ELSE 'away' END AS warsaw_location,
+	-- Calculate average goals partitioned by season and month
+    AVG(home_goal) OVER(PARTITION BY season, 
+         	EXTRACT(MONTH FROM date)) AS season_mo_home,
+    AVG(away_goal) OVER(PARTITION BY season, 
+            EXTRACT(MONTH FROM date)) AS season_mo_away
+FROM match
+WHERE 
+	hometeam_id = 8673 
+    OR awayteam_id = 8673
+ORDER BY (home_goal + away_goal) DESC;
+```
+
+### Sliding Windows
+- Perform calculations relative to the current row
+- Can be used to calculate running totals, sums, averages, etc
+- Can be partitioned by one or more columns
+
+Sliding Window Keywords:
+Sliding windows allow you to create running calculations between any two points in a window using functions such as PRECEDING, FOLLOWING, and CURRENT ROW.
+
+'''
+ROWS BETWEEN <start> AND <finish>
+'''
+PRECEDING: specify number of rows before current row
+FOLLOWING: specify number of rows after current row
+UNBOUNDED PRECEDING: every row since the beginning
+UNBOUNDED FOLLOWING: every row since the end
+CURRENT ROW: stop calculation at current row
+
+```
+SELECT
+  date,
+  home_goal,
+  away_goal,
+  SUM(home_goal)
+    OVER(ORDER BY date ROWS BETWEEN
+      UNBOUNDED PRECEDING AND CURRENT ROW) AS running_total
+FROM match
+WHERE hometeam_id = 8456 AND season = '2011/2012';
+
+```
+| date | home_goal | away_goal | running_total |
+|------------|-----------|-----------|---------------|
+| 2011-08-15 | 4 | 0 | 4 |
+| 2011-09-10 | 3 | 0 | 7 |
+| 2011-09-24 | 2 | 0 | 9 |
+| 2011-10-15 | 4 | 1 | 13 |
+
+```
+SELECT date,
+  home_goal,
+  away_goal,
+  SUM(home_goal)
+    OVER(ORDER BY date
+    ROWS BETWEEN 1 PRECEDING
+    AND CURRENT ROW) AS last2
+FROM match
+WHERE hometeam_id = 8456
+  AND season = '2011/2012';
+```
+
+In this exercise, you will slightly modify the query from the previous exercise by sorting the data set in reverse order and calculating a backward running total from the CURRENT ROW to the end of the data set (earliest record).
+```
+SELECT 
+	-- Select the date, home goal, and away goals
+	date,
+    home_goal,
+    away_goal,
+    -- Create a running total and running average of home goals
+    SUM(home_goal) OVER(ORDER BY date DESC
+         ROWS BETWEEN CURRENT ROW AND UNBOUNDED FOLLOWING) AS running_total,
+    AVG(home_goal) OVER(ORDER BY date DESC
+         ROWS BETWEEN CURRENT ROW AND UNBOUNDED FOLLOWING) AS running_avg
+FROM match
+WHERE 
+	awayteam_id = 9908 
+    AND season = '2011/2012';
+```
+
+### combining case,subqueries,cte,window functions
+generate a list of matches in which Manchester United was defeated during the 2014/2015 English Premier League season
+
+```
+-- Set up the home team CTE
+WITH home AS (
+  SELECT m.id, t.team_long_name,
+	  CASE WHEN m.home_goal > m.away_goal THEN 'MU Win'
+		   WHEN m.home_goal < m.away_goal THEN 'MU Loss' 
+  		   ELSE 'Tie' END AS outcome
+  FROM match AS m
+  LEFT JOIN team AS t ON m.hometeam_id = t.team_api_id),
+-- Set up the away team CTE
+away AS (
+  SELECT m.id, t.team_long_name,
+	  CASE WHEN m.home_goal > m.away_goal THEN 'MU Win'
+		   WHEN m.home_goal < m.away_goal THEN 'MU Loss' 
+  		   ELSE 'Tie' END AS outcome
+  FROM match AS m
+  LEFT JOIN team AS t ON m.awayteam_id = t.team_api_id)
+-- Select team names, the date and goals
+SELECT DISTINCT
+    date,
+    home.team_long_name AS home_team,
+    away.team_long_name AS away_team,
+    m.home_goal,
+    m.away_goal
+-- Join the CTEs onto the match table
+FROM match AS m
+LEFT JOIN home ON m.id = home.id
+LEFT JOIN away ON m.id = away.id
+WHERE m.season = '2014/2015'
+      AND (home.team_long_name = 'Manchester United' 
+           OR away.team_long_name = 'Manchester United');
+```
