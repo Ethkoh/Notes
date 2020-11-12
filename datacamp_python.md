@@ -1,5 +1,7 @@
 # Datacamp Python
 
+Cheat Sheets: https://www.datacamp.com/community/data-science-cheatsheets
+
 ## Introduction to Python and Intermediate Python
 
 x[2][:2]
@@ -1518,7 +1520,7 @@ hence need to:
     - Compare predictions with the known labels
 
 ### train test split
-rain and test sets are vital to ensure that your supervised learning model is able to generalize well to new data. 
+train and test sets are vital to ensure that your supervised learning model is able to generalize well to new data. 
 ```
 from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test =
@@ -2425,6 +2427,8 @@ print("Tuned ElasticNet R squared: {}".format(r2))
 - each dot in the hidden layer is called nodes
 - nodes representations aggregation of information from input data 
 - each node add to model's ability to capture interaction, more nodes more interation
+- each data point is an obs
+- The last layers capture the most complex interactions.
 
 
 ### Build and tune deep learning models using keras
@@ -2449,12 +2453,652 @@ input_data = np.array([2, 3])
 weights = {'node_0': np.array([1, 1]),
     'node_1': np.array([-1, 1]),
     'output': np.array([2, -1])}
+
+# Calculate node 0 value: node_0_value
 node_0_value = (input_data * weights['node_0']).sum()
-node_1_value = (input_data * weights['node_1']).sum()
-hidden_layer_values = np.array([node_0_value, node_1_value]
-print(hidden_layer_values)
-[5, 1]
-output = (hidden_layer_values * weights['output']).sum()
+
+# Calculate node 1 value: node_1_value
+node_1_value = (input_data*weights['node_1']).sum()
+
+# Put node values into array: hidden_layer_outputs
+hidden_layer_outputs = np.array([node_0_value, node_1_value])
+
+# Calculate output: output
+output = (hidden_layer_outputs*weights['output']).sum()
+
+# Print output
 print(output)
-9
+
 ```
+
+### activation function
+- activation function allows model to capture non-linearity
+- Applied to node inputs to produce node output
+- applied to each node
+- if no activation function can think of using identity function: returning the input
+
+### ReLU (Rectified Linear Activation)
+- an industrial standard activation function that leads to high performance networks
+- relu(x)=0 if x<0, =x if x>=0. function takes a single number as an input, returning 0 if the input is negative, and the input if the input is positive.
+- applied tanh to convert input to output
+```
+import numpy as np
+input_data = np.array([-1, 2])
+weights = {'node_0': np.array([3, 3]),
+    'node_1': np.array([1, 5]),
+    'output': np.array([2, -1])}
+node_0_input = (input_data * weights['node_0']).sum()
+node_0_output = np.tanh(node_0_input)
+node_1_input = (input_data * weights['node_1']).sum()
+node_1_output = np.tanh(node_1_input)
+hidden_layer_outputs = np.array([node_0_output, node_1_output])
+output = (hidden_layer_output * weights['output']).sum()
+print(output)
+1.2382242525694254
+```
+
+```
+def relu(input):
+    '''Define your relu activation function here'''
+    # Calculate the value for the output of the relu function: output
+    output = max(input, 0)
+    
+    # Return the value just calculated
+    return(output)
+
+# Calculate node 0 value: node_0_output
+node_0_input = (input_data * weights['node_0']).sum()
+node_0_output = relu(node_0_input)
+
+# Calculate node 1 value: node_1_output
+node_1_input = (input_data * weights['node_1']).sum()
+node_1_output = relu(node_1_input)
+
+# Put node values into array: hidden_layer_outputs
+hidden_layer_outputs = np.array([node_0_output, node_1_output])
+
+# Calculate model output (do not apply relu)
+model_output = (hidden_layer_outputs * weights['output']).sum()
+
+# Print model output
+print(model_output)
+```
+
+put everything into a function:
+```
+# Define predict_with_network()
+def predict_with_network(input_data_row, weights):
+
+    # Calculate node 0 value
+    node_0_input = (input_data_row*weights['node_0']).sum()
+    node_0_output = relu(node_0_input)
+
+    # Calculate node 1 value
+    node_1_input = (input_data_row*weights['node_1']).sum()
+    node_1_output = relu(node_1_input)
+
+    # Put node values into array: hidden_layer_outputs
+    hidden_layer_outputs = np.array([node_0_output, node_1_output])
+    
+    # Calculate model output
+    input_to_final_layer = (hidden_layer_outputs*weights['output'])
+    model_output = input_to_final_layer.sum()
+    
+    # Return model output
+    return(model_output)
+
+
+# Create empty list to store prediction results
+results = []
+for input_data_row in input_data:
+    # Append prediction to results
+    results.append(predict_with_network(input_data_row,weights))
+
+# Print results
+print(results)
+```
+
+### multiple hidden layers
+use forward propagation process but apply it iteratively more times
+1. first fill in values for hidden layer one as a function of the inputs.
+2. apply activation function to fill in the values in these nodes
+3. use values from first hidden layer to fill in second hidden layer, etc
+4. make prediction based on output of last hidden layer
+
+### Representation learning
+- deep learning sometimes also called representation learning
+because subsequent layers build increasingly sophisticated
+representations of raw data
+- Deep networks internally build representations of patterns in
+the data
+- find increasingly complex patterns through successive hidden layers in the network
+- Partially replace the need for feature engineering
+- Modeler doesn't need to specify the interactions
+- When you train the model, the neural network gets weights
+that find the relevant patterns to make better predictions
+
+### forward propagation for a neural network with 2 hidden layers
+```
+def predict_with_network(input_data):
+    # Calculate node 0 in the first hidden layer
+    node_0_0_input = (input_data * weights['node_0_0']).sum()
+    node_0_0_output = relu(node_0_0_input)
+
+    # Calculate node 1 in the first hidden layer
+    node_0_1_input = (input_data*weights['node_0_1']).sum()
+    node_0_1_output = relu(node_0_1_input)
+
+    # Put node values into array: hidden_0_outputs
+    hidden_0_outputs = np.array([node_0_0_output, node_0_1_output])
+    
+    # Calculate node 0 in the second hidden layer
+    node_1_0_input = (hidden_0_outputs*weights['node_1_0']).sum()
+    node_1_0_output = relu(node_1_0_input)
+
+    # Calculate node 1 in the second hidden layer
+    node_1_1_input = (hidden_0_outputs*weights['node_1_1']).sum()
+    node_1_1_output = relu(node_1_1_input)
+
+    # Put node values into array: hidden_1_outputs
+    hidden_1_outputs = np.array([node_1_0_output, node_1_1_output])
+
+    # Calculate model output: model_output
+    model_output = relu((hidden_1_outputs*weights['output']).sum())
+    
+    # Return model_output
+    return(model_output)
+
+output = predict_with_network(input_data)
+print(output)
+```
+
+### to model weights for optimization
+- use loss function to Aggregates errors in predictions from many data points into single number: Measure of model's predictive performance
+- Lower loss function value means a better model
+- Goal: Find the weights that give the lowest value for the loss
+function
+- use Gradient descent: use slope (derivative) to find the 
+minimum value
+
+### illustration how how weight changes affect accuracy
+```
+# The data point you will make a prediction for
+input_data = np.array([0, 3])
+
+# Sample weights
+weights_0 = {'node_0': [2, 1],
+             'node_1': [1, 2],
+             'output': [1, 1]
+            }
+
+# The actual target value, used to calculate the error
+target_actual = 3
+
+# Make prediction using original weights
+model_output_0 = predict_with_network(input_data, weights_0)
+
+# Calculate error: error_0
+error_0 = model_output_0 - target_actual
+
+# Create weights that cause the network to make perfect prediction (3): weights_1
+weights_1 = {'node_0': [2, 1],
+             'node_1': [1, 2],
+             'output': [1, 0]
+            }
+
+# Make prediction using new weights: model_output_1
+model_output_1 = predict_with_network(input_data,weights_1)
+
+# Calculate error: error_1
+error_1 = model_output_1 - target_actual
+
+# Print error_0 and error_1
+print(error_0)
+print(error_1)
+```
+
+```
+from sklearn.metrics import mean_squared_error
+
+# Create model_output_0 
+model_output_0 = []
+# Create model_output_1
+model_output_1 = []
+
+# Loop over input_data
+for row in input_data:
+    # Append prediction to model_output_0
+    model_output_0.append(predict_with_network(row,weights_0))
+    
+    # Append prediction to model_output_1
+    model_output_1.append(predict_with_network(row,weights_1))
+
+# Calculate the mean squared error for model_output_0: mse_0
+mse_0 = mean_squared_error(model_output_0,target_actuals)
+
+# Calculate the mean squared error for model_output_1: mse_1
+mse_1 = mean_squared_error(model_output_1,target_actuals)
+
+# Print mse_0 and mse_1
+print("Mean squared error with weights_0: %f" %mse_0)
+print("Mean squared error with weights_1: %f" %mse_1)
+```
+
+### Gradient descent
+=slope
+- If the slope is positive:
+    - Going opposite the slope means moving to lower numbers
+    - Subtract the slope from the current value
+    - Too big a step might lead us astray
+- Solution: learning rate
+    - Update each weight by subtracting learning rate * slope
+
+#### To calculate the slope for a weight
+need to multiply:
+- Slope of the loss function w.r.t value at the node we feed
+into
+- The value of the node that feeds into our weight
+- Slope of the activation function w.r.t value we feed into
+
+Code to calculate slopes and update weights:
+```
+import numpy as np
+weights = np.array([1, 2])
+input_data = np.array([3, 4])
+target = 6
+learning_rate = 0.01
+preds = (weights * input_data).sum()
+error = preds - target
+print(error)
+5
+gradient = 2 * input_data * error
+gradient
+array([30, 40])
+weights_updated = weights - learning_rate * gradient
+preds_updated = (weights_updated * input_data).sum()
+error_updated = preds_updated - target
+print(error_updated)
+2.5
+```
+
+```
+# Set the learning rate: learning_rate
+learning_rate = 0.01
+
+# Calculate the predictions: preds
+preds = (weights * input_data).sum()
+
+# Calculate the error: error
+error = preds - target
+
+# Calculate the slope: slope
+slope = 2 * input_data * error
+
+# Update the weights: weights_updated
+weights_updated = weights-learning_rate*slope
+
+# Get updated predictions: preds_updated
+preds_updated = (input_data*weights_updated).sum()
+
+# Calculate updated error: error_updated
+error_updated = preds_updated-target
+
+# Print the original error
+print(error)
+
+# Print the updated error
+print(error_updated)
+```
+
+To keep your code clean, there is a pre-loaded get_slope() function that takes input_data, target, and weights as arguments. There is also a get_mse() function that takes the same arguments. The input_data, target, and weights have been pre-loaded.
+```
+n_updates = 20
+mse_hist = []
+
+# Iterate over the number of updates
+for i in range(n_updates):
+    # Calculate the slope: slope
+    slope = get_slope(input_data, target, weights)
+    
+    # Update the weights: weights
+    weights = weights - 0.01* slope
+    
+    # Calculate mse with new weights: mse
+    mse = get_mse(input_data, target, weights)
+    
+    # Append the mse to mse_hist
+    mse_hist.append(mse)
+
+# Plot the mse history
+plt.plot(mse_hist)
+plt.xlabel('Iterations')
+plt.ylabel('Mean Squared Error')
+plt.show()
+```
+
+### Backpropagation 
+- takes error from output layer and propagates it backward through hidden layers towards input layer
+- Allows gradient descent to update all weights in neural
+network (by gettng gradients for all weights)
+- Comes from chain rule of calculus
+- Trying to estimate the slope of the loss function w.r.t each
+weight
+- Do forward propagation to calculate predictions and errors before doing backpropagation
+- Go back one layer at a time
+- Gradients for weight is product of:
+    1. Node value feeding into that weight
+    2. Slope of loss function w.r.t node it feeds into
+    3. Slope of activation function at the node it feeds into
+- Need to also keep track of the slopes of the loss function w.r.t node values
+- Slope of node values are the sum of the slopes for all weights
+that come out of them
+- Each time you generate predictions using forward propagation, you update the weights using backward propagation.
+
+### steps for backpropagation in neural network
+1. Start at some random set of weights
+2. Use forward propagation to make a prediction
+3. Use backward propagation to calculate the slope of the loss
+function w.r.t each weight
+4. Multiply that slope by the learning rate, and subtract from
+the current weights
+5. Keep going with that cycle until we get to a flat part
+
+### Stochastic gradient descent
+- It is common to calculate slopes on only a subset of the data
+(a batch)
+- Use a different batch of data to calculate the next update
+- Start over from the beginning once all data is used
+- Each time through the training data is called an epoch
+- When slopes are calculated on one batch at a time its called
+stochastic gradient descent
+
+### keras workflow: model building
+1. . Specify Architecture
+    - how many layers 
+    - how many nodes
+    - what activation function to use in each layer
+2. Compile
+    - loss function
+3. Fit  
+    - cycle of backpropagation and optimization of model weights with data
+4. Predict
+
+
+### Sequential models
+sequential models require that each layer has weights or connections only to the one layer coming directly after it in the network diagram
+
+there are more complex models. sequential easiest
+
+```
+import numpy as np
+# called Dense because all the nodes in the previous layer connect to all of the nodes in the current layer
+# possible to have non-Dense models
+from keras.layers import Dense
+from keras.models import Sequential
+
+# read data
+predictors = np.loadtxt('predictors_data.csv', delimiter=',')
+# store number of cols important for building keras model
+# because = number of nodes in input layer
+n_cols = predictors.shape[1]
+
+model = Sequential()
+
+# first layer, need specify input shape
+# (n_cols,) means will have n_cols columns and can be any number of rows/data points
+# but this is also the hidden layer
+# 100 is the number of nodes 
+model.add(Dense(100, activation='relu', input_shape = (n_cols,)))
+
+model.add(Dense(100, activation='relu'))
+
+# output layer one node
+model.add(Dense(1))
+
+# total this model got 2 hidden layer
+```
+
+```
+# Import necessary modules
+import keras
+from keras.layers import Dense
+from keras.models import Sequential
+
+# Save the number of columns in predictors: n_cols
+n_cols = predictors.shape[1]
+
+# Set up the model: model
+model = Sequential()
+
+# Add the first layer
+model.add(Dense(50, activation='relu', input_shape=(n_cols,)))
+
+# Add the second layer
+model.add(Dense(32,activation='relu'))
+
+# Add the output layer
+model.add(Dense(1))
+```
+
+### Compile model
+1. Specify the optimizer: which controls the learning rate
+    - good learning rate can mean finding model faster and may also affect how good a set of weights
+    - Many options and mathematically complex
+    - "Adam" is usually a good choice as a optimizer.
+2. Specify Loss function
+    - 'mean_squared_error' common for regression, 'categorical_crossentropy' common for classification
+    - keras for classification will have a new default metric cover later
+
+add compile after building model:
+```
+n_cols = predictors.shape[1]
+model = Sequential()
+model.add(Dense(100, activation='relu', input_shape=(n_cols,)))
+model.add(Dense(100, activation='relu'))
+model.add(Dense(1))
+model.compile(optimizer='adam', loss='mean_squared_error')
+```
+
+### Fitting a model
+- Applying backpropagation and gradient descent with your
+data to update the weights
+- Scaling data before fitting can ease optimization
+    - one common approach is subtract each feature by its mean and divide by sd.
+
+```
+n_cols = predictors.shape[1]
+model = Sequential()
+model.add(Dense(100, activation='relu', input_shape=(n_cols,)))
+model.add(Dense(100, activation='relu'))
+model.add(Dense(1))
+model.compile(optimizer='adam', loss='mean_squared_error')
+model.fit(predictors, target)
+```
+
+### Neural network - Classification
+- 'categorical_crossentropy' loss function
+- Similar to log loss: Lower is be er
+- Add metrics = ['accuracy'] to compile step to see the accuracy (what fraction of predictions were correct) at the end of each epoch.
+- Output layer has separate node for each possible outcome,
+and uses 'softmax' activation
+
+```
+from keras.utils.np_utils import to_categorical
+data = pd.read_csv('basketball_shot_log.csv')
+# drop target column and store as numpy matrix
+predictors = data.drop(['shot_result'], axis=1).as_matrix()
+# one hot encoding
+target = to_categorical(data.shot_result)
+model = Sequential()
+model.add(Dense(100, activation='relu', input_shape = (n_cols,)))
+model.add(Dense(100, activation='relu'))
+model.add(Dense(100, activation='relu'))
+# for classification
+# 2 nodes, means 2 possible outcome
+model.add(Dense(2, activation='softmax'))
+model.compile(optimizer='adam', loss='categorical_crossentropy',
+metrics=['accuracy'])
+model.fit(predictors, target)
+```
+
+### Saving, reloading and using your Model
+models are saved in format hdf5, which h5 is the common extension.
+
+```
+from keras.models import load_model
+model.save('model_file.h5')
+my_model = load_model('my_model.h5')
+predictions = my_model.predict(data_to_predict_with)
+# only want prob that the class is 1 so get second column with numpy indexing
+probability_true = predictions[:,1]
+# see model architecture
+my.model.summary()
+```
+
+### Why optimization is hard
+- Simultaneously optimizing 1000s of parameters with complex
+relationships
+- Updates may not improve model meaningfully even with good optimizer like 'adams'
+- Updates too small (if learning rate is low) or too large (if
+learning rate is high)
+- sometimes best to use the simplest optimizer: sgd
+
+### Stochastic gradient descent (Sgd)
+```
+def get_new_model(input_shape = input_shape):
+model = Sequential()
+model.add(Dense(100, activation='relu', input_shape = input_shape))
+model.add(Dense(100, activation='relu'))
+model.add(Dense(2, activation='softmax'))
+return(model)
+
+lr_to_test = [.000001, 0.01, 1]
+
+# loop over learning rates
+for lr in lr_to_test:
+model = get_new_model()
+my_optimizer = SGD(lr=lr)
+model.compile(optimizer = my_optimizer, loss = 'categorical_crossentropy')
+model.fit(predictors, target)
+```
+
+### Dying Neuron Problem 
+neuron takes a value less than 0 for all rows of data.
+example can be due to negative value is node for relu activation where slope=0. weight dont get updated.
+
+can use activation function whose slope is never exactly zero.
+
+### Vanishing Gradient Problem
+HOWEVER, an s shaped function tanh, values near the middle of the s, have very small slopes close to 0. repeated multiplication for deep network will make backprop updates become close to 0 too.
+This instead creates Vanishing Gradient Problem.
+
+Changing the activation function may be the solution that isnt even close to flat anyway. there are variations of relu although relu still more popular unless model isnt training better.
+
+### Validation in deep learning
+use validation data to test model performance
+- Commonly use validation split rather than cross-validation
+- Deep learning widely used on large datasets. computationally expensive to run k-fold cv
+- Single validation score is based on large amount of data, and
+is reliable
+- Repeated training from cross-validation would take long time
+
+```
+model.compile(optimizer = 'adam', loss = 'categorical_crossentropy', metrics=['accuracy'])
+model.fit(predictors, target, validation_split=0.3)
+```
+
+### Early Stopping
+number of epochs model can go without improving before stop training. optimizations stops when its not improving
+
+patience = 2 or 3 is a good enough number of epoch
+```
+from keras.callbacks import EarlyStopping
+early_stopping_monitor = EarlyStopping(patience=2)
+
+# argument nb_epoch renamed to epochs
+model.fit(predictors, target, validation_split=0.3, epochs=20,
+callbacks = [early_stopping_monitor])
+```
+
+got more advance callbacks. basic earlystopping good enough for now. default keras 10 epochs. since got early stopping, can increase number of epochs.
+
+note callbacks takes list.
+
+### plot results of two models in neural network
+
+```
+# Define early_stopping_monitor
+early_stopping_monitor = EarlyStopping(patience=2)
+
+# Create the new model: model_2
+model_2 = Sequential()
+
+# Add the first and second layers
+model_2.add(Dense(100, activation='relu', input_shape=input_shape))
+model_2.add(Dense(100,activation='relu'))
+
+# Add the output layer
+model_2.add(Dense(2,activation='softmax'))
+
+# Compile model_2
+model_2.compile(optimizer='adam',loss='categorical_crossentropy',metrics=['accuracy'])
+
+# Fit model_1
+model_1_training = model_1.fit(predictors, target, epochs=15, validation_split=0.2, callbacks=[early_stopping_monitor], verbose=False)
+
+# Fit model_2
+model_2_training = model_2.fit(predictors, target, epochs=15, validation_split=0.2, callbacks=[early_stopping_monitor], verbose=False)
+
+# Create the plot
+# r is red, b is blue
+plt.plot(model_1_training.history['val_loss'], 'r', model_2_training.history['val_loss'], 'b')
+plt.xlabel('Epochs')
+plt.ylabel('Validation score')
+plt.show()
+```
+
+### model capacity
+is a model's ability to capture predictive patterns in the data
+
+increase model capacity (training error decreases but test sample error may increase)
+- increase number of nodes/neurons in hidden layer
+- add layers
+
+#### Workflow for optimizing model capacity
+- Start with a small network
+- Gradually increase capacity
+- Keep increasing capacity until validation score is no longer
+improving
+
+### digit recognition model
+output layer 10 notes cause 10 digits
+```
+# Create the model: model
+model = Sequential()
+
+# Add the first hidden layer
+model.add(Dense(50,activation='relu',input_shape=(784,)))
+
+# Add the second hidden layer
+model.add(Dense(50,activation='relu'))
+
+# Add the output layer
+model.add(Dense(10,activation='softmax'))
+
+# Compile the model
+model.compile(optimizer='adam',loss='categorical_crossentropy',metrics=['accuracy'])
+
+# Fit the model
+model.fit(X,y,validation_split=0.3)
+```
+
+### get more datasets
+wikipedia: list of datasets for machine learning research
+
+### continue learning tips
+- Start with standard prediction problems on tables of numbers
+- Images (with convolutional neural networks) are common next steps
+- keras.io for excellent documentation
+- Graphical processing unit (GPU) provides dramatic speedups in model training times
+- Need a CUDA compatible GPU
+- For training on using GPUs in the cloud look here: http://bit.ly/2mYQXQb
