@@ -191,3 +191,16 @@ try not to give yes or no answer in chatbot answers because it gives closest qns
 business avoid givingwrong ans. does it mean there is no incentive to use ai based chatbot. i believe fwd for now only use rule based?
 
 google have something call automl which does classification
+
+### How to Drive Better Business Decisions with Data Workshop
+General Assembly 
+12 November 2020 4.30pm to 7pm
+Instructor: Wayne Wong
+
+
+DOLLY Project (Digital OnLine Life and You
+
+example of poor data: timely (newer data)
+
+emotions can be associated with color
+can use grey for loss instead of red.
