@@ -87,6 +87,7 @@ SELECT MAX(budget) AS max_budget,
        MAX(duration) AS max_duration
 FROM films;
 
+### order by
 The ORDER BY keyword is used to sort results in ascending or descending order according to the values of one or more columns.
 By default ORDER BY will sort in ascending order. If you want to sort the results in descending order, you can use the DESC keyword
 SELECT title
@@ -98,6 +99,7 @@ SELECT birthdate, name
 FROM people
 ORDER BY birthdate, name;
 
+### groupby
 GROUP BY always goes after the FROM clause!
 SQL will return an error if you try to SELECT a field that is not in your GROUP BY clause without using it to calculate some kind of value about the entire group.
 GROUP BY allows you to group a result by one or more columns, like so:
@@ -106,8 +108,9 @@ FROM employees
 GROUP BY sex
 ORDER BY count DESC;
 
+### having clause
 aggregate functions can't be used in WHERE clauses. 
-hat's where the HAVING clause comes in. For example,
+that's where the HAVING clause comes in. For example,
 SELECT release_year
 FROM films
 GROUP BY release_year
@@ -401,11 +404,16 @@ these help preserve data quality:
 2. keys
 3. referential integrity
 
-### metadatabases
+### metadatabases / schema
 holds information regarding your databases
 
+in the entity-relationship diagram,
+circle is attribute, square is entity.
+separate entity (in each table) reduce redundancy with their respective attributes
+
 ### create tables
-semicolon at the end impt
+semicolon at the end impt before query!!
+
 ```
 CREATE TABLE table_name (
  column_a data_type,
@@ -414,8 +422,9 @@ CREATE TABLE table_name (
 );
 ```
 
+datatype: text, numeric, char(5), etc mentioned later
+
 ### add columns to table
-add columns you can use the following SQL query:
 ```
 ALTER TABLE table_name
 ADD COLUMN column_name data_type;
@@ -451,13 +460,31 @@ DROP COLUMN column_name;
 ```
 DROP TABLE table_name;
 ```
+
+### find out what are the unique key
+```
+SELECT DISTINCT firstname,lastname
+FROM professors
+ORDER BY lastname;
+```
+gives say 500 records
+if this
+```
+SELECT DISTINCT firstname,lastname,university_shortname
+FROM professors
+ORDER BY lastname;
+```
+also gives 500 records, university_shortname is not needed to uniquely identify the professor
+
+can also use COUNT(DISTINCT())
+
 ### integrity constraints
 Why constraints?
 Constraints give the data structure
 Constraints help with consistency, and thus data quality
 Data quality is a business advantage / data science prerequisite
 Enforcing is di cult, but PostgreSQL helps
-1. Attribute constraints, e.g. data types on columns (Chapter 2)
+1. Attribute constraints/ domain, e.g. data types on columns (Chapter 2)
 2. Key constraints, e.g. primary keys (Chapter 3)
 3. Referential integrity constraints, enforced through foreign keys (Chapter 4)
 
@@ -486,10 +513,11 @@ FROM weather;
 ### common datatype for postgreSQL
 1. text : character strings of any length
 2. varchar [ (x) ] : a maximum of n characters
-3. char [ (x) ] : a  xed-length string of n characters
+3. char [ (x) ] : a fixed-length string of n characters
 4. boolean : can only take three states, e.g. TRUE , FALSE and NULL (unknown)
-5. date , time and timestamp : various formats for date and time calculations
-6. numeric : arbitrary precision numbers, e.g. 3.1457
+5. date , time and timestamp : various formats for date and time calculations. stored as YYYY-MM-DD
+6. numeric : arbitrary precision numbers, e.g. 3.1457. 
+eg numeric(3,2) is with precision of 3 and scale of 2, meaning numbers with a total of three and two digits are allowed.
 7. integer : whole numbers in the range of -2147483648 and +2147483647
 8. bigint: for bigger number of integers
 9. serial: set incremental number
@@ -523,6 +551,9 @@ You should read it like this: Because you want to reserve only x characters for 
 - Must hold true for the current state
 - Must hold true for any future state
 
+
+NULL!=NULL 
+
 ### add not-null when creating table
 ```
 CREATE TABLE students (
@@ -540,11 +571,19 @@ ALTER COLUMN home_phone
 SET NOT NULL;
 ```
 
+### remove not-null after table created
+```
+ALTER TABLE students
+ALTER COLUMN home_phone
+DROP NOT NULL;
+```
+
 ### The unique constraint
 important before making columns primary key
 - Disallow duplicate values in a column
 - Must hold true for the current state
 - Must hold true for any future state
+
 
 ### Adding unique constraints when creating table
 ```
@@ -592,7 +631,7 @@ name text,
 price numeric
 );
 ```
-example 3: more than 1 primary key
+example 3: this is still one primary key. just that its a combination of two columns
 ```
 CREATE TABLE example (
 a integer,
@@ -608,11 +647,12 @@ ADD CONSTRAINT some_name PRIMARY KEY (column_name)
 ```
 
 ### Surrogate keys
-created artificial primary key
+created artificial primary key (instead of using say combination of two columns like example 3 above)
 - Primary keys should be built from as few columns as possible
 - Primary keys should never change over time
 
-Adding a surrogate key with serial data type
+Adding a surrogate key with serial data type.
+add an incremental number that is unique to become a primary key
 ```
 ALTER TABLE cars
 ADD COLUMN id serial PRIMARY KEY;
@@ -620,7 +660,7 @@ INSERT INTO cars
 VALUES ('Volkswagen', 'Blitz', 'black');
 ```
 
-### create primary key with 2 columns
+### create primary key with 2 columns via concat instead of using say serial surrogate
 ```
 -- Count the number of distinct rows with columns make, model
 SELECT COUNT(DISTINCT(make, model)) 
@@ -649,15 +689,15 @@ SELECT * FROM cars;
 - FKs are not actual keys because duplicates and null values allowed
 foreign key prevents violations
 
-### reference table with a foreign key
-Table a should now refer to table b, via b_id, which points to id. a_fkey is, as usual, a constraint name you can choose on your own.
+### 1:N relationship, reference table with a foreign key
+Table a should now refer to table b, via a_id, which points to b_id. a_fkey is, as usual, a constraint name you can choose on your own.
 
 Pay attention to the naming convention employed here: Usually, a foreign key referencing another primary key with name id is named x_id, where x is the name of the referencing table in the singular form.
 
 but becareful, inserting non-existing id violates foreign key constraint
 ```
 ALTER TABLE a 
-ADD CONSTRAINT a_fkey FOREIGN KEY (b_id) REFERENCES b (id);
+ADD CONSTRAINT a_fkey FOREIGN KEY (a_id) REFERENCES b (b_id);
 ```
 example:
 Add a foreign key on university_id column in professors that references the id column in universities.
@@ -671,6 +711,9 @@ RENAME COLUMN university_shortname TO university_id;
 ALTER TABLE professors 
 ADD CONSTRAINT professors_fkey FOREIGN KEY (university_id) REFERENCES universities (id);
 ```
+
+While foreign keys and primary keys are not strictly necessary for join queries, they greatly help by telling you what to expect. For instance, you can be sure that records referenced from table A will always be present in table B – so a join from table A will always find something in table B. If not, the foreign key constraint would be violated.
+
 
 ### How to implement N:M-relationships
 - Create a table
@@ -686,7 +729,10 @@ function varchar(256)
 - No primary key!
 - Possible PK = {professor_id, organization_id, function}
 
+before the migration of the data to remove away the affiliations table, transform the table in place first before creating a function table to link the relationship
+
 ###  update columns of a table based on values in another table
+this is for the linking function table
 ```
 UPDATE table_a
 SET column_to_update = table_b.column_to_update_from
@@ -723,15 +769,15 @@ example: You defined a foreign key on professors.university_id that references u
 
 
 ### Dealing with violations
-ON DELETE...
-...NO ACTION: Throw an error
-...CASCADE: Delete all referencing records
-...RESTRICT: Throw an error
-...SET NULL: Set the referencing column to NULL
-...SET DEFAULT: Set the referencing column to its default value
+ON DELETE:
+. NO ACTION: Throw an error
+. CASCADE: Delete all referencing records
+. RESTRICT: Throw an error
+. SET NULL: Set the referencing column to NULL
+. SET DEFAULT: Set the referencing column to its default value.only works if default value specified 
 
 
-option 1 (default):
+option 1 (default delete no action is automatically append to foreign key):
 ```
 CREATE TABLE a (
 id integer PRIMARY KEY,
@@ -751,7 +797,7 @@ b_id integer REFERENCES b (id) ON DELETE CASCADE
 );
 ```
 
-### Change the referential integrity behavior of a key
+### Change foreign key referential violation constraint
 Altering a key constraint doesn't work with ALTER COLUMN. Instead, you have to delete the key constraint and then add a new one with a different ON DELETE behavior.
 
 For deleting constraints, though, you need to know their name. This information is also stored in information_schema.
@@ -768,8 +814,29 @@ DROP CONSTRAINT affiliations_organization_id_fkey;
 -- Add a new foreign key constraint from affiliations to organizations which cascades deletion
 ALTER TABLE affiliations
 ADD CONSTRAINT affiliations_organization_id_fkey FOREIGN KEY (organization_id) REFERENCES organizations (id) ON DELETE CASCADE;
+
+-- Delete an organization 
+DELETE FROM organizations 
+WHERE id = 'CUREM';
+
+-- Check that no more affiliations with this organization exist
+SELECT * FROM affiliations
+WHERE organization_id = 'CUREM';
 ```
 
+### joining all tables
+can notice for join university, is not on affiliations but can be on other tables such as professors 
+```
+-- Join all tables
+SELECT *
+FROM affiliations
+JOIN professors
+ON affiliations.professor_id = professors.id
+JOIN organizations
+ON affiliations.organization_id = organizations.id
+JOIN universities
+ON professors.university_id = universities.id;
+```
 ## Intermediate SQL
 
 ### case statements
@@ -804,9 +871,20 @@ SELECT date, hometeam_id, awayteam_id,
     THEN 'Chelsea home win!'
   WHEN awayteam_id = 8455 AND home_goal < away_goal
     THEN 'Chelsea away win!'
-  LSE 'Loss or tie :(' END AS outcome
+  ELSE 'Loss or tie :(' END AS outcome
 FROM match
 WHERE hometeam_id = 8455 OR awayteam_id = 8455;
+```
+
+### WHERE IN
+```
+SELECT
+	-- Select the team long name and team API id
+	team_long_name,
+	team_api_id
+FROM teams_germany
+-- Only include FC Schalke 04 and FC Bayern Munich
+WHERE team_long_name IN ('FC Schalke 04','FC Bayern Munich');
 ```
 
 ### NULL in CASE statements
@@ -833,7 +911,7 @@ FROM match;
 - copy everything in CASE and put inside WHERE.
 ```
 -- Select the season, date, home_goal, and away_goal columns
-SELECT 
+SELECT  
 	season,
     date,
 	home_goal,
@@ -1222,8 +1300,7 @@ GROUP BY month;
 a nested subquery's components can be executed independently of the outer query, while a correlated subquery requires both the outer and inner subquery to run and produce results.
 
 example:
-What is the each country's average goals scored in the
-2011/2012 season?
+What is the each country's average goals scored in the 2011/2012 season?
 got second nested subquery inside SELECT
 ```
 SELECT
@@ -1496,7 +1573,7 @@ ON t.team_api_id = m.hometeam_id;
 Working with aggregate values, requires you to use GROUP BY with all non-aggregate
 columns.
 
-but window function can work around it.
+but window function can work around it. window functions allow getting aggregates without having to group data.
 
 - Perform calculations on an already generated result set (a window)
 - Aggregate calculations
@@ -1518,6 +1595,18 @@ SELECT
   date,
   (home_goal + away_goal) AS goals,
   AVG(home_goal + away_goal) OVER() AS overall_avg
+FROM match
+WHERE season = '2011/2012';
+```
+
+without OVER() looks like this:
+```
+SELECT
+date,
+(home_goal + away_goal) AS goals,
+(SELECT AVG(home_goal + away_goal)
+  FROM match
+  WHERE season = '2011/2012') AS overall_avg
 FROM match
 WHERE season = '2011/2012';
 ```

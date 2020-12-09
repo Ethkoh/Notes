@@ -197,10 +197,53 @@ General Assembly
 12 November 2020 4.30pm to 7pm
 Instructor: Wayne Wong
 
-
 DOLLY Project (Digital OnLine Life and You
 
 example of poor data: timely (newer data)
 
 emotions can be associated with color
 can use grey for loss instead of red.
+
+### Negotiating with Confidence
+General Assembly 
+19 November 2020 12:30 - 1:30pm
+Instructor: Nabil Farrag
+
+Im fascinated to know
+I want to know how my career growth be like
+I see myself progressing well in the company 
+
+Say what u will give with higher salary
+Why u bring higher value
+Give ppl time to prepare not just sit down and talk with them.
+Give an email to at least let manager prepare
+Share that is coming from a place of genuine need not just preference
+
+Role adding value to career
+More satisfaction
+
+Misalignment in working style
+Company vision different
+Not match
+Don’t see myself as a best version of myself there
+
+Don’t say looking for better career opportunities.
+Too cliche
+Eg
+I wasn’t really looking but this role is really interesting
+
+### How to Become a Confident Communicator
+General Assembly 
+19 November 2020 10am to 1pm
+Instructor: Julia Beauchamp
+
+Up-speed -sound like a qns
+Be more aware not to use too much. Not to use esp introduction
+Put pause instead of fillers. not too many fillers
+dont always use softeners. speak ending more firm than high note.
+Posture
+Video till chest.
+Camera and info at top 1/3 of screen
+Eye contact
+Positive feedback, constructive, positive feedback sandwich
+Arms move. More engaging visually

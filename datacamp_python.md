@@ -3102,3 +3102,676 @@ wikipedia: list of datasets for machine learning research
 - Graphical processing unit (GPU) provides dramatic speedups in model training times
 - Need a CUDA compatible GPU
 - For training on using GPUs in the cloud look here: http://bit.ly/2mYQXQb
+
+## Unsupervised learning in python
+
+dimensions = features
+
+samples in this course is in numpy array
+
+### k-means clustering
+- Finds clusters of samples
+- Number of clusters must be specified
+- Implemented in sklearn ("scikit-learn")
+
+Cluster labels for new samples
+- New samples can be assigned to existing clusters
+- k-means remembers the mean of each cluster (the
+"centroids")
+- Finds the nearest centroid to each new sample
+
+```
+from sklearn.cluster import KMeans
+model = KMeans(n_clusters=3)
+model.fit(samples)
+KMeans(algorithm='auto', ...)
+labels = model.predict(samples)
+print(labels)
+[0 0 1 1 0 1 2 1 0 1 ...]
+# cluster labels for new samples
+new_labels = model.predict(new_samples)
+print(new_labels)
+```
+
+```
+# Import KMeans
+from sklearn.cluster import KMeans
+
+# Create a KMeans instance with 3 clusters: model
+model = KMeans(n_clusters=3)
+
+# Fit model to points
+model.fit(points)
+
+# Determine the cluster labels of new_points: labels
+labels = model.predict(new_points)
+
+# Print cluster labels of new_points
+print(labels)
+```
+
+### inspecting clustering
+```
+# Import pyplot
+import matplotlib.pyplot as plt
+
+# Assign the columns of new_points: xs and ys
+xs = new_points[:,0]
+ys = new_points[:,1]
+
+# Make a scatter plot of xs and ys, using labels to define the colors
+plt.scatter(xs,ys,alpha=0.5,c=labels)
+
+# Assign the cluster centers: centroids
+centroids = model.cluster_centers_
+
+# Assign the columns of centroids: centroids_x, centroids_y
+centroids_x = centroids[:,0]
+centroids_y = centroids[:,1]
+
+# Make a scatter plot of centroids_x and centroids_y
+plt.scatter(centroids_x,centroids_y,marker='D',s=50)
+plt.show()
+```
+
+### Crosstab of labels and species
+```
+df = pd.DataFrame({'labels': labels, 'species': species})
+ct = pd.crosstab(df['labels'], df['species'])
+print(ct)
+```
+
+```
+# Create a KMeans model with 3 clusters: model
+model = KMeans(n_clusters=3)
+
+# Use fit_predict to fit model and obtain cluster labels: labels
+labels = model.fit_predict(samples)
+
+# Create a DataFrame with labels and varieties as columns: df
+df = pd.DataFrame({'labels': labels, 'varieties': varieties})
+
+# Create crosstab: ct
+ct = pd.crosstab(df['labels'],df['varieties'])
+
+# Display ct
+print(ct)
+```
+
+### Inertia measures clustering quality
+Measures how spread out the clusters are (lower is better)
+Distance from each sample to centroid of its cluster
+After fit() , available as a attribute inertia_
+k-means attempts to minimize the inertia when choosing
+clusters
+However, more clusters means lower inertia. A good clustering has tight clusters (so low inertia) but not too many clusters!
+Choose an "elbow" in the inertia plot: where inertia begins to decrease more slowly
+```
+from sklearn.cluster import KMeans
+model = KMeans(n_clusters=3)
+model.fit(samples)
+print(model.inertia_)       
+```
+
+### Example of KMeans clustering searching best number of clusters hyperparameter
+```
+ks = range(1, 6)
+inertias = []
+
+for k in ks:
+    # Create a KMeans instance with k clusters: model
+    model=KMeans(n_clusters=k)
+    
+    # Fit model to samples
+    model.fit(samples)
+    
+    # Append the inertia to the list of inertias
+    inertias.append(model.inertia_)
+    
+# Plot ks vs inertias
+plt.plot(ks, inertias, '-o')
+plt.xlabel('number of clusters, k')
+plt.ylabel('inertia')
+plt.xticks(ks)
+plt.show()
+```
+
+### StandardScaler
+- In kmeans: feature variance = feature influence
+- StandardScaler transforms each feature to have mean 0 and
+variance 1
+- Features are said to be "standardized"
+- scaling can improve prediction 
+
+```
+from sklearn.preprocessing import StandardScaler
+scaler = StandardScaler()
+scaler.fit(samples)
+StandardScaler(copy=True, with_mean=True, with_std=True)
+samples_scaled = scaler.transform(samples)
+```
+
+### StandardScaler and KMeans
+```
+from sklearn.preprocessing import StandardScaler
+from sklearn.cluster import KMeans
+scaler = StandardScaler()
+kmeans = KMeans(n_clusters=3)
+from sklearn.pipeline import make_pipeline
+pipeline = make_pipeline(scaler, kmeans)
+pipeline.fit(samples)
+labels = pipeline.predict(samples)
+```
+
+
+```
+# Perform the necessary imports
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.cluster import KMeans
+
+# Create scaler: scaler
+scaler = StandardScaler()
+
+# Create KMeans instance: kmeans
+kmeans = KMeans(n_clusters=4)
+
+# Create pipeline: pipeline
+pipeline = make_pipeline(scaler,kmeans)
+
+# Import pandas
+import pandas as pd
+
+# Fit the pipeline to samples
+pipeline.fit(samples)
+
+# Calculate the cluster labels: labels
+labels = pipeline.predict(samples)
+
+# Create a DataFrame with labels and species as columns: df
+df = pd.DataFrame({'labels':labels,'species':species})
+
+# Create crosstab: ct
+ct = pd.crosstab(df['labels'],df['species'])
+
+# Display ct
+print(ct)
+```
+
+### sklearn preprocessing steps
+- StandardScaler is a "preprocessing" step
+- MaxAbsScaler and Normalizer are other examples
+
+### Normalizer
+While StandardScaler() standardizes features (such as the features of the fish data from the previous exercise) by removing the mean and scaling to unit variance, Normalizer() rescales each sample - here, each company's stock price - independently of the other.
+
+### Normalizer and KMeans
+
+eg. Which stocks move together?
+```
+# Import Normalizer
+from sklearn.preprocessing import Normalizer
+
+# Create a normalizer: normalizer
+normalizer = Normalizer()
+
+# Create a KMeans model with 10 clusters: kmeans
+kmeans = KMeans(n_clusters=10)
+
+# Make a pipeline chaining normalizer and kmeans: pipeline
+pipeline = make_pipeline(normalizer,kmeans)
+
+# Fit pipeline to the daily price movements
+pipeline.fit(movements)
+
+# Import pandas
+import pandas as pd
+
+# Predict the cluster labels: labels
+labels = pipeline.predict(movements)
+
+# Create a DataFrame aligning labels and companies: df
+df = pd.DataFrame({'labels': labels, 'companies': companies})
+
+# Display df sorted by cluster label
+print(df.sort_values('labels'))
+```
+### other unsupervised learning techniques
+"t-SNE" : Creates a 2D map of a dataset
+"Hierarchical clustering"
+
+### Dendrogram
+tree-like diagram visualization of hierarchical clustering
+
+Dendrograms show cluster distances
+Height on dendrogram =
+distance between merging
+clusters
+
+### "agglomerative" hierarchical clustering
+Every country begins in a separate cluster
+At each step, the two closest clusters are merged.
+Continue until all countries in a single cluster
+
+Height on dendrogram specifies max. distance between merging clusters
+Don't merge clusters further apart than this (e.g. 15)
+
+Distance between clusters:
+- Defined by a "linkage method"
+- In "complete" linkage: distance between clusters is max. distance between their samples
+- Specified via method parameter, e.g. linkage(samples,method="complete")
+- Different linkage method, different hierarchical clustering
+- In complete linkage, the distance between clusters is the distance between the furthest points of the clusters. In single linkage, the distance between clusters is the distance between the closest points of the clusters.
+
+linkage function that performs hierarchical clustering
+
+linkage method defines how the distance between clusters is measured. In complete linkage, the distance between clusters is the distance between the furthest points of the clusters. In single linkage, the distance between clusters is the distance between the closest points of the clusters.
+
+```
+# Perform the necessary imports
+from scipy.cluster.hierarchy import linkage, dendrogram
+import matplotlib.pyplot as plt
+
+# Calculate the linkage: 
+# or method='single
+mergings = linkage(samples,method='complete')
+
+# Plot the dendrogram, using varieties as labels
+dendrogram(mergings,
+           labels=varieties,
+           leaf_rotation=90,
+           leaf_font_size=6,
+)
+plt.show()
+```
+
+With 5 data samples, there would be 4 merge operations, and with 6 data samples, there would be 5 merges, and so on.
+
+### normalize with hierarchical clustering
+normalize is standalone cannot use in pipeline because cause cannot .fit, .fit_transform, .transform.
+
+Normalizer is a transformer hence can use in pipeline. 
+
+both normalize and normalizer transform the same way
+
+
+```
+# Import normalize
+from sklearn.preprocessing import normalize
+
+# Normalize the movements: normalized_movements
+normalized_movements = normalize(movements)
+
+# Calculate the linkage: mergings
+mergings = linkage(normalized_movements,method='complete')
+
+# Plot the dendrogram
+dendrogram(mergings,labels=companies,leaf_rotation=90,leaf_font_size=6)
+plt.show()
+```
+
+### Extracting cluster labels using fcluster
+in intermediate stages
+Use the fcluster() function
+Returns a NumPy array of cluster labels
+
+```
+from scipy.cluster.hierarchy import linkage
+mergings = linkage(samples, method='complete')
+from scipy.cluster.hierarchy import fcluster
+# 15 is height
+labels = fcluster(mergings, 15, criterion='distance')
+print(labels)
+```
+
+### t-SNE 
+- t-SNE = "t-distributed stochastic neighbor embedding"
+- Maps samples to 2D space (or 3D)
+- Map approximately preserves nearness of samples
+- Great for inspecting datasets
+- is a powerful tool for visualizing high dimensional data.
+- t-SNE features different when run everytime but clusters position relative to one another are same
+
+in sklearn:
+only have fit_transform. no fit and transform separate. so cannot just transform for new samples. must restart.
+
+learning rate try between 50 to 200.
+```
+import matplotlib.pyplot as plt
+from sklearn.manifold import TSNE
+model = TSNE(learning_rate=100)
+transformed = model.fit_transform(samples)
+xs = transformed[:,0]
+ys = transformed[:,1]
+plt.scatter(xs, ys, c=species)
+plt.show()
+```
+
+```
+# Import TSNE
+from sklearn.manifold import TSNE
+
+# Create a TSNE instance: model
+model = TSNE(learning_rate=50)
+
+# Apply fit_transform to normalized_movements: tsne_features
+tsne_features = model.fit_transform(normalized_movements)
+
+# Select the 0th feature: xs
+xs = tsne_features[:,0]
+
+# Select the 1th feature: ys
+ys = tsne_features[:,1]
+
+# Scatter plot
+plt.scatter(xs,ys,alpha=0.5)
+
+# Annotate the points
+# Label each point with its company name
+for x, y, company in zip(xs, ys, companies):
+    plt.annotate(company, (x, y), fontsize=5, alpha=0.75)
+plt.show()
+```
+
+### dimension reduction
+- finds patterns in data and re-express these patterns in a compressed form leading to more efficient storage and computation
+- Remove less-informative "noise" features which cause problems for prediction tasks, e.g.
+classi,cation, regression
+- example of dimension reduction technique: PCA
+
+### Principal Component Analysis
+PCA = "Principal Component Analysis"
+Fundamental dimension reduction technique
+1. First step "decorrelation": dosent change dimension of data. due to rotation, 'de-correlates' the data. Resulting PCA features are not linearly correlated
+("decorrelation")
+2. Second step reduces dimension 
+
+PCA aligns data with axes
+Rotates data samples to be aligned with axes
+Shifts data samples so they have mean 0
+No information is lost
+
+PCA is a scikit-learn component 
+fit() learns the transformation from given data
+transform() applies the learned transformation
+transform() can also be applied to new data
+
+"Principal components" = directions of variance
+PCA aligns principal components with the axes
+
+principal components: pca.components_ 
+Each row defines displacement from mean principal components are the directions along which the the data varies.
+
+PCA features are in decreasing order of variance
+Assumes the low variance features are "noise" and high variance features are informative. PCA discards low variance PCA features
+
+
+```
+from sklearn.decomposition import PCA
+model = PCA()
+model.fit(samples)
+transformed = model.transform(samples)
+# numpy array with one row for each principle component
+print(model.components_)
+
+```
+
+Rows of transformed correspond to samples
+Columns of transformed are the "PCA features"
+
+### get transformed features
+```
+# Import PCA
+from sklearn.decomposition import PCA
+
+# Create a PCA model with 2 components: pca
+pca = PCA(n_components=2)
+
+# Fit the PCA instance to the scaled samples
+pca.fit(scaled_samples)
+
+# Transform the scaled samples: pca_features
+pca_features = pca.transform(scaled_samples)
+
+# Print the shape of pca_features
+print(pca_features.shape)
+```
+
+#### scatterplot of the 2 pca features
+E.g. PCA(n_components=2) means keeps the first 2 PCA features. Intrinsic dimension is a good choice
+```
+from sklearn.decomposition import PCA
+pca = PCA(n_components=2)
+pca.fit(samples)
+transformed = pca.transform(samples)
+print(transformed.shape)
+
+# scatterplot of the 2 pca features
+import matplotlib.pyplot as plt
+xs = transformed[:,0]
+ys = transformed[:,1]
+plt.scatter(xs, ys, c=species)
+plt.show()
+```
+
+#### longitude and latitude
+Intrinsic dimension of a flight path
+- 2 features: longitude and latitude at points along a
+flight path
+- Dataset appears to be 2-dimensional but can approximate using one feature: displacement along flight path
+- Is intrinsically 1-dimensional
+
+#### plotting variance of pca features using bar chart to decide intrinsic dimension:
+```
+import matplotlib.pyplot as plt
+from sklearn.decomposition import PCA
+pca = PCA()
+pca.fit(samples)
+# enumerating pca features
+features = range(pca.n_components_)
+# Plotting the variances of PCA features
+plt.bar(features, pca.explained_variance_)
+plt.xticks(features)
+plt.ylabel('variance')
+plt.xlabel('PCA feature')
+plt.show()
+```
+
+#### plotting first PCA component:
+```
+# Make a scatter plot of the untransformed points
+plt.scatter(grains[:,0], grains[:,1])
+
+# Create a PCA instance: model
+model = PCA()
+
+# Fit model to points
+model.fit(grains)
+
+# Get the mean of the grain samples: mean
+mean = model.mean_
+
+# Get the first principal component: first_pc
+first_pc = model.components_[0,:]
+
+# Plot first_pc as an arrow, starting at mean
+plt.arrow(mean[0], mean[1], first_pc[0], first_pc[1], color='red', width=0.01)
+
+# Keep axes on same scale
+plt.axis('equal')
+plt.show()
+```
+
+#### Intrinsic dimension
+ = number of features needed to
+approximate the dataset/ how much data can be compressed.
+can be represented by PCA
+
+PCA identifies intrinsic dimension when samples have any number of features
+Intrinsic dimension = number of PCA features with significant variance
+
+#### standardscaler and pca and decide intrinsic dimension
+```
+# Perform the necessary imports
+from sklearn.decomposition import PCA
+from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import make_pipeline
+import matplotlib.pyplot as plt
+
+# Create scaler: scaler
+scaler = StandardScaler()
+
+# Create a PCA instance: pca
+pca = PCA()
+
+# Create pipeline: pipeline
+pipeline = make_pipeline(scaler,pca)
+
+# Fit the pipeline to 'samples'
+pipeline.fit(samples)
+
+# Plot the explained variances
+features = range(pca.n_components_)
+plt.bar(features,pca.explained_variance_)
+plt.xlabel('PCA feature')
+plt.ylabel('variance')
+plt.xticks(features)
+plt.show()
+```
+
+Since PCA features 0 and 1 have significant variance, the intrinsic dimension of this dataset appears to be 2.
+
+
+###  Pearson correlation
+- Measures linear correlation of features
+- Value between -1 and 1
+- Value of 0 means no linear correlation
+
+```
+# Perform the necessary imports
+import matplotlib.pyplot as plt
+from scipy.stats import pearsonr
+
+# Assign the 0th column of grains: width
+width = grains[:,0]
+
+# Assign the 1st column of grains: length
+length = grains[:,1]
+
+# Scatter plot width vs length
+plt.scatter(width, length)
+plt.axis('equal')
+plt.show()
+
+# Calculate the Pearson correlation
+correlation, pvalue = pearsonr(width,length)
+
+# Display the correlation
+print(correlation)
+```
+
+after PCA no correlation:
+```
+# Import PCA
+from sklearn.decomposition import PCA
+
+# Create PCA instance: model
+model = PCA()
+
+# Apply the fit_transform method of model to grains: pca_features
+pca_features = model.fit_transform(grains)
+
+# Assign 0th column of pca_features: xs
+xs = pca_features[:,0]
+
+# Assign 1st column of pca_features: ys
+ys = pca_features[:,1]
+
+# Scatter plot xs vs ys
+plt.scatter(xs, ys)
+plt.axis('equal')
+plt.show()
+
+# Calculate the Pearson correlation of xs and ys
+correlation, pvalue = pearsonr(xs, ys)
+
+# Display the correlation
+print(correlation)
+```
+
+
+### Word frequency arrays
+Rows represent documents, columns represent words
+Entries measure presence of each word in each document measure using "tf-idf"
+
+### Sparse arrays and csr_matrix
+"Sparse": most entries are zero
+Can use scipy.sparse.csr_matrix instead of NumPy array
+csr_matrix remembers only the non-zero entries 
+
+### tf-idf word-frequency array
+```
+# Import TfidfVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+# Create a TfidfVectorizer: tfidf
+tfidf = TfidfVectorizer()
+
+# Apply fit_transform to document: csr_mat
+csr_mat = tfidf.fit_transform(documents)
+
+# Print result of toarray() method
+print(csr_mat.toarray())
+
+# Get the words: words
+words = tfidf.get_feature_names()
+
+# Print words
+print(words)
+```
+
+### TruncatedSVD and csr_matrix
+scikit-learn PCA doesn't support csr_matrix
+Use scikit-learn TruncatedSVD instead
+Performs same transformation
+```
+from sklearn.decomposition import TruncatedSVD
+model = TruncatedSVD(n_components=3)
+model.fit(documents) # documents is csr_matrix
+TruncatedSVD(algorithm='randomized', ... )
+transformed = model.transform(documents)
+```
+
+### combine: pipeline, truncatedsvd, kmeans
+```
+# Perform the necessary imports
+from sklearn.decomposition import TruncatedSVD
+from sklearn.cluster import KMeans
+from sklearn.pipeline import make_pipeline
+
+# Create a TruncatedSVD instance: svd
+svd = TruncatedSVD(n_components=50)
+
+# Create a KMeans instance: kmeans
+kmeans = KMeans(n_clusters=6)
+
+# Create a pipeline: pipeline
+pipeline = make_pipeline(svd,kmeans)
+
+# Import pandas
+import pandas as pd
+
+# Fit the pipeline to articles
+pipeline.fit(articles)
+
+# Calculate the cluster labels: labels
+labels = pipeline.predict(articles)
+
+# Create a DataFrame aligning labels and titles: df
+df = pd.DataFrame({'label': labels, 'article': titles})
+
+# Display df sorted by cluster label
+print(df.sort_values('label'))
+
+```
+
