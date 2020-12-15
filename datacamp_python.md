@@ -3336,9 +3336,9 @@ df = pd.DataFrame({'labels': labels, 'companies': companies})
 # Display df sorted by cluster label
 print(df.sort_values('labels'))
 ```
-### other unsupervised learning techniques
-"t-SNE" : Creates a 2D map of a dataset
-"Hierarchical clustering"
+### Visualization with hierarchical clustering and t-SNE
+"t-SNE" : Creates a 2D map of a dataset. maps the data samples into 2d space so that the proximity of the samples to one another can be visualized.
+"Hierarchical clustering": merges the data samples into ever-coarser clusters, yielding a tree visualization of the resulting cluster hierarchy. 
 
 ### Dendrogram
 tree-like diagram visualization of hierarchical clustering
@@ -3473,7 +3473,8 @@ for x, y, company in zip(xs, ys, companies):
 plt.show()
 ```
 
-### dimension reduction
+### Dimension reduction
+Dimension reduction summarizes a dataset using its common occuring patterns. I
 - finds patterns in data and re-express these patterns in a compressed form leading to more efficient storage and computation
 - Remove less-informative "noise" features which cause problems for prediction tasks, e.g.
 classi,cation, regression
@@ -3482,14 +3483,15 @@ classi,cation, regression
 ### Principal Component Analysis
 PCA = "Principal Component Analysis"
 Fundamental dimension reduction technique
-1. First step "decorrelation": dosent change dimension of data. due to rotation, 'de-correlates' the data. Resulting PCA features are not linearly correlated
+PCA is often used before supervised learning to improve model performance and generalization. It can also be useful for unsupervised learning 
+
+1. First step "decorrelation": dosent change dimension of data. PCA aligns data with axes
+Rotates data samples to be aligned with axes
+Shifts data samples so they have mean 0
+No information is lost. Due to rotation, 'de-correlates' the data. Resulting PCA features are not linearly correlated.
 ("decorrelation")
 2. Second step reduces dimension 
 
-PCA aligns data with axes
-Rotates data samples to be aligned with axes
-Shifts data samples so they have mean 0
-No information is lost
 
 PCA is a scikit-learn component 
 fit() learns the transformation from given data
@@ -3648,6 +3650,7 @@ Since PCA features 0 and 1 have significant variance, the intrinsic dimension of
 - Value between -1 and 1
 - Value of 0 means no linear correlation
 
+decorrelating features with pca:
 ```
 # Perform the necessary imports
 import matplotlib.pyplot as plt
@@ -3782,6 +3785,7 @@ print(df.sort_values('label'))
 
 ### Non-negative matrix factorization
 NMF = "non-negative matrix factorization"
+dimension reduction technique called "Non-negative matrix factorization" ("NMF") that expresses samples as combinations of interpretable parts
 - Dimension reduction technique
 - NMF models are interpretable (unlike PCA)
 - Easy to interpret means easy to explain!
@@ -4046,4 +4050,574 @@ similarities = df.dot(artist)
 print(similarities.nlargest())
 ```
 
+## Machine Learning with Tree-Based Models in Python
 
+### Classification and Regression Trees (CART) 
+are a set of supervised learning models used for problems involving classification and regression.
+
+### Classification-tree (Decision Tree Classifier)
+- Sequence of if-else questions about individual features.
+- Objective: infer class labels.
+- Able to capture non-linear relationships between features and labels.
+- Don't require feature scaling (ex:Standardization, ..)
+- Decision region: region in the feature space where all instances are assigned to one class
+label.
+- Decision Boundary: surface separating different decision regions.
+
+Decision-Tree Classifier
+data structure consisting of a hierarchy of nodes.
+Node: question or prediction.
+
+Three kinds of nodes:
+Root: no parent node, question giving rise to two children nodes.
+Internal node: one parent node, question giving rise to two children nodes.
+Leaf: one parent node, no children nodes --> prediction.
+
+Criteria to measure the impurity of a node I(node):
+gini index,
+entropy. 
+Most of the time, the gini index and entropy lead to the same results. The gini index is slightly faster to compute and is the default criterion used 
+
+Nodes are grown recursively.
+At each node, split the data based on:
+feature and split-point to maximize IG(node). (IG = information gain)
+If IG(node)= 0, declare the node a leaf.
+
+interesting dataset: Breast Cancer Wisconsin (Diagnostic)
+Predict whether the cancer is benign or malignant
+https://www.kaggle.com/uciml/breast-cancer-wisconsin-data
+
+```
+# Import DecisionTreeClassifier
+from sklearn.tree import DecisionTreeClassifier
+# Import train_test_split
+from sklearn.model_selection import train_test_split
+# Import accuracy_score
+from sklearn.metrics import accuracy_score
+# Split dataset into 80% train, 20% test
+X_train, X_test, y_train, y_test= train_test_split(X, y,
+test_size=0.2,
+stratify=y,
+random_state=1)
+# Instantiate dt
+dt = DecisionTreeClassifier(max_depth=2, random_state=1)
+# Fit dt to the training set
+dt.fit(X_train,y_train)
+# Predict test set labels
+y_pred = dt.predict(X_test)
+# Compute test set accuracy  
+acc = accuracy_score(y_test, y_pred)
+print("Test set accuracy: {:.2f}".format(acc))
+```
+
+```
+# Import DecisionTreeClassifier
+from sklearn.tree import DecisionTreeClassifier
+# Import train_test_split
+from sklearn.model_selection import train_test_split
+# Import accuracy_score
+from sklearn.metrics import accuracy_score
+# Split dataset into 80% train, 20% test
+X_train, X_test, y_train, y_test= train_test_split(X, y,
+test_size=0.2,
+stratify=y,
+random_state=1)
+# Instantiate dt, set 'criterion' to 'gini'
+dt = DecisionTreeClassifier(criterion='gini', random_state=1)
+
+# Fit dt to the training set
+dt.fit(X_train,y_train)
+# Predict test-set labels
+y_pred= dt.predict(X_test)
+# Evaluate test-set accuracy
+accuracy_score(y_test, y_pred)
+```
+
+example:
+```
+# Import DecisionTreeClassifier from sklearn.tree
+from sklearn.tree import DecisionTreeClassifier
+
+# Instantiate dt_entropy, set 'entropy' as the information criterion
+dt_entropy = DecisionTreeClassifier(max_depth=8, criterion='entropy', random_state=1)
+
+# Fit dt_entropy to the training set
+dt_entropy.fit(X_train, y_train)
+
+# Import accuracy_score from sklearn.metrics
+from sklearn.metrics import accuracy_score
+
+# Use dt_entropy to predict test set labels
+y_pred= dt_entropy.predict(X_test)
+
+# Evaluate accuracy_entropy
+accuracy_entropy = accuracy_score(y_test, y_pred)
+
+# Print accuracy_entropy
+print('Accuracy achieved by using entropy: ', accuracy_entropy)
+
+# Print accuracy_gini
+print('Accuracy achieved by using the gini index: ', accuracy_gini)
+```
+
+### Logistic regression vs classification tree
+A classification tree divides the feature space into rectangular regions. In contrast, a linear model such as logistic regression produces only a single linear decision boundary dividing the feature space into two decision regions.
+
+### Decision-Tree for Regression
+impurity of a node = MSE of the targets in that node.
+The regression trees tries to find the splits that produce leafs where in each leaf the target values are on average, the closest possible to the mean_value of the labels in that particular leaf
+
+```
+# Import DecisionTreeRegressor
+from sklearn.tree import DecisionTreeRegressor
+# Import train_test_split
+from sklearn.model_selection import train_test_split
+# Import mean_squared_error as MSE
+from sklearn.metrics import mean_squared_error as MSE
+# Split data into 80% train and 20% test
+X_train, X_test, y_train, y_test= train_test_split(X, y,
+test_size=0.2,
+random_state=3)
+# Instantiate a DecisionTreeRegressor 'dt'
+dt = DecisionTreeRegressor(max_depth=4,
+min_samples_leaf=0.1,
+random_state=3)
+# Fit 'dt' to the training-set
+dt.fit(X_train, y_train)
+# Predict test-set labels
+y_pred = dt.predict(X_test)
+# Compute test-set MSE
+mse_dt = MSE(y_test, y_pred)
+# Compute test-set RMSE
+rmse_dt = mse_dt**(1/2)
+# Print rmse_dt
+print(rmse_dt)
+```
+
+```
+# Fit 'dt' to the training-set
+dt.fit(X_train, y_train)
+
+# Predict test-set labels
+y_pred = dt.predict(X_test)
+
+# Compute test-set MSE
+mse_dt = MSE(y_test, y_pred)
+
+# Compute test-set RMSE
+rmse_dt = mse_dt**(1/2)
+
+# Print rmse_dt
+print(rmse_dt)
+
+# Import mean_squared_error from sklearn.metrics as MSE
+from sklearn.metrics import mean_squared_error as MSE
+
+# Compute y_pred
+y_pred = dt.predict(X_test)
+
+# Compute mse_dt
+mse_dt = MSE(y_test, y_pred)
+
+# Compute rmse_dt
+rmse_dt = mse_dt**(1/2)
+
+# Print rmse_dt
+print("Test set RMSE of dt: {:.2f}".format(rmse_dt))
+
+# instantiated a linear regression model lr and trained it on the same dataset as dt.
+# Linear regression vs regression tree
+# Predict test set labels 
+y_pred_lr = lr.predict(X_test)
+
+# Compute mse_lr
+mse_lr = MSE(y_pred_lr, y_test)
+
+# Compute rmse_lr
+rmse_lr = mse_lr**(1/2)
+
+# Print rmse_lr
+print('Linear Regression test set RMSE: {:.2f}'.format(rmse_lr))
+
+# Print rmse_dt
+print('Regression Tree test set RMSE: {:.2f}'.format(rmse_dt))
+```
+
+#### Advantages of CARTs
+- Simple to understand.
+- Simple to interpret.
+- Easy to use.
+- Flexibility: ability to describe non-linear dependencies.
+- Preprocessing: no need to standardize or normalize features
+
+#### Limitations of CARTs
+- Classiffication: can only produce orthogonal decision boundaries.
+- Sensitive to small variations in the training set.
+- High variance: unconstrained CARTs may overfit the training set.
+- Solution: ensemble learning.
+
+### Goals of Supervised Learning
+Find a model that best approximates f_hat : ≈ f
+End goal: f_hat should acheive a low predictive error on unseen datasets.
+
+#### Difficulties in Approximating f
+Overfitting: f_hat(x) fits the training set noise.
+Underfitting: f_hat is not flexible enough to approximate f .
+
+#### Generalization Error 
+= bias + variance + irreducible error
+
+Bias: error term that tells you, on average, how much f_hat ≠ f.
+Variance: tells you how much is f_hat inconsistent over different training sets.
+Irreducible error is instead regardless of model complexity
+
+Estimating the Generalization Error
+Cannot be done directly because:
+- f is unknown,
+- usually you only have one dataset,
+- noise is unpredictable.
+
+Solution: cross-validation
+split the data to training and test sets,
+fit f_hat to the training set,
+evaluate the error of f_hat on the unseen test set.
+generalization error of f_hat ≈ test set error of f_hat
+
+can use K-fold CV or Hold-out CV on training set
+
+### K-fold CV
+keep the test set untouched until you are confident about your model's performance. 
+
+for K=10: 
+- First, the training set (T) is split randomly into 10 partitions or folds, 
+- The error of fhat is evaluated 10 times on the 10 folds, 
+- Each time, one fold is picked for evaluation after training fhat on the other 9 folds. 
+- At the end, you'll obtain a list of 10 errors
+- CV-error is computed as the mean of the 10 obtained errors.
+
+If f_hat suffers from high variance: CV error of f_hat > training set error of f_hat,
+f_hat is said to overfit the training set. To remedy decrease model complexity or gather more data
+
+if f_hat suffers from high bias: CV error of f_hat ≈ training set error of f_hat but >> desired error.
+is said to underfit the training set. To remedy: increase model complexity,
+gather more relevant features
+
+```
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error as MSE
+from sklearn.model_selection import cross_val_score
+# Set seed for reproducibility
+SEED = 123
+# Split data into 70% train and 30% test
+X_train, X_test, y_train, y_test = train_test_split(X,y,
+test_size=0.3,
+random_state=SEED)
+# Instantiate decision tree regressor and assign it to 'dt'
+dt = DecisionTreeRegressor(max_depth=4,
+min_samples_leaf=0.14,
+random_state=SEED)
+
+# Evaluate the list of MSE ontained by 10-fold CV
+# Set n_jobs to -1 in order to exploit all CPU cores in computation
+MSE_CV = - cross_val_score(dt, X_train, y_train, cv= 10,
+scoring='neg_mean_squared_error',
+n_jobs = -1)
+# Fit 'dt' to the training set
+dt.fit(X_train, y_train)
+# Predict the labels of training set
+y_predict_train = dt.predict(X_train)
+# Predict the labels of test set
+y_predict_test = dt.predict(X_test)
+
+# CV MSE
+print('CV MSE: {:.2f}'.format(MSE_CV.mean()))
+CV MSE: 20.51
+# Training set MSE
+print('Train MSE: {:.2f}'.format(MSE(y_train, y_predict_train)))
+Train MSE: 15.30
+# Test set MSE
+print('Test MSE: {:.2f}'.format(MSE(y_test, y_predict_test)))
+
+
+# CV MSE
+print('CV MSE: {:.2f}'.format(MSE_CV.mean()))
+CV MSE: 20.51
+# Training set MSE
+print('Train MSE: {:.2f}'.format(MSE(y_train, y_predict_train)))
+Train MSE: 15.30
+# Test set MSE
+print('Test MSE: {:.2f}'.format(MSE(y_test, y_predict_test)))
+Test MSE: 20.92
+```
+Given that the training set error is smaller than the CV-error, we can deduce that dt overfits the training set and that it suffers from high variance. Notice how the CV and test set errors are roughly equal.
+
+another example:
+```
+# Import train_test_split from sklearn.model_selection
+from sklearn.model_selection import train_test_split
+
+# Set SEED for reproducibility
+SEED = 1
+
+# Split the data into 70% train and 30% test
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=SEED)
+
+# Instantiate a DecisionTreeRegressor dt
+dt = DecisionTreeRegressor(max_depth=4, min_samples_leaf=0.26, random_state=SEED)
+
+
+# Compute the array containing the 10-folds CV MSEs
+MSE_CV_scores = - cross_val_score(dt,X_train, y_train, cv=10, 
+                       scoring='neg_mean_squared_error',
+                       n_jobs=-1)
+
+# Compute the 10-folds CV RMSE
+RMSE_CV = (MSE_CV_scores.mean())**(1/2)
+
+# Print RMSE_CV
+print('CV RMSE: {:.2f}'.format(RMSE_CV))
+
+# Import mean_squared_error from sklearn.metrics as MSE
+from sklearn.metrics import mean_squared_error as MSE
+
+# Fit dt to the training set
+dt.fit(X_train, y_train)
+
+# Predict the labels of the training set
+y_pred_train = dt.predict(X_train)
+
+# Evaluate the training set RMSE of dt
+RMSE_train = (MSE(y_train, y_pred_train))**(1/2)
+
+# Print RMSE_train
+print('Train RMSE: {:.2f}'.format(RMSE_train))
+
+#  Notice how the training error is roughly equal to the 10-folds CV error you obtained earlier
+```
+
+
+#### Model Complexity
+sets the flexibility of f_hat
+Example: Maximum tree depth, Minimum samples per leaf
+
+best complexity is lowest generalization error. (bias_variance tradeoff)
+
+As the complexity of f_hat increases, the bias term decreases while the variance term increases.
+
+
+### boosting
+Boosting refers to an ensemble method in which several models are trained sequentially with each model learning from the errors of its predecessors. In this chapter, you'll be introduced to the two boosting methods of AdaBoost and Gradient Boosting.
+
+### Ensemble Learning
+- Train different models on the same dataset.
+- Let each model make its predictions.
+- Meta-model: aggregates predictions of individual models.
+- Final prediction: more robust and less prone to errors.
+- Best results: models are skillful in different ways.
+- First, the training set is fed to different classifiers. Each classifier learns its parameters and makes predictions. Then these predictions are fed to a meta model which aggregates them and outputs a final prediction.
+
+#### Voting Classifier
+Voting Classifier in sklearn (Breast-Cancer dataset)
+
+```
+# Import functions to compute accuracy and split data
+from sklearn.metrics import accuracy_score
+from sklearn.model_selection import train_test_split
+# Import models, including VotingClassifier meta-model
+from sklearn.linear_model import LogisticRegression
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.neighbors import KNeighborsClassifier as KNN
+from sklearn.ensemble import VotingClassifier
+# Set seed for reproducibility
+SEED = 1
+
+# Split data into 70% train and 30% test
+X_train, X_test, y_train, y_test = train_test_split(X, y,
+test_size= 0.3,
+random_state= SEED)
+# Instantiate individual classifiers
+lr = LogisticRegression(random_state=SEED)
+knn = KNN()
+dt = DecisionTreeClassifier(random_state=SEED)
+# Define a list called classifier that contains the tuples (classifier_name, classifier)
+classifiers = [('Logistic Regression', lr),
+('K Nearest Neighbours', knn),
+('Classification Tree', dt)]
+
+# Iterate over the defined list of tuples containing the classifiers
+for clf_name, clf in classifiers:
+#fit clf to the training set
+clf.fit(X_train, y_train)
+# Predict the labels of the test set
+y_pred = clf.predict(X_test)
+# Calculate accuracy
+accuracy = accuracy_score(y_test, y_pred) 
+# Evaluate clf's accuracy on the test set
+print('{:s} : {:.3f}'.format(clf_name, accuracy))
+
+# Instantiate a VotingClassifier 'vc'
+vc = VotingClassifier(estimators=classifiers)
+# Fit 'vc' to the traing set and predict test set labels
+vc.fit(X_train, y_train)
+y_pred = vc.predict(X_test)
+# Evaluate the test-set accuracy of 'vc'
+print('Voting Classifier: {.3f}'.format(accuracy_score(y_test, y_pred)))
+
+```
+
+#### Bagging / Bootstrap aggregation 
+- is an ensemble method involving training the same algorithm many times using different subsets sampled from the training data via sample with replacement
+- Reduces variance of individual models in the ensemble
+
+
+BaggingClassifier: 
+- Aggregates predictions by majority voting.
+BaggingRegressor: 
+- Aggregates predictions through averaging.
+
+```
+# Import models and utility functions
+from sklearn.ensemble import BaggingClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score
+from sklearn.model_selection import train_test_split
+# Set seed for reproducibility
+SEED = 1
+# Split data into 70% train and 30% test
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3,
+stratify=y,
+random_state=SEED)
+
+# Instantiate a classification-tree 'dt'
+dt = DecisionTreeClassifier(max_depth=4, min_samples_leaf=0.16, random_state=SEED)
+# Instantiate a BaggingClassifier 'bc'
+bc = BaggingClassifier(base_estimator=dt, n_estimators=300, random_state=1,n_jobs=-1)
+# Fit 'bc' to the training set
+bc.fit(X_train, y_train)
+# Predict test set labels
+y_pred = bc.predict(X_test)
+# Evaluate and print test-set accuracy
+accuracy = accuracy_score(y_test, y_pred)
+print('Accuracy of Bagging Classifier: {:.3f}'.format(accuracy))
+```
+
+#### Voting Classiffier vs Bagging:
+same training set vs differetn subsets of the training set
+different algorithms vs one algorithm
+
+#### Out Of Bag Evaluation
+Out Of Bag (OOB) instances
+- On average, for each model, 63% of the training instances are sampled.
+- The remaining 37% constitute the OOB instances.
+- Since OOB instances are not seen by a model during training, these can be used to estimate the performance of the ensemble without the need for cross-validation. This technique is known as OOB-evaluation.
+
+
+```
+# Import models and split utility function
+from sklearn.ensemble import BaggingClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score
+from sklearn.model_selection import train_test_split
+# Set seed for reproducibility
+SEED = 1
+# Split data into 70% train and 30% test
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size= 0.3,
+stratify= y,
+random_state=SEED)
+
+# Instantiate a classification-tree 'dt'
+dt = DecisionTreeClassifier(max_depth=4,
+min_samples_leaf=0.16,
+random_state=SEED)
+# Instantiate a BaggingClassifier 'bc'; set oob_score= True
+bc = BaggingClassifier(base_estimator=dt, n_estimators=300,
+oob_score=True, n_jobs=-1)
+# Fit 'bc' to the traing set
+bc.fit(X_train, y_train)
+# Predict the test set labels
+y_pred = bc.predict(X_test)
+
+# Evaluate test set accuracy
+test_accuracy = accuracy_score(y_test, y_pred)
+# Extract the OOB accuracy from 'bc'
+oob_accuracy = bc.oob_score_
+# Print test set accuracy
+print('Test set accuracy: {:.3f}'.format(test_accuracy))
+# Print OOB accuracy
+print('OOB accuracy: {:.3f}'.format(oob_accuracy))
+
+```
+Note that in scikit-learn, the OOB-score corresponds to the accuracy for classifiers and the r-squared score for regressors. 
+
+These results highlight how OOB-evaluation can be an efficient technique to obtain a performance estimate of a bagged-ensemble on unseen data without performing cross-validation.
+
+#### Random Forests
+is an ensemble method.
+further ensemble diversity through randomization at the level of each split in the trees forming the ensemble.
+
+RandomForestClassifier:
+Aggregates predictions by majority voting
+RandomForestRegressor:
+Aggregates predictions through averaging
+
+in general, RF achieves lower variance than individual trees.
+
+
+###### Feature Importance
+Tree-based methods: enable measuring the importance of each feature in prediction.
+In sklearn :
+- how much the tree nodes use a particular feature to reduce impurity, expressed as a percentage indicating the weight of that feature in training and prediction
+- accessed using the attribute feature_importance_
+
+```
+import pandas as pd
+import matplotlib.pyplot as plt
+# Create a pd.Series of features importances
+importances_rf = pd.Series(rf.feature_importances_, index = X.columns)
+# Sort importances_rf
+sorted_importances_rf = importances_rf.sort_values()
+# Make a horizontal bar plot
+sorted_importances_rf.plot(kind='barh', color='lightgreen'); plt.show()
+```
+
+#### Bagging vs RandomForests:
+Bagging:
+- Base estimator: Decision Tree, Logistic Regression, Neural Net, etc
+- Each estimator is trained on a distinct bootstrap sample of the training set
+- Estimators use all features for training and prediction
+
+Random Forests:
+- Base estimator: Decision Tree
+- Each estimator is trained on a different bootstrap sample having the same size as the training set
+- RF introduces further randomization in the training of individual trees
+- d features are sampled at each node without replacement
+( d < total number of features )
+d refers to square-root of the number of features in scikit-learn.
+
+```
+# Basic imports
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error as MSE
+# Set seed for reproducibility
+SEED = 1
+# Split dataset into 70% train and 30% test
+X_train, X_test, y_train, y_test = train_test_split(X, y,
+test_size=0.3,
+random_state=SEED)
+
+# Instantiate a random forests regressor 'rf' 400 estimators
+rf = RandomForestRegressor(n_estimators=400,
+min_samples_leaf=0.12,
+random_state=SEED)
+# Fit 'rf' to the training set
+rf.fit(X_train, y_train)
+# Predict the test set labels 'y_pred'
+y_pred = rf.predict(X_test)
+# Evaluate the test set RMSE
+rmse_test = MSE(y_test, y_pred)**(1/2)
+# Print the test set RMSE
+print('Test set RMSE of rf: {:.2f}'.format(rmse_test))
+
+```
