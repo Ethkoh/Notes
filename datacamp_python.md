@@ -4563,8 +4563,12 @@ Aggregates predictions through averaging
 
 in general, RF achieves lower variance than individual trees.
 
+Random Forests Hyperparameters:
+CART hyperparameters
+number of estimators
+bootstrap
 
-###### Feature Importance
+##### Feature Importance
 Tree-based methods: enable measuring the importance of each feature in prediction.
 In sklearn :
 - how much the tree nodes use a particular feature to reduce impurity, expressed as a percentage indicating the weight of that feature in training and prediction
@@ -4621,3 +4625,268 @@ rmse_test = MSE(y_test, y_pred)**(1/2)
 print('Test set RMSE of rf: {:.2f}'.format(rmse_test))
 
 ```
+
+#### Boosting
+- Ensemble method combining several weak learners to form a strong learner.
+- Weak learner: Model doing slightly better than random guessing.
+- Example of weak learner: Decision stump (CART whose maximum depth is 1).
+- Train an ensemble of predictors sequentially.
+- Each predictor pays more attention to the instances wrongly predicted by its predecessor by constantly changing the weights of training instances.
+- Most popular boosting methods: AdaBoost, Gradient Boosting.
+
+##### Adaboost
+- Stands for Adaptive Boosting.
+- Each predictor pays more attention to the instances wrongly predicted by its predecessor.
+- Achieved by changing the weights of training instances.
+- individual predictors need not to be CARTs. However CARTs are used most of the time in boosting because of their high variances
+- Each predictor is assigned a coefficient α.
+- α depends on the predictor's training error
+- Learning rate: 0 < η ≤ 1
+it is used to shrink the coefficient alpha of a trained predictor. It's important to note that there's a tradeoff between the learning rate and the number of estimators. A smaller value of learning rate should be compensated by a greater number of estimators.
+
+AdaBoostClassifier: Weighted majority voting.
+AdaBoostRegressor: Weighted average.
+
+```
+# Import models and utility functions
+from sklearn.ensemble import AdaBoostClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import roc_auc_score
+from sklearn.model_selection import train_test_split
+# Set seed for reproducibility
+SEED = 1
+# Split data into 70% train and 30% test
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3,
+stratify=y,
+random_state=SEED)
+
+# Instantiate a classification-tree 'dt'
+dt = DecisionTreeClassifier(max_depth=1, random_state=SEED)
+# Instantiate an AdaBoost classifier 'adab_clf'
+# 100 decision stumps
+adb_clf = AdaBoostClassifier(base_estimator=dt, n_estimators=100)
+# Fit 'adb_clf' to the training set
+adb_clf.fit(X_train, y_train)
+# Predict the test set probabilities of positive class
+y_pred_proba = adb_clf.predict_proba(X_test)[:,1]
+# Evaluate test-set roc_auc_score
+adb_clf_roc_auc_score = roc_auc_score(y_test, y_pred_proba)
+
+# Print adb_clf_roc_auc_score
+print('ROC AUC score: {:.2f}'.format(adb_clf_roc_auc_score))
+```
+
+##### Gradient Boosted Trees
+- Sequential correction of predecessor's errors.
+- Does not tweak the weights of training instances.
+- Fit each predictor is trained using its predecessor's residual errors as labels.
+- Gradient Boosted Trees: a CART is used as a base learner.
+- In sklearn: GradientBoostingRegressor,
+GradientBoostingClassifier
+- Cons:
+GB involves an exhaustive search procedure.
+Each CART is trained to find the best split points and features.
+May lead to CARTs using the same split points and maybe the same features. to mitagte the problem: Stochastic gradient boosting
+
+```
+# Import models and utility functions
+from sklearn.ensemble import GradientBoostingRegressor
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error as MSE
+# Set seed for reproducibility
+SEED = 1
+# Split dataset into 70% train and 30% test
+X_train, X_test, y_train, y_test = train_test_split(X,y,
+test_size=0.3,
+random_state=SEED)
+
+# Instantiate a GradientBoostingRegressor 'gbt'
+gbt = GradientBoostingRegressor(n_estimators=300, max_depth=1, random_state=SEED)
+# Fit 'gbt' to the training set
+gbt.fit(X_train, y_train)
+# Predict the test set labels
+y_pred = gbt.predict(X_test)
+# Evaluate the test set RMSE
+rmse_test = MSE(y_test, y_pred)**(1/2)
+# Print the test set RMSE
+print('Test set RMSE: {:.2f}'.format(rmse_test))
+```
+
+##### Shrinkage
+An important parameter used in training gradient boosted trees is shrinkage. shrinkage refers to the fact that the prediction of each tree in the ensemble is shrinked after it is multiplied by a learning rate which is a number between 0 and 1. Similarly to AdaBoost, there's a trade-off between learning rate and the number of estimators. Decreasing the learning rate needs to be compensated by increasing the number of estimators in order for the ensemble to reach a certain performance.
+
+#### Stochastic Gradient Boosting (SGB)
+- Each tree is trained on a random subset of rows of the training data.
+- The sampled instances (40%-80% of the training set) are sampled without replacement.
+- Features are sampled (without replacement) when choosing split points.
+- Result: further ensemble diversity.
+- Effect: adding further variance to the ensemble of trees.
+- Once a tree is trained, predictions are made and the residual errors can be computed. These residual errors are multiplied by the learning rate and are fed to the next tree in the ensemble. This procedure is repeated sequentially until all the trees in the ensemble are trained. 
+
+```
+# Import models and utility functions
+from sklearn.ensemble import GradientBoostingRegressor
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error as MSE
+# Set seed for reproducibility
+SEED = 1
+# Split dataset into 70% train and 30% test
+X_train, X_test, y_train, y_test = train_test_split(X,y,
+test_size=0.3,
+random_state=SEED)
+
+# Instantiate a stochastic GradientBoostingRegressor 'sgbt'
+# max_features is the number of features to consider when looking for the best split
+sgbt = GradientBoostingRegressor(max_depth=1,
+subsample=0.8,
+max_features=0.2,
+n_estimators=300,
+random_state=SEED)
+# Fit 'sgbt' to the training set
+sgbt.fit(X_train, y_train)
+# Predict the test set labels
+y_pred = sgbt.predict(X_test)
+
+# Evaluate test set RMSE 'rmse_test'
+rmse_test = MSE(y_test, y_pred)**(1/2)
+# Print 'rmse_test'
+print('Test set RMSE: {:.2f}'.format(rmse_test))
+```
+
+### Hyperparameters
+parameters: learned from data
+hyperparameters: not learned from data, set prior to training
+optimal hyperparameters are those of the model achieving the best CV score
+
+Approaches to hyperparameter tuning:
+- Grid Search
+- Random Search
+- Bayesian Optimization
+- Genetic Algorithms
+etc
+
+summary:
+.best_score_ : best CV score
+.best_estimator_ : extract best model
+.best_params_ : extract best hyperparameters
+.predict_prob(X_test)[:,1] : probability for positive class
+.predict(X_test) : y_pred
+.score : averate score
+
+
+accuracy:
+```
+# Import DecisionTreeClassifier
+from sklearn.tree import DecisionTreeClassifier
+# Set seed to 1 for reproducibility
+SEED = 1
+# Instantiate a DecisionTreeClassifier 'dt'
+dt = DecisionTreeClassifier(random_state=SEED)
+
+# Print out 'dt's hyperparameters
+print(dt.get_params())
+
+# Import GridSearchCV
+from sklearn.model_selection import GridSearchCV
+# Define the grid of hyperparameters 'params_dt'
+params_dt = {
+'max_depth': [3, 4,5, 6],
+'min_samples_leaf': [0.04, 0.06, 0.08],
+'max_features': [0.2, 0.4,0.6, 0.8]
+}
+# Instantiate a 10-fold CV grid search object 'grid_dt'
+grid_dt = GridSearchCV(estimator=dt,
+param_grid=params_dt,
+scoring='accuracy',
+cv=10,
+n_jobs=-1)
+# Fit 'grid_dt' to the training data
+grid_dt.fit(X_train, y_train)
+
+# Extract best hyperparameters from 'grid_dt'
+best_hyperparams = grid_dt.best_params_
+print('Best hyerparameters:\n', best_hyperparams)
+
+# Extract best CV score from 'grid_dt'
+best_CV_score = grid_dt.best_score_
+print('Best CV accuracy'.format(best_CV_score))
+
+# Extract best model from 'grid_dt'
+# this model is fitted on whole training set because refit parameter of GridSearchCV is set True by default
+best_model = grid_dt.best_estimator_
+
+# Evaluate test set accuracy
+test_acc = best_model.score(X_test,y_test)
+
+# Print test set accuracy
+print("Test set accuracy of best model: {:.3f}".format(test_acc))
+```
+
+roc-auc:
+```
+# Import GridSearchCV
+from sklearn.model_selection import GridSearchCV
+
+# Instantiate grid_dt
+grid_dt = GridSearchCV(estimator=dt,
+                       param_grid=params_dt,
+                       scoring='roc_auc',
+                       cv=5,
+                       n_jobs=-1)
+
+grid_dt.fit(X_train, y_train)
+
+# Import roc_auc_score from sklearn.metrics
+from sklearn.metrics import roc_auc_score
+
+# Extract the best estimator
+best_model = grid_dt.best_estimator_
+
+# Predict the test set probabilities of the positive class
+y_pred_proba = best_model.predict_proba(X_test)[:,1]
+
+# Compute test_roc_auc
+test_roc_auc = roc_auc_score(y_test,y_pred_proba)
+
+# Print test_roc_auc
+print('Test set ROC AUC score: {:.3f}'.format(test_roc_auc))
+```
+
+neg_mean_squared_error, Random Forest:
+```
+# Basic imports
+from sklearn.metrics import mean_squared_error as MSE
+from sklearn.model_selection import GridSearchCV
+# Define a grid of hyperparameter 'params_rf'
+params_rf = {
+'n_estimators': [300, 400, 500],
+'max_depth': [4, 6, 8],
+'min_samples_leaf': [0.1, 0.2],
+'max_features': ['log2', 'sqrt']
+}
+# Instantiate 'grid_rf'
+# verbose controls verbosity. higher the value, more messages printed during fitting
+grid_rf = GridSearchCV(estimator=rf,
+param_grid=params_rf,
+cv=3,
+scoring='neg_mean_squared_error',
+verbose=1,
+n_jobs=-1)
+
+# Fit 'grid_rf' to the training set
+grid_rf.fit(X_train, y_train)
+
+# Extract best hyperparameters from 'grid_rf'
+best_hyperparams = grid_rf.best_params_
+print('Best hyerparameters:\n', best_hyperparams)
+
+# Extract best model from 'grid_rf'
+best_model = grid_rf.best_estimator_
+# Predict the test set labels
+y_pred = best_model.predict(X_test)
+# Evaluate the test set RMSE
+rmse_test = MSE(y_test, y_pred)**(1/2)
+# Print the test set RMSE
+print('Test set RMSE of rf: {:.2f}'.format(rmse_test))
+```
+
