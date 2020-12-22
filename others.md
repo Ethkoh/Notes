@@ -1,0 +1,7 @@
+# virtual machine
+
+With hypervisors, such as KVM, XEN, ESX, Hyper-V, and so on, we emulated the hardware for virtual machines (VMs) and deployed a guest OS on each virtual machine. VMs can have a different OS than their host; this means that we are responsible for managing patches, security, and the performance of that VM. With virtualization, applications are isolated at VM level and are defined by the life cycle of VMs. This gives us a better return on our investment and higher flexibility at the cost of increased complexity and redundancy. 
+
+# Containers
+
+Since virtualization was developed, we have been moving towards more application-centric IT. We have removed the hypervisor layer to reduce hardware emulation and complexity. The applications are packaged with their runtime environment, and are deployed using containers.  OpenVZ, Solaris Zones, and LXC are a few examples of container technology. Containers are less flexible compared to VMs; for example, we cannot run Microsoft Windows on Linux OS as of writing. Containers are also considered less secure than VMs, because with containers, everything runs on the host OS. If a container gets compromised, then it might be possible to get full access to the host OS. It can be a bit too complex to set up, manage, and automate. 

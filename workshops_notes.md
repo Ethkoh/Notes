@@ -120,7 +120,6 @@ blockchain.com
 
 each block has hash. except first block, subsequent contains its hash and previous hash.
 
-
 ## bitcoin
 - released in 2009
 - electronic cash system

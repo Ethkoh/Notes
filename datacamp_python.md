@@ -4890,3 +4890,717 @@ rmse_test = MSE(y_test, y_pred)**(1/2)
 print('Test set RMSE of rf: {:.2f}'.format(rmse_test))
 ```
 
+## Introduction to data visualization with matplotlib
+
+basic:
+```
+import matplotlib.pyplot as plt
+fig, ax = plt.subplots()
+ax.plot(seattle_weather["MONTH"], seattle_weather["MLY-TAVG-NORMAL"
+ax.plot(austin_weather["MONTH"], austin_weather["MLY-TAVG-NORMAL"])
+plt.show()
+```
+
+### Customization
+- Adding and Choosing markers
+- Setting the linestyle
+- Eliminating lines with linestyle
+- Choosing color
+- Customizing the axes labels
+- Setting the axis label
+- Adding a title
+
+
+```
+fig, ax = plt.subplots()
+ax.plot(seattle_weather["MONTH"],
+seattle_weather["MLY-TAVG-NORMAL"],
+marker="v", linestyle="--", color="r")
+ax.set_xlabel("Time (months)")
+ax.set_ylabel("Average temperature (Fahrenheit degrees)")
+ax.set_title("Weather in Seattle")
+plt.show()
+```
+
+### Small multiples with plt.subplots
+2-d axes:
+```
+fig, ax = plt.subplots(3, 2)
+plt.show()
+
+# an array of Axes objects with a shape of 3 by 2
+ax.shape
+
+# have to index into this object and call the plot method on an element of the array
+ax[0, 0].plot(seattle_weather["MONTH"],
+seattle_weather["MLY-PRCP-NORMAL"],
+color='b')
+plt.show()
+```
+
+1-d axes:
+```
+fig, ax = plt.subplots(2, 1)
+ax[0].plot(seattle_weather["MONTH"], seattle_weather["MLY-PRCP-NORMAL"],
+color='b')
+ax[0].plot(seattle_weather["MONTH"], seattle_weather["MLY-PRCP-25PCTL"],
+linestyle='--', color='b')
+ax[0].plot(seattle_weather["MONTH"], seattle_weather["MLY-PRCP-75PCTL"],
+linestyle='--', color='b')
+ax[1].plot(austin_weather["MONTH"], austin_weather["MLY-PRCP-NORMAL"],
+color='r')
+ax[1].plot(austin_weather["MONTH"], austin_weather["MLY-PRCP-25PCTL"],
+linestyle='--', color='r')
+ax[1].plot(austin_weather["MONTH"], austin_weather["MLY-PRCP-75PCTL"],
+linestyle='--', color='r')
+ax[0].set_ylabel("Precipitation (inches)")
+ax[1].set_ylabel("Precipitation (inches)")
+ax[1].set_xlabel("Time (months)")
+plt.show()
+```
+
+### Sharing the y-axis range
+```
+fig, ax = plt.subplots(2, 1, sharey=True)
+```
+
+### Plotting time-series data
+```
+import matplotlib.pyplot as plt
+fig, ax = plt.subplots()
+ax.plot(climate_change.index, climate_change['co2'])
+ax.set_xlabel('Time')
+ax.set_ylabel('CO2 (ppm)')
+plt.show()
+```
+
+### Zooming in on a decade
+```
+# slicing date
+sixties = climate_change["1960-01-01":"1969-12-31"]
+fig, ax = plt.subplots()
+ax.plot(sixties.index, sixties['co2'])
+ax.set_xlabel('Time')
+ax.set_ylabel('CO2 (ppm)')
+plt.show()
+```
+
+### Zooming in on one year
+```
+sixty_nine = climate_change["1969-01-01":"1969-12-31"]
+fig, ax = plt.subplots()
+ax.plot(sixty_nine.index, sixty_nine['co2'])
+ax.set_xlabel('Time')
+ax.set_ylabel('CO2 (ppm)')
+plt.show()
+```
+
+### Plotting two time-series together
+```
+import pandas as pd
+climate_change = pd.read_csv('climate_change.csv',
+parse_dates=["date"],
+index_col="date")
+
+import matplotlib.pyplot as plt
+fig, ax = plt.subplots()
+ax.plot(climate_change.index, climate_change["co2"])
+ax.plot(climate_change.index, climate_change["relative_temp"])
+ax.set_xlabel('Time')
+ax.set_ylabel('CO2 (ppm) / Relative temperature')
+plt.show()
+```
+
+### Using twin axes
+```
+fig, ax = plt.subplots()
+ax.plot(climate_change.index, climate_change["co2"],
+color='blue')
+ax.set_xlabel('Time')
+ax.set_ylabel('CO2 (ppm)', color='blue')
+ax.tick_params('y', colors='blue')
+
+ax2 = ax.twinx()
+ax2.plot(climate_change.index,
+climate_change["relative_temp"],
+color='red')
+ax2.set_ylabel('Relative temperature (Celsius)',
+color='red')
+ax2.tick_params('y', colors='red')
+plt.show()
+```
+
+### A function that plots time-series
+```
+def plot_timeseries(axes, x, y, color, xlabel, ylabel):
+axes.plot(x, y, color=color)
+axes.set_xlabel(xlabel)
+axes.set_ylabel(ylabel, color=color)
+axes.tick_params('y', colors=color)
+```
+
+using function:
+```
+fig, ax = plt.subplots()
+plot_timeseries(ax, climate_change.index, climate_change['co2'],
+'blue', 'Time', 'CO2 (ppm)')
+ax2 = ax.twinx()
+plot_timeseries(ax, climate_change.index,
+climate_change['relative_temp'],
+'red', 'Time', 'Relative temperature (Celsius)')
+plt.show()
+```
+
+### Annotating timeseries data
+- Annotation
+- Positioning the text
+- Adding arrows to annotation
+
+```
+fig, ax = plt.subplots()
+plot_timeseries(ax, climate_change.index, climate_change['co2'],
+'blue', 'Time', 'CO2 (ppm)')
+ax2 = ax.twinx()
+plot_timeseries(ax2, climate_change.index,
+climate_change['relative_temp'],
+'red', 'Time', 'Relative temperature (Celsius)')
+# xy is the x and y values respectively
+# arrowprops takes in dictionary defines the property of arrow. if empty dict, arrow will have default property
+
+ax2.annotate(">1 degree",
+xy=(pd.Timestamp('2015-10-06'), 1),
+xytext=(pd.Timestamp('2008-10-06'), -0.2),
+arrowprops={"arrowstyle":"->", "color":"gray"})
+
+plt.show()
+```
+
+### stacked bar graph
+```
+fig, ax = plt.subplots
+ax.bar(medals.index, medals["Gold"], label="Gold")
+ax.bar(medals.index, medals["Silver"], bottom=medals["Gold"],
+label="Silver")
+ax.bar(medals.index, medals["Bronze"],
+bottom=medals["Gold"] + medals["Silver"],
+label="Bronze")
+ax.set_xticklabels(medals.index, rotation=90)
+ax.set_ylabel("Number of medals")
+ax.legend()
+plt.show()
+```
+
+### histograms
+```
+fig, ax = plt.subplots()
+ax.hist(mens_rowing["Height"], label="Rowing", bins=5)
+ax.hist(mens_gymnastic["Height"], label="Gymnastics", bins=5)
+ax.set_xlabel("Height (cm)")
+ax.set_ylabel("# of observations")
+ax.legend()
+plt.show()
+```
+
+setting bin boundaries:
+```
+fig, ax = plt.subplots()
+ax.hist(mens_rowing["Height"], label="Rowing",
+bins=[150, 160, 170, 180, 190, 200, 210])
+ax.hist(mens_gymnastic["Height"], label="Gymnastics",
+bins=[150, 160, 170, 180, 190, 200, 210])
+ax.set_xlabel("Height (cm)")
+ax.set_ylabel("# of observations")
+ax.legend()
+plt.show()
+```
+
+transparency:
+```
+Customizing histograms: transparency
+ax.hist(mens_rowing["Height"], label="Rowing",
+bins=[150, 160, 170, 180, 190, 200, 210],
+histtype="step")
+ax.hist(mens_gymnastic["Height"], label="Gymnastics",
+bins=[150, 160, 170, 180, 190, 200, 210],
+histtype="step")
+ax.set_xlabel("Height (cm)")
+ax.set_ylabel("# of observations")
+ax.legend()
+plt.show()
+```
+
+### adding error bars
+summarizes distribution of data into one number such as standard deviation
+
+yerr: takes in additional number and displays as additional vertical marker
+
+to barplot:
+```
+fig, ax = plt.subplots()
+# "Rowing" is the naming for the xaxis
+ax.bar("Rowing",
+mens_rowing["Height"].mean(),
+yerr=mens_rowing["Height"].std())
+ax.bar("Gymnastics",
+mens_gymnastics["Height"].mean(),
+yerr=mens_gymnastics["Height"].std())
+ax.set_ylabel("Height (cm)")
+plt.show()
+```
+
+to line plot:
+```
+fig, ax = plt.subplots()
+ax.errorbar(seattle_weather["MONTH"],
+seattle_weather["MLY-TAVG-NORMAL"],
+yerr=seattle_weather["MLY-TAVG-STDDEV"])
+ax.errorbar(austin_weather["MONTH"],
+austin_weather["MLY-TAVG-NORMAL"],
+yerr=austin_weather["MLY-TAVG-STDDEV"])
+ax.set_ylabel("Temperature (Fahrenheit)")
+plt.show()
+```
+
+### boxplot
+outlier: outside of roughly 99% of distribution if data is Gaussian or normal
+```
+fig, ax = plt.subplots()
+# take note of bracket inside boxplot()
+ax.boxplot([mens_rowing["Height"],
+mens_gymnastics["Height"]])
+ax.set_xticklabels(["Rowing", "Gymnastics"])
+ax.set_ylabel("Height (cm)")
+plt.show()
+```
+
+### scatterplot
+bi-variate comparison. different variables comparison for same observation.
+
+```
+fig, ax = plt.subplots()
+ax.scatter(climate_change["co2"], climate_change["relative_temp"])
+ax.set_xlabel("CO2 (ppm)")
+ax.set_ylabel("Relative temperature (Celsius)")
+plt.show()
+```
+
+### two scatterplot in same axis
+```
+eighties = climate_change["1980-01-01":"1989-12-31"]
+nineties = climate_change["1990-01-01":"1999-12-31"]
+fig, ax = plt.subplots()
+ax.scatter(eighties["co2"], eighties["relative_temp"],
+color="red", label="eighties")
+ax.scatter(nineties["co2"], nineties["relative_temp"],
+color="blue", label="nineties")
+ax.legend()
+ax.set_xlabel("CO2 (ppm)")
+ax.set_ylabel("Relative temperature (Celsius)")
+plt.show()
+```
+
+Encoding a third variable by color:
+```
+fig, ax = plt.subplots()
+ax.scatter(climate_change["co2"], climate_change["relative_temp"],
+c=climate_change.index)
+ax.set_xlabel("CO2 (ppm)")
+ax.set_ylabel("Relative temperature (Celsius)")
+plt.show()
+```
+
+### Choosing a style
+The available styles:
+h ps://matplotlib.org/gallery/style_sheets/style_sheets_refere
+
+```
+plt.style.use("ggplot")
+fig, ax = plt.subplots()
+```
+
+Back to the default
+```
+plt.style.use("default")
+```
+
+Guidelines for choosing plotting style:
+- Dark backgrounds are usually less visible
+- If color is important, consider choosing colorblind-friendly
+options "seaborn-colorblind" or "tableau-colorblind10"
+- If you think that someone will want to print your figure, use
+less ink
+- If it will be printed in black-and-white, use the "grayscale"
+style
+
+
+### Saving the figure to file
+```
+fig, ax = plt.subplots()
+ax.bar(medals.index, medals["Gold"])
+ax.set_xticklabels(medals.index, rotation=90)
+ax.set_ylabel("Number of medals")
+# fig will not show without .show
+fig.savefig("gold_medals.png")
+
+ls
+```
+gold_medals.png
+
+Different file formats:
+jpg takes less space compared to png
+```
+fig.savefig("gold_medals.jpg")
+# compression for jpg. higher value less compresion
+fig.savefig("gold_medals.jpg", quality=50)
+# vector file. can edit in gimp or adobe
+fig.savefig("gold_medals.svg")
+```
+
+Resolution:
+```
+fig.savefig("gold_medals.png", dpi=300)
+```
+
+Size:
+```
+fig.set_size_inches([5, 3])
+```
+
+### Getting unique values of a column in series
+```
+sports = summer_2016_medals["Sport"].unique()
+print(sports)
+['Rowing' 'Taekwondo' 'Handball' 'Wrestling'
+'Gymnastics' 'Swimming' 'Basketball' 'Boxing'
+'Volleyball' 'Athletics']
+```
+
+### Bar-chart loop through series
+Bar-chart of heights for all sports
+```
+fig, ax = plt.subplots()
+for sport in sports:
+sport_df = summer_2016_medals[summer_2016_medals["Sport"] == sport]
+ax.bar(sport, sport_df["Height"].mean(),
+yerr=sport_df["Height"].std())
+ax.set_ylabel("Height (cm)")
+ax.set_xticklabels(sports, rotation=90)
+plt.show()
+```
+
+### Matplotlib gallery
+https://matplotlib.org/gallery.html
+
+examples:
+- Visualizing images with pseudo-color https://matplotlib.org/users/image_tutorial.html
+- Animations https://matplotlib.org/api/animation_api.html
+- geospatial data https://scitools.org.uk/cartopy/docs/latest/
+- Pandas + Matplotlib = Seaborn
+
+### Seaborn example gallery
+https://seaborn.pydata.org/examples/index.html
+
+## Introduction to data visualization with Seaborn
+Seaborn is a Python data visualization library. works well with pandas data structure
+
+### relational plots
+Two types of relational plots: scatter plots and line plots
+- Scatter plots: Each plot point is an independent
+observation
+- Line plots: Each plot point represents the same "thing", typically tracked over time
+
+### Categorical plots
+- Examples: count plots, bar plots
+- Involve a categorical variable
+- Comparisons between groups
+
+### scatterplot
+```
+import seaborn as sns
+import matplotlib.pyplot as plt
+height = [62, 64, 69, 75, 66,
+68, 65, 71, 76, 73]
+weight = [120, 136, 148, 175, 137,
+165, 154, 172, 200, 187]
+sns.scatterplot(x=height, y=weight)
+plt.show()
+```
+
+with hue:
+```
+sns.scatterplot(x="total_bill",
+y="tip",
+data=tips,
+hue="smoker")
+plt.show()
+```
+
+setting hue order:
+```
+sns.scatterplot(x="total_bill",
+y="tip",
+data=tips,
+hue="smoker",
+hue_order=["Yes",
+"No"])
+plt.show()
+```
+
+Specifying hue colors
+```
+hue_colors = {"Yes": "black",
+"No": "red"}
+sns.scatterplot(x="total_bill",
+y="tip",
+data=tips,
+hue="smoker",
+palette=hue_colors)
+plt.show()
+```
+
+Using HTML hex color codes with hue:
+```
+hue_colors = {"Yes": "#808080",
+"No": "#00FF00"}
+```
+
+
+### countplot
+list/series:
+```
+import seaborn as sns
+import matplotlib.pyplot as plt
+gender = ["Female", "Female",
+"Female", "Female",
+"Male", "Male", "Male",
+"Male", "Male", "Male"]
+sns.countplot(x=gender)
+plt.show()
+```
+
+dataframe:
+```
+# Import Matplotlib, Pandas, and Seaborn
+import matplotlib.pyplot as plt
+import pandas as pd
+import seaborn as sns
+
+# Create a DataFrame from csv file
+df=pd.read_csv(csv_filepath)
+
+# Create a count plot with "Spiders" on the x-axis
+sns.countplot(x='Spiders',data=df)
+
+# Display the plot
+plt.show()
+```
+
+with hue:
+```
+sns.countplot(x="smoker",
+data=tips,
+hue="sex")
+```
+
+### scatterplot() vs. relplot()
+Using scatterplot()
+```
+import seaborn as sns
+import matplotlib.pyplot as plt
+sns.scatterplot(x="total_bill",
+y="tip",
+data=tips)
+plt.show()
+```
+
+```
+import seaborn as sns
+import matplotlib.pyplot as plt
+sns.relplot(x="total_bill",
+y="tip",
+data=tips,
+kind="scatter")
+plt.show()
+```
+
+### Relplot() Subplots in rows and columns
+```
+import seaborn as sns
+import matplotlib.pyplot as plt
+sns.relplot(x="total_bill",
+y="tip",
+data=tips,
+kind="scatter",
+col="smoker",
+row="time")
+plt.show()
+```
+
+Wrapping and ordering columns
+```
+import seaborn as sns
+import matplotlib.pyplot as plt
+sns.relplot(x="total_bill",
+y="tip",
+data=tips,
+kind="scatter",
+col="day",
+col_wrap=2,
+col_order=["Thur","Fri","Sat","Sun"])
+plt.show()
+```
+
+### more customization
+Point size:
+```
+sns.relplot(x="total_bill",
+y="tip",
+data=tips,
+kind="scatter",
+size="size")
+```
+
+Point size and hue:
+```
+sns.relplot(x="total_bill",
+y="tip",
+data=tips,
+kind="scatter",
+size="size",
+hue="size")
+```
+
+Point style:
+```
+sns.relplot(x="total_bill",
+y="tip",
+data=tips,
+kind="scatter",
+hue="smoker",
+style="smoker")
+```
+
+transparency:
+```
+# Set alpha to be between 0 and 1
+sns.relplot(x="total_bill",
+y="tip",
+data=tips,
+kind="scatter",
+alpha=0.4)
+```
+
+marker:
+```
+sns.relplot(x="hour", y="NO_2_mean",
+data=air_df_loc_mean,
+kind="line",
+style="location",
+hue="location",
+markers=True)
+```
+
+turning off line style:
+```
+sns.relplot(x="hour", y="NO_2_mean",
+data=air_df_loc_mean,
+kind="line",
+style="location",
+hue="location",
+markers=True,
+dashes=False)
+```
+
+### lineplot
+```
+import matplotlib.pyplot as plt
+import seaborn as sns
+sns.relplot(x="hour", y="NO_2_mean",
+data=air_df_mean,
+kind="line")
+plt.show()
+```
+
+if line plot given multiple observations per x-value, it would aggregate into single summary measure.
+default it would use mean:
+(note: would automatically display confidence interval. Assumes dataset is a random sample 95% confident that the mean is within this interval)
+```
+import matplotlib.pyplot as plt
+import seaborn as sns
+sns.relplot(x="hour", y="NO_2",
+data=air_df,
+kind="line")
+plt.show()
+```
+
+Replacing confidence interval with standard deviation
+```
+sns.relplot(x="hour", y="NO_2",
+data=air_df,
+kind="line",
+ci="sd")
+```
+
+turn off confidence interval:
+```
+sns.relplot(x="hour", y="NO_2",
+data=air_df,
+kind="line",
+ci=None)
+```
+
+### countplot() vs. catplot()
+```
+import matplotlib.pyplot as plt
+import seaborn as sns
+sns.countplot(x="how_masculine",
+data=masculinity_data)
+plt.show()
+```
+
+catplot():
+same advantage as relplot()
+```
+import matplotlib.pyplot as plt
+import seaborn as sns
+sns.catplot(x="how_masculine",
+data=masculinity_data,
+kind="count")
+plt.show()
+```
+
+
+### catplot()
+
+Changing the order:
+```
+import matplotlib.pyplot as plt
+import seaborn as sns
+category_order = ["No answer", "Not at all", "Not very", "Somewhat","Very"]
+sns.catplot(x="how_masculine",
+data=masculinity_data,
+kind="count",
+order=category_order)
+plt.show()
+```
+
+barplot:
+automatically show 95% ci.
+Assuming our data is a random sample of some population, we can be 95% sure that the true population mean in each group lies within the confidence interval shown.
+```
+sns.catplot(x="day",
+y="total_bill",
+data=tips,
+kind="bar")
+```
+
+remove ci:
+```
+sns.catplot(x="day",
+y="total_bill",
+data=tips,
+kind="bar",
+ci=None)
+```
+
+

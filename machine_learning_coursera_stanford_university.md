@@ -1,3 +1,5 @@
+# Machine learning coursera stanford university
+
 a:=b is assignment
 a=b is truth assertion
 
@@ -7,11 +9,11 @@ gradient descent algorithn
 -use simultaneous update
 -when approaching local min, gradient descent automatically takes smaller steps even at same learning rate.
 
-vector
+## vector
 nx1 matrix
 usually 1-indexed (eg y1,y2,..) instead of 0-indexed (eg y0,t1,...)
 
-fitting linear regression:
+## fitting linear regression
 gradient descent VS normal equation
 -if number of features is small, use normal equation
 -no need feature scaling if using normal equation method compared to gradient descent. magnitude of feature values insignificant compared to computational cost
@@ -63,7 +65,7 @@ Debugging gradient descent. Make a plot with number of iterations on the x-axis.
 Automatic convergence test. Declare convergence if J(θ) decreases by less than E in one iteration, where E is some small value such as 10−3.
 However in practice it's difficult to choose this threshold value.
 
-optimization algorithm:
+## optimization algorithm:
 -gradient descent
 -conjugate gradient (adv numerical computing topics)
 -BFGS(adv numerical computing topics)
