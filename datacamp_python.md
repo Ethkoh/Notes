@@ -5304,17 +5304,14 @@ https://seaborn.pydata.org/examples/index.html
 Seaborn is a Python data visualization library. works well with pandas data structure
 
 ### relational plots
+Show the relationship between two quantitative variables
 Two types of relational plots: scatter plots and line plots
 - Scatter plots: Each plot point is an independent
 observation
 - Line plots: Each plot point represents the same "thing", typically tracked over time
+- Can use relplot()
 
-### Categorical plots
-- Examples: count plots, bar plots
-- Involve a categorical variable
-- Comparisons between groups
-
-### scatterplot
+#### scatterplot
 ```
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -5364,45 +5361,9 @@ hue_colors = {"Yes": "#808080",
 "No": "#00FF00"}
 ```
 
+#### scatterplot() vs. relplot()
+can use relplot for relational plots
 
-### countplot
-list/series:
-```
-import seaborn as sns
-import matplotlib.pyplot as plt
-gender = ["Female", "Female",
-"Female", "Female",
-"Male", "Male", "Male",
-"Male", "Male", "Male"]
-sns.countplot(x=gender)
-plt.show()
-```
-
-dataframe:
-```
-# Import Matplotlib, Pandas, and Seaborn
-import matplotlib.pyplot as plt
-import pandas as pd
-import seaborn as sns
-
-# Create a DataFrame from csv file
-df=pd.read_csv(csv_filepath)
-
-# Create a count plot with "Spiders" on the x-axis
-sns.countplot(x='Spiders',data=df)
-
-# Display the plot
-plt.show()
-```
-
-with hue:
-```
-sns.countplot(x="smoker",
-data=tips,
-hue="sex")
-```
-
-### scatterplot() vs. relplot()
 Using scatterplot()
 ```
 import seaborn as sns
@@ -5413,6 +5374,7 @@ data=tips)
 plt.show()
 ```
 
+using relplot:
 ```
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -5423,7 +5385,7 @@ kind="scatter")
 plt.show()
 ```
 
-### Relplot() Subplots in rows and columns
+#### Relplot() Subplots in rows and columns
 ```
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -5450,7 +5412,7 @@ col_order=["Thur","Fri","Sat","Sun"])
 plt.show()
 ```
 
-### more customization
+#### more customization
 Point size:
 ```
 sns.relplot(x="total_bill",
@@ -5511,7 +5473,7 @@ markers=True,
 dashes=False)
 ```
 
-### lineplot
+#### lineplot
 ```
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -5549,7 +5511,53 @@ kind="line",
 ci=None)
 ```
 
-### countplot() vs. catplot()
+
+### Categorical plots
+Show the distribution of a quantitative variable within categories de ned by a categorical
+variable
+- Examples: count plots, bar plots, boxplots, point plots
+- Involve a categorical variable
+- Comparisons between groups
+- Can use catplot()
+
+#### countplot
+list/series:
+```
+import seaborn as sns
+import matplotlib.pyplot as plt
+gender = ["Female", "Female",
+"Female", "Female",
+"Male", "Male", "Male",
+"Male", "Male", "Male"]
+sns.countplot(x=gender)
+plt.show()
+```
+
+dataframe:
+```
+# Import Matplotlib, Pandas, and Seaborn
+import matplotlib.pyplot as plt
+import pandas as pd
+import seaborn as sns
+
+# Create a DataFrame from csv file
+df=pd.read_csv(csv_filepath)
+
+# Create a count plot with "Spiders" on the x-axis
+sns.countplot(x='Spiders',data=df)
+
+# Display the plot
+plt.show()
+```
+
+with hue:
+```
+sns.countplot(x="smoker",
+data=tips,
+hue="sex")
+```
+
+#### countplot() vs. catplot()
 ```
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -5559,6 +5567,7 @@ plt.show()
 ```
 
 catplot():
+for categorical plots
 same advantage as relplot()
 ```
 import matplotlib.pyplot as plt
@@ -5569,8 +5578,13 @@ kind="count")
 plt.show()
 ```
 
+#### catplot()
 
-### catplot()
+horizontal:
+```
+sns.catplot(y="Internet usage", data=survey_data,
+            kind="count")
+```
 
 Changing the order:
 ```
@@ -5587,6 +5601,7 @@ plt.show()
 barplot:
 automatically show 95% ci.
 Assuming our data is a random sample of some population, we can be 95% sure that the true population mean in each group lies within the confidence interval shown.
+When the y-variable is True/False, bar plots will show the percentage of responses reporting True.
 ```
 sns.catplot(x="day",
 y="total_bill",
@@ -5603,4 +5618,266 @@ kind="bar",
 ci=None)
 ```
 
+subplot:
+```
+# Create column subplots based on age category
+sns.catplot(y="Internet usage", data=survey_data,
+            kind="count",col='Age Category')
 
+# Show plot
+plt.show()
+```
+
+#### boxplot
+- Shows the distribution of quantitative data
+- See median, spread, skewness, and outliers
+- Facilitates comparisons between groups
+
+seaborn have boxplot() function but use catplot so easier to create subplots
+```
+g = sns.catplot(x="time",
+y="total_bill",
+data=tips,
+kind="box")
+plt.show()
+```
+
+Change the order of categories
+```
+g = sns.catplot(x="time",
+y="total_bill",
+data=tips,
+kind="box",
+order=["Dinner",
+"Lunch"])
+```
+
+Omitting the outliers using `sym`
+```
+g = sns.catplot(x="time",
+y="total_bill",
+data=tips,
+kind="box",
+sym="")
+```
+
+Changing the whiskers using `whis`:
+By default, the whiskers extend to 1.5 * the interquartile range
+Make them extend to 2.0 * IQR: whis=2.0
+Show the 5th and 95th percentiles: whis=[5, 95]
+Show min and max values: whis=[0, 100]
+
+Add subgroups so each box plot is colored:
+```
+# Create a box plot with subgroups and omit the outliers
+sns.catplot(x='internet',y='G3',data=student_data,kind='box',sym='',hue='location')
+```
+
+#### pointplot
+- Points show mean of quantitative variable
+- Vertical lines show 95% confidence intervals
+
+```
+sns.catplot(x="age",
+y="masculinity_important",
+data=masculinity_data,
+hue="feel_masculine",
+kind="point")
+plt.show()
+```
+
+Disconnecting the points:
+```
+sns.catplot(x="age",
+y="masculinity_important",
+data=masculinity_data,
+hue="feel_masculine",
+kind="point",
+join=False)
+plt.show()
+```
+
+Displaying the median:
+median more robust to outliers
+```
+import matplotlib.pyplot as plt
+import seaborn as sns
+from numpy import median
+sns.catplot(x="smoker",
+y="total_bill",
+data=tips,
+kind="point",
+estimator=median)
+plt.show()
+```
+
+Add caps to confidence intervals:
+```
+import matplotlib.pyplot as plt
+import seaborn as sns
+sns.catplot(x="smoker",
+y="total_bill",
+data=tips,
+kind="point",
+capsize=0.2)
+plt.show()
+```
+
+Turning off confidence intervals:
+```
+sns.catplot(x="smoker",
+y="total_bill",
+data=tips,
+kind="point",
+ci=None)
+```
+
+#### Point plots vs. line plots
+Both show:
+-Mean of quantitative variable
+- 95% confidence intervals for the mean
+
+Differences:
+- Line plot has quantitative variable (usually time) on x-axis
+- Point plot has categorical variable on x-axis
+
+#### Point plots vs. bar plots
+Both show:
+- Mean of quantitative variable
+- 95% confidence intervals for the mean
+
+But in point plots, easier to compare heights of the subgroup points since they are stacked above each other. this is easier than comparing heights in bar plots
+
+### Changing the figure style
+Figure "style" includes background and axes
+Preset options: "white", "dark", "whitegrid", "darkgrid", "ticks"
+Default is white
+```
+# add before plot
+sns.set_style()
+```
+
+### Changing the palette
+Figure "palette" changes the color of the main elements of the plot
+
+```
+# add before plot
+sns.set_palette()
+```
+Use preset palettes or create a custom palette
+
+Diverging palettes: 
+- RdBu
+- PRGn
+- RdBu_r
+- PRGn_r
+
+Sequential palettes:
+- Greys
+- Blues
+- PuRd
+- GnBu
+
+Custom palettes:
+```
+custom_palette = ["red", "green", "orange", "blue",
+"yellow", "purple"]
+sns.set_palette(custom_palette)
+```
+
+```
+custom_palette = ['#FBB4AE', '#B3CDE3', '#CCEBC5',
+'#DECBE4', '#FED9A6', '#FFFFCC',
+'#E5D8BD', '#FDDAEC', '#F2F2F2']
+sns.set_palette(custom_palette)
+```
+
+### Changing the scale
+Figure "context" changes the scale of the plot elements and labels
+```
+sns.set_context()
+```
+Smallest to largest: "paper", "notebook", "talk", "poster".
+Default is paper.
+
+### FacetGrid vs. AxesSubplot objects
+Seaborn plots create two different types of objects: FacetGrid and AxesSubplot
+
+```
+# to see which type is the plot
+g = sns.scatterplot(x="height", y="weight", data=df)
+type(g)
+```
+
+FacetGrid consists of one or more AxeSubplots.
+
+FacetGrid: 
+- Eg relplot() , catplot().
+- Can create subplots
+
+AxesSubplot:
+- Eg scatterplot() , countplot() , etc. 
+- Only creates a single plot
+
+### Adding a title 
+
+```
+g = sns.boxplot(x="Region",
+y="Birthrate",
+data=gdp_data)
+```
+
+to FacetGrid
+```
+g.fig.suptitle("New Title")
+```
+
+to AxesSubplot
+```
+g.set_title("New Title",
+y=1.03)
+```
+
+for subplots:
+```
+g.fig.suptitle("New Title",
+y=1.03)
+g.set_titles("This is {col_name}")
+```
+
+### Adjusting height of title 
+
+default y is 1.
+same for facetgrid and axesubplot
+```
+g = sns.catplot(x="Region",
+y="Birthrate",
+data=gdp_data,
+kind="box")
+g.fig.suptitle("New Title",
+y=1.03)
+plt.show()
+```
+
+### Adding axis labels
+same for facetgrid and axesubplot
+```
+g = sns.catplot(x="Region",
+y="Birthrate",
+data=gdp_data,
+kind="box")
+
+g.set(xlabel="New X Label",
+ylabel="New Y Label")
+plt.show()
+```
+
+### Rotating x-axis tick labels
+use matplotlib
+```
+g = sns.catplot(x="Region",
+y="Birthrate",
+data=gdp_data,
+kind="box")
+plt.xticks(rotation=90)
+```
