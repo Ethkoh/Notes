@@ -54,3 +54,11 @@ df['Price'] = df.apply(lambda x: int(x['Price'].replace(',', '')),axis=1)
 The map() method only works on panda series where different types of operation can be applied to the items in the series. Dont work for 2 columns
 The apply () method works on panda series and data frames with a variety of functions easily applied depending on the datatype.
 The applymap() method works on the entire pandas data frame where the input function is applied to every element individually. 
+
+## impute data with groupby mean
+- df.groupby simply groups the dataframe into sub-dataframes (groups), such that each group only contains one Brand
+- transform() will apply a function to a dataframe - so to each of the individual groups created in groupby
+- the nameless function (a lambda function) calls the DataFrame's fillna() method on each dataframe, using just the mean() to fill the gaps
+```
+df["Value"] = df.groupby("Brand")["Value"].transform(lambda x: x.fillna(x.mean()))
+```
